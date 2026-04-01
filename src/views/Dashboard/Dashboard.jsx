@@ -1,5 +1,6 @@
-import SummaryGrid from '../components/organisms/SummaryGrid/SummaryGrid.jsx';
-import RecentActivity from '../components/organisms/RecentActivity/RecentActivity.jsx';
+import SummaryGrid from '../../components/organisms/SummaryGrid/SummaryGrid.jsx';
+import RecentActivity from '../../components/organisms/RecentActivity/RecentActivity.jsx';
+import './Dashboard.css';
 
 const Dashboard = () => {
   // Mock data for now

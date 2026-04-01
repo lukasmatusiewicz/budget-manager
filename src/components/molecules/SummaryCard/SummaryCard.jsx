@@ -1,4 +1,5 @@
 import Icon from '../../atoms/Icon/Icon.jsx';
+import './SummaryCard.css';
 
 const SummaryCard = ({ title, amount, iconName, type }) => {
   return (

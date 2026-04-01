@@ -1,4 +1,5 @@
 import SummaryCard from '../../molecules/SummaryCard/SummaryCard.jsx';
+import './SummaryGrid.css';
 
 const SummaryGrid = ({ balance, income, expenses }) => {
   return (

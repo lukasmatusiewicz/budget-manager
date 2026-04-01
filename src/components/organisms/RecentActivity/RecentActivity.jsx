@@ -1,3 +1,5 @@
+import './RecentActivity.css';
+
 const RecentActivity = ({ transactions = [] }) => {
   return (
     <section className="recent-activity">

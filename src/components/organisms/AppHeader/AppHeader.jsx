@@ -1,3 +1,5 @@
+import './AppHeader.css';
+
 const AppHeader = ({ title }) => {
   return (
     <header>

@@ -1,5 +1,5 @@
-import Dashboard from './views/Dashboard'
-import AppHeader from './components/organisms/AppHeader/AppHeader.jsx'
+import Dashboard from '../Dashboard/Dashboard.jsx'
+import AppHeader from '../../components/organisms/AppHeader/AppHeader.jsx'
 import './App.css'
 
 function App() {
