@@ -67,3 +67,18 @@
 .login-button:hover {
   opacity: 0.9;
 }
+
+.mock-data-button {
+  padding: 0.8rem;
+  background: none;
+  border: 1px dashed var(--accent);
+  color: var(--accent);
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.mock-data-button:hover {
+  background-color: var(--accent-bg);
+}
