@@ -50,3 +50,4 @@ coverage/
 # Next.js (if applicable in future)
 .next/
 out/
+/.ai
