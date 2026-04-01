@@ -2,12 +2,12 @@ import { NavLink } from 'react-router-dom';
 import Icon from '../../atoms/Icon/Icon';
 import './NavBar.css';
 
-const NavBar = () => {
+const NavBar = ({ onLogout }) => {
   const navItems = [
     { name: 'Dashboard', path: '/', icon: 'chart-icon' },
     { name: 'Transactions', path: '/transactions', icon: 'wallet-icon' },
     { name: 'Reports', path: '/reports', icon: 'piggy-bank-icon' },
-    { name: 'Settings', path: '/settings', icon: 'expense-icon' }, // Using expense icon as a temporary placeholder for settings
+    { name: 'Settings', path: '/settings', icon: 'settings-icon' },
   ];
 
   return (
@@ -25,6 +25,12 @@ const NavBar = () => {
             </NavLink>
           </li>
         ))}
+        <li className="nav-item logout">
+          <button onClick={onLogout} className="logout-button">
+            <Icon name="logout-icon" className="nav-icon" />
+            <span>Logout</span>
+          </button>
+        </li>
       </ul>
     </nav>
   );

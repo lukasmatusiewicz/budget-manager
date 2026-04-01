@@ -40,12 +40,31 @@
   height: 20px;
 }
 
+.logout-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: none;
+  background: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.logout-button:hover {
+  color: #ff4b4b;
+}
+
 @media (max-width: 600px) {
   .nav-list {
     gap: 0.5rem;
   }
   
-  .nav-link span {
+  .nav-link span, .logout-button span {
     display: none; /* Icon only on mobile */
   }
 }
