@@ -1,10 +1,12 @@
+import Dashboard from './views/Dashboard'
+import AppHeader from './components/organisms/AppHeader/AppHeader.jsx'
 import './App.css'
 
 function App() {
   return (
     <div className="app-container">
-      <h1>Budget Manager</h1>
-      <p>Welcome to your budget management application.</p>
+      <AppHeader title="Budget Manager" />
+      <Dashboard />
     </div>
   )
 }
