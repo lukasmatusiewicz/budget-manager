@@ -1,12 +1,15 @@
+import TransactionForm from '../../components/organisms/TransactionForm/TransactionForm';
+import { useTransactions } from '../../context/TransactionContext/TransactionContext.jsx';
 import './Transactions.css';
-import TransactionForm from '../../components/organisms/TransactionForm/TransactionForm.jsx'
 
-const Transactions = ({ transactions, onAddTransaction }) => {
+const Transactions = () => {
+  const { transactions } = useTransactions();
+  
   return (
     <div className="view-container">
       <h2>Transactions</h2>
       
-      <TransactionForm onAddTransaction={onAddTransaction} />
+      <TransactionForm />
 
       <div className="transactions-list-container">
         <h3>Transaction History</h3>

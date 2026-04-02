@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useTransactions } from '../../../context/TransactionContext/TransactionContext.jsx';
 import './TransactionForm.css';
 
-const TransactionForm = ({ onAddTransaction }) => {
+const TransactionForm = () => {
+  const { addTransaction } = useTransactions();
   const [formData, setFormData] = useState({
     description: '',
     amount: '',
@@ -13,7 +15,7 @@ const TransactionForm = ({ onAddTransaction }) => {
     e.preventDefault();
     if (!formData.description || !formData.amount) return;
 
-    onAddTransaction({
+    addTransaction({
       ...formData,
       id: Date.now(),
       amount: parseFloat(formData.amount),

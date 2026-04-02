@@ -7,39 +7,42 @@ import Reports from '../../views/Reports/Reports.jsx';
 import Settings from '../../views/Settings/Settings.jsx';
 import Login from '../../views/Login/Login.jsx';
 import { useAppLogic } from '../../hooks/useAppLogic';
+import { TransactionProvider } from '../../context/TransactionContext/TransactionContext.jsx';
 import './App.css';
 
 function App() {
-  const { isAuthenticated, transactions, handleLogin, handleLogout, addTransaction } = useAppLogic();
+  const { isAuthenticated, handleLogin, handleLogout } = useAppLogic();
 
   return (
     <Router>
-      <div className="app-container">
-        <AppHeader title="Budget Manager" />
-        {isAuthenticated && <NavBar onLogout={handleLogout} />}
-        <Routes>
-          <Route 
-            path="/login" 
-            element={!isAuthenticated ? <Login onLogin={handleLogin} /> : <Navigate to="/" />} 
-          />
-          <Route 
-            path="/" 
-            element={isAuthenticated ? <Dashboard transactions={transactions} /> : <Navigate to="/login" />} 
-          />
-          <Route 
-            path="/transactions" 
-            element={isAuthenticated ? <Transactions transactions={transactions} onAddTransaction={addTransaction} /> : <Navigate to="/login" />} 
-          />
-          <Route 
-            path="/reports" 
-            element={isAuthenticated ? <Reports /> : <Navigate to="/login" />} 
-          />
-          <Route 
-            path="/settings" 
-            element={isAuthenticated ? <Settings /> : <Navigate to="/login" />} 
-          />
-        </Routes>
-      </div>
+      <TransactionProvider>
+        <div className="app-container">
+          <AppHeader title="Budget Manager" />
+          {isAuthenticated && <NavBar onLogout={handleLogout} />}
+          <Routes>
+            <Route 
+              path="/login" 
+              element={!isAuthenticated ? <Login onLogin={handleLogin} /> : <Navigate to="/" />} 
+            />
+            <Route 
+              path="/" 
+              element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} 
+            />
+            <Route 
+              path="/transactions" 
+              element={isAuthenticated ? <Transactions /> : <Navigate to="/login" />} 
+            />
+            <Route 
+              path="/reports" 
+              element={isAuthenticated ? <Reports /> : <Navigate to="/login" />} 
+            />
+            <Route 
+              path="/settings" 
+              element={isAuthenticated ? <Settings /> : <Navigate to="/login" />} 
+            />
+          </Routes>
+        </div>
+      </TransactionProvider>
     </Router>
   );
 }
