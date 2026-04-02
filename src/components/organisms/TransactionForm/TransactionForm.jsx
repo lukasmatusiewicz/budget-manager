@@ -32,7 +32,7 @@ const TransactionForm = () => {
       ...formData,
       id: Date.now(),
       amount: parseFloat(formData.amount),
-      date: new Date().toLocaleDateString()
+      date: new Date().toISOString().split('T')[0]
     };
 
     dispatch(addTransaction(newTransaction));
