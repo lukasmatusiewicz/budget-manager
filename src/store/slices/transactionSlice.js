@@ -3,6 +3,10 @@ import { createSlice, createSelector } from '@reduxjs/toolkit';
 const initialState = {
   items: JSON.parse(localStorage.getItem('transactions')) || [],
   initialBudget: parseFloat(localStorage.getItem('initialBudget')) || 0,
+  preferences: JSON.parse(localStorage.getItem('transactionPreferences')) || {
+    defaultType: 'expense',
+    defaultCategory: 'Food'
+  }
 };
 
 const transactionSlice = createSlice({
@@ -12,6 +16,10 @@ const transactionSlice = createSlice({
     setInitialBudget: (state, action) => {
       state.initialBudget = action.payload;
       localStorage.setItem('initialBudget', action.payload);
+    },
+    setPreferences: (state, action) => {
+      state.preferences = { ...state.preferences, ...action.payload };
+      localStorage.setItem('transactionPreferences', JSON.stringify(state.preferences));
     },
     addTransaction: (state, action) => {
       state.items.unshift(action.payload);
@@ -29,6 +37,14 @@ const transactionSlice = createSlice({
         localStorage.setItem('transactions', JSON.stringify(state.items));
       }
     },
+    updateTransactionDate: (state, action) => {
+      const { id, date } = action.payload;
+      const transaction = state.items.find(item => item.id === id);
+      if (transaction) {
+        transaction.date = date;
+        localStorage.setItem('transactions', JSON.stringify(state.items));
+      }
+    },
     clearTransactions: (state) => {
       state.items = [];
       localStorage.setItem('transactions', JSON.stringify([]));
@@ -36,10 +52,19 @@ const transactionSlice = createSlice({
   },
 });
 
-export const { setInitialBudget, addTransaction, removeTransaction, updateTransactionCategory, clearTransactions } = transactionSlice.actions;
+export const { 
+  setInitialBudget, 
+  setPreferences,
+  addTransaction, 
+  removeTransaction, 
+  updateTransactionCategory, 
+  updateTransactionDate,
+  clearTransactions 
+} = transactionSlice.actions;
 
 export const selectTransactions = (state) => state.transactions.items;
 export const selectInitialBudget = (state) => state.transactions.initialBudget;
+export const selectTransactionPreferences = (state) => state.transactions.preferences;
 
 export const selectTotals = createSelector(
   [selectTransactions],
