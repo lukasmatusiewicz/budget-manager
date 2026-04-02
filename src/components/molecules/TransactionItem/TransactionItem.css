@@ -84,10 +84,40 @@
   color: #2ecc71;
 }
 
+.transaction-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.remove-btn {
+  padding: 0.5rem !important;
+  color: var(--text) !important;
+  opacity: 0.5;
+  transition: all 0.2s ease !important;
+}
+
+.remove-btn:hover {
+  color: #ff4b4b !important;
+  opacity: 1;
+  background-color: rgba(255, 75, 75, 0.1) !important;
+}
+
+.remove-icon {
+  width: 18px;
+  height: 18px;
+}
+
 @media (max-width: 600px) {
-  .transaction-main {
+  .transaction-item {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+    align-items: stretch;
+  }
+  
+  .transaction-right {
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
   }
 }
