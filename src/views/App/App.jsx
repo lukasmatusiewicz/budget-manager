@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import AppHeader from '../../components/organisms/AppHeader/AppHeader';
 import NavBar from '../../components/organisms/NavBar/NavBar';
@@ -7,22 +6,11 @@ import Transactions from '../../views/Transactions/Transactions.jsx';
 import Reports from '../../views/Reports/Reports.jsx';
 import Settings from '../../views/Settings/Settings.jsx';
 import Login from '../../views/Login/Login.jsx';
+import { useAppLogic } from '../../hooks/useAppLogic';
 import './App.css';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem('isLoggedIn') === 'true';
-  });
-
-  useEffect(() => {
-    localStorage.setItem('isLoggedIn', isAuthenticated);
-  }, [isAuthenticated]);
-
-  const handleLogin = () => setIsAuthenticated(true);
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem('isLoggedIn');
-  };
+  const { isAuthenticated, transactions, handleLogin, handleLogout, addTransaction } = useAppLogic();
 
   return (
     <Router>
@@ -36,11 +24,11 @@ function App() {
           />
           <Route 
             path="/" 
-            element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <Dashboard transactions={transactions} /> : <Navigate to="/login" />} 
           />
           <Route 
             path="/transactions" 
-            element={isAuthenticated ? <Transactions /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? <Transactions transactions={transactions} onAddTransaction={addTransaction} /> : <Navigate to="/login" />} 
           />
           <Route 
             path="/reports" 
