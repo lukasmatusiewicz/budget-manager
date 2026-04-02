@@ -1,6 +1,8 @@
 import { useDispatch } from 'react-redux';
-import { updateTransactionCategory, updateTransactionDate } from '../../../store/slices/transactionSlice.js';
+import { updateTransactionCategory, updateTransactionDate, removeTransaction } from '../../../store/slices/transactionSlice.js';
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '../../../constants/categories.js';
+import Button from '../../atoms/Button/Button.jsx';
+import Icon from '../../atoms/Icon/Icon.jsx';
 import './TransactionItem.css';
 
 const TransactionItem = ({ transaction }) => {
@@ -19,6 +21,10 @@ const TransactionItem = ({ transaction }) => {
       id: transaction.id,
       date: e.target.value
     }));
+  };
+
+  const handleRemove = () => {
+    dispatch(removeTransaction(transaction.id));
   };
 
   return (
@@ -45,9 +51,14 @@ const TransactionItem = ({ transaction }) => {
           </select>
         </div>
       </div>
-      <span className="transaction-amount">
-        {transaction.type === 'expense' ? '-' : '+'}${transaction.amount.toFixed(2)}
-      </span>
+      <div className="transaction-right">
+        <span className="transaction-amount">
+          {transaction.type === 'expense' ? '-' : '+'}${transaction.amount.toFixed(2)}
+        </span>
+        <Button variant="text" onClick={handleRemove} className="remove-btn">
+          <Icon name="trash-icon" className="remove-icon" />
+        </Button>
+      </div>
     </li>
   );
 };

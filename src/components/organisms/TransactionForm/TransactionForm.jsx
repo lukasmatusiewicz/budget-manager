@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { addTransaction } from '../../../store/slices/transactionSlice.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTransaction, selectTransactionPreferences } from '../../../store/slices/transactionSlice.js';
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '../../../constants/categories.js';
 import FormField from '../../molecules/FormField/FormField.jsx';
 import TypeSelector from '../../molecules/TypeSelector/TypeSelector.jsx';
@@ -9,20 +9,23 @@ import './TransactionForm.css';
 
 const TransactionForm = () => {
   const dispatch = useDispatch();
+  const preferences = useSelector(selectTransactionPreferences);
+
   const [formData, setFormData] = useState({
     description: '',
     amount: '',
-    type: 'expense',
-    category: 'Food'
+    type: preferences.defaultType,
+    category: preferences.defaultCategory
   });
 
+  // Update form if preferences change (e.g. from settings)
   useEffect(() => {
-    // Reset category when type changes
     setFormData(prev => ({
       ...prev,
-      category: formData.type === 'expense' ? EXPENSE_CATEGORIES[0] : INCOME_CATEGORIES[0]
+      type: preferences.defaultType,
+      category: preferences.defaultCategory
     }));
-  }, [formData.type]);
+  }, [preferences]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,10 +43,11 @@ const TransactionForm = () => {
     setFormData({
       description: '',
       amount: '',
-      type: 'expense',
-      category: 'Food'
+      type: preferences.defaultType,
+      category: preferences.defaultCategory
     });
   };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;

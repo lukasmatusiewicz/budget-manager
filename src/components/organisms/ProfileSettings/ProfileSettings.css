@@ -1,0 +1,27 @@
+.profile-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.settings-section {
+  text-align: left;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 500px;
+}
+
+.password-section {
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 600px) {
+  .settings-form {
+    max-width: 100%;
+  }
+}
