@@ -1,0 +1,56 @@
+.fast-stats-container {
+  grid-column: 1 / -1;
+  overflow-x: auto;
+}
+
+.fast-stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.fast-stats-table th, 
+.fast-stats-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.fast-stats-table th {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+.metric-label {
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+.income-col, .income-val {
+  color: #2ecc71;
+  text-align: right;
+}
+
+.expense-col, .expense-val {
+  color: #ff4b4b;
+  text-align: right;
+}
+
+.fast-stats-table tr:last-child td {
+  border-bottom: none;
+}
+
+.fast-stats-table tr:hover {
+  background-color: var(--social-bg);
+}
+
+@media (max-width: 600px) {
+  .fast-stats-table th, 
+  .fast-stats-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+  }
+}
