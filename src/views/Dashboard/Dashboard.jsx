@@ -1,14 +1,19 @@
+import { useSelector } from 'react-redux';
 import SummaryGrid from '../../components/organisms/SummaryGrid/SummaryGrid.jsx';
 import RecentActivity from '../../components/organisms/RecentActivity/RecentActivity.jsx';
+import { selectTransactions, selectTotals, selectBalance } from '../../store/slices/transactionSlice.js';
 import './Dashboard.css';
 
 const Dashboard = () => {
-  // Mock data for now
+  const transactions = useSelector(selectTransactions);
+  const totals = useSelector(selectTotals);
+  const balance = useSelector(selectBalance);
+
   const data = {
-    balance: '$0.00',
-    income: '$0.00',
-    expenses: '$0.00',
-    transactions: []
+    balance: `$${balance.toFixed(2)}`,
+    income: `$${totals.income.toFixed(2)}`,
+    expenses: `$${totals.expenses.toFixed(2)}`,
+    recentTransactions: transactions.slice(0, 5)
   };
 
   return (
@@ -18,7 +23,7 @@ const Dashboard = () => {
         income={data.income} 
         expenses={data.expenses} 
       />
-      <RecentActivity transactions={data.transactions} />
+      <RecentActivity transactions={data.recentTransactions} />
     </main>
   );
 };

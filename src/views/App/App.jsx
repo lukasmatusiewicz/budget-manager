@@ -1,27 +1,21 @@
-import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import AppHeader from '../../components/organisms/AppHeader/AppHeader';
-import NavBar from '../../components/organisms/NavBar/NavBar';
+import { useSelector, useDispatch } from 'react-redux';
+import AppHeader from '../../components/organisms/AppHeader/AppHeader.jsx';
+import NavBar from '../../components/organisms/NavBar/NavBar.jsx';
 import Dashboard from '../../views/Dashboard/Dashboard.jsx';
 import Transactions from '../../views/Transactions/Transactions.jsx';
 import Reports from '../../views/Reports/Reports.jsx';
 import Settings from '../../views/Settings/Settings.jsx';
 import Login from '../../views/Login/Login.jsx';
+import { selectIsAuthenticated, logout } from '../../store/slices/authSlice.js';
 import './App.css';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem('isLoggedIn') === 'true';
-  });
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    localStorage.setItem('isLoggedIn', isAuthenticated);
-  }, [isAuthenticated]);
-
-  const handleLogin = () => setIsAuthenticated(true);
   const handleLogout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem('isLoggedIn');
+    dispatch(logout());
   };
 
   return (
@@ -32,7 +26,7 @@ function App() {
         <Routes>
           <Route 
             path="/login" 
-            element={!isAuthenticated ? <Login onLogin={handleLogin} /> : <Navigate to="/" />} 
+            element={!isAuthenticated ? <Login /> : <Navigate to="/" />} 
           />
           <Route 
             path="/" 

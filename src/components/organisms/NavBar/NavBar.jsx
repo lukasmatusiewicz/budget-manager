@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import Icon from '../../atoms/Icon/Icon';
+import Icon from '../../atoms/Icon/Icon.jsx';
 import './NavBar.css';
 
 const NavBar = ({ onLogout }) => {
   const navItems = [
     { name: 'Dashboard', path: '/', icon: 'chart-icon' },
     { name: 'Transactions', path: '/transactions', icon: 'wallet-icon' },
-    { name: 'Reports', path: '/reports', icon: 'piggy-bank-icon' },
+    { name: 'Reports', path: '/reports', icon: 'reports-icon' },
     { name: 'Settings', path: '/settings', icon: 'settings-icon' },
   ];
 

@@ -10,7 +10,17 @@ const RecentActivity = ({ transactions = [] }) => {
         </div>
       ) : (
         <ul className="transaction-list">
-          {/* Transaction items will go here */}
+          {transactions.map((transaction) => (
+            <li key={transaction.id} className={`transaction-item ${transaction.type}`}>
+              <div className="transaction-info">
+                <span className="transaction-description">{transaction.description}</span>
+                <span className="transaction-date">{transaction.date}</span>
+              </div>
+              <span className="transaction-amount">
+                {transaction.type === 'expense' ? '-' : '+'}${transaction.amount.toFixed(2)}
+              </span>
+            </li>
+          ))}
         </ul>
       )}
     </section>

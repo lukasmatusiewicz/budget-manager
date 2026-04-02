@@ -1,17 +1,20 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../../store/slices/authSlice';
 import './Login.css';
 
-const Login = ({ onLogin }) => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Specific mock login logic
     if (email === 'admin@example.com' && password === 'password123') {
-      onLogin();
+      dispatch(login());
       navigate('/');
     } else {
       alert('Invalid credentials. Use admin@example.com / password123');
