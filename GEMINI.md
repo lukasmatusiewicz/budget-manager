@@ -11,5 +11,6 @@ A React-based budget management application.
 ## Conventions
 - Use functional components and hooks.
 - Use redux toolkit.
+- Avoid prop drilling.
 - Adhere to the existing project structure in `src/`.
 - Maintain the established naming conventions and styling patterns.
