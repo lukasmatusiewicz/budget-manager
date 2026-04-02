@@ -1,9 +1,10 @@
-import TransactionForm from '../../components/organisms/TransactionForm/TransactionForm';
-import { useTransactions } from '../../context/TransactionContext/TransactionContext.jsx';
+import { useSelector } from 'react-redux';
+import TransactionForm from '../../components/organisms/TransactionForm/TransactionForm.jsx';
+import { selectTransactions } from '../../store/slices/transactionSlice.js';
 import './Transactions.css';
 
 const Transactions = () => {
-  const { transactions } = useTransactions();
+  const transactions = useSelector(selectTransactions);
   
   return (
     <div className="view-container">

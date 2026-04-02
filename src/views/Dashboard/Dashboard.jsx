@@ -1,10 +1,13 @@
+import { useSelector } from 'react-redux';
 import SummaryGrid from '../../components/organisms/SummaryGrid/SummaryGrid.jsx';
 import RecentActivity from '../../components/organisms/RecentActivity/RecentActivity.jsx';
-import { useTransactions } from '../../context/TransactionContext/TransactionContext.jsx';
+import { selectTransactions, selectTotals, selectBalance } from '../../store/slices/transactionSlice.js';
 import './Dashboard.css';
 
 const Dashboard = () => {
-  const { transactions, totals, balance } = useTransactions();
+  const transactions = useSelector(selectTransactions);
+  const totals = useSelector(selectTotals);
+  const balance = useSelector(selectBalance);
 
   const data = {
     balance: `$${balance.toFixed(2)}`,

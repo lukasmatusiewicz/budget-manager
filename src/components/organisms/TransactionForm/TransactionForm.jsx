@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { useTransactions } from '../../../context/TransactionContext/TransactionContext.jsx';
+import { useDispatch } from 'react-redux';
+import { addTransaction } from '../../../store/slices/transactionSlice.js';
+import FormField from '../../molecules/FormField/FormField.jsx';
+import TypeSelector from '../../molecules/TypeSelector/TypeSelector.jsx';
 import './TransactionForm.css';
 
 const TransactionForm = () => {
-  const { addTransaction } = useTransactions();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     description: '',
     amount: '',
@@ -15,12 +18,14 @@ const TransactionForm = () => {
     e.preventDefault();
     if (!formData.description || !formData.amount) return;
 
-    addTransaction({
+    const newTransaction = {
       ...formData,
       id: Date.now(),
       amount: parseFloat(formData.amount),
       date: new Date().toLocaleDateString()
-    });
+    };
+
+    dispatch(addTransaction(newTransaction));
 
     setFormData({
       description: '',
@@ -39,38 +44,32 @@ const TransactionForm = () => {
     <div className="transaction-form-container">
       <h3>Add New Transaction</h3>
       <form onSubmit={handleSubmit} className="transaction-form">
-        <div className="form-group">
-          <label>Description</label>
-          <input
-            type="text"
-            name="description"
-            value={formData.description}
+        <FormField 
+          label="Description"
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          placeholder="What was it for?"
+          required
+        />
+        
+        <div className="form-row">
+          <FormField 
+            label="Amount"
+            name="amount"
+            type="number"
+            value={formData.amount}
             onChange={handleChange}
-            placeholder="What was it for?"
+            placeholder="0.00"
             required
+            step="0.01"
+          />
+          <TypeSelector 
+            value={formData.type}
+            onChange={handleChange}
           />
         </div>
-        <div className="form-row">
-          <div className="form-group">
-            <label>Amount</label>
-            <input
-              type="number"
-              name="amount"
-              step="0.01"
-              value={formData.amount}
-              onChange={handleChange}
-              placeholder="0.00"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Type</label>
-            <select name="type" value={formData.type} onChange={handleChange}>
-              <option value="expense">Expense</option>
-              <option value="income">Income</option>
-            </select>
-          </div>
-        </div>
+        
         <button type="submit" className="add-button">Add Transaction</button>
       </form>
     </div>

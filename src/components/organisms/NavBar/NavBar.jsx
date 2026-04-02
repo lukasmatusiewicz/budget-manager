@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import Icon from '../../atoms/Icon/Icon';
+import Icon from '../../atoms/Icon/Icon.jsx';
 import './NavBar.css';
 
 const NavBar = ({ onLogout }) => {
