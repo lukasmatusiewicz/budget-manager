@@ -2,12 +2,17 @@ import { createSlice, createSelector } from '@reduxjs/toolkit';
 
 const initialState = {
   items: JSON.parse(localStorage.getItem('transactions')) || [],
+  initialBudget: parseFloat(localStorage.getItem('initialBudget')) || 0,
 };
 
 const transactionSlice = createSlice({
   name: 'transactions',
   initialState,
   reducers: {
+    setInitialBudget: (state, action) => {
+      state.initialBudget = action.payload;
+      localStorage.setItem('initialBudget', action.payload);
+    },
     addTransaction: (state, action) => {
       state.items.unshift(action.payload);
       localStorage.setItem('transactions', JSON.stringify(state.items));
@@ -19,9 +24,10 @@ const transactionSlice = createSlice({
   },
 });
 
-export const { addTransaction, removeTransaction } = transactionSlice.actions;
+export const { setInitialBudget, addTransaction, removeTransaction } = transactionSlice.actions;
 
 export const selectTransactions = (state) => state.transactions.items;
+export const selectInitialBudget = (state) => state.transactions.initialBudget;
 
 export const selectTotals = createSelector(
   [selectTransactions],
@@ -38,8 +44,8 @@ export const selectTotals = createSelector(
 );
 
 export const selectBalance = createSelector(
-  [selectTotals],
-  (totals) => totals.income - totals.expenses
+  [selectTotals, selectInitialBudget],
+  (totals, initialBudget) => initialBudget + totals.income - totals.expenses
 );
 
 export default transactionSlice.reducer;
