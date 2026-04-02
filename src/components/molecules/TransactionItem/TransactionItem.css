@@ -33,6 +33,22 @@
   color: var(--text);
 }
 
+.mini-date-input {
+  border: none;
+  background: none;
+  color: var(--text);
+  font-size: 0.8rem;
+  font-family: inherit;
+  padding: 0;
+  cursor: pointer;
+  margin-top: 0.2rem;
+}
+
+.mini-date-input:focus {
+  outline: none;
+  color: var(--accent);
+}
+
 .mini-category-select {
   padding: 0.4rem;
   border: 1px solid var(--border);
