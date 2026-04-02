@@ -1,4 +1,5 @@
-import ExpenseStructure from '../../components/organisms/ExpenseStructure/ExpenseStructure.jsx';
+import CategoryStructure from '../../components/organisms/CategoryStructure/CategoryStructure.jsx';
+import DailyStats from '../../components/organisms/DailyStats/DailyStats.jsx';
 import './Reports.css';
 
 const Reports = () => {
@@ -6,10 +7,9 @@ const Reports = () => {
     <div className="view-container">
       <h2>Financial Reports</h2>
       <div className="reports-dashboard">
-        <ExpenseStructure />
-        <div className="placeholder-message">
-          <p>More detailed reports coming soon...</p>
-        </div>
+        <DailyStats />
+        <CategoryStructure type="expense" title="Expenses Structure" />
+        <CategoryStructure type="income" title="Incomes Structure" />
       </div>
     </div>
   );

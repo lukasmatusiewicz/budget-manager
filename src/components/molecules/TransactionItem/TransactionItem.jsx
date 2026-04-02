@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { updateTransactionCategory } from '../../../store/slices/transactionSlice.js';
+import { updateTransactionCategory, updateTransactionDate } from '../../../store/slices/transactionSlice.js';
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '../../../constants/categories.js';
 import './TransactionItem.css';
 
@@ -14,12 +14,24 @@ const TransactionItem = ({ transaction }) => {
     }));
   };
 
+  const handleDateChange = (e) => {
+    dispatch(updateTransactionDate({
+      id: transaction.id,
+      date: e.target.value
+    }));
+  };
+
   return (
     <li className={`transaction-item ${transaction.type}`}>
       <div className="transaction-main">
         <div className="transaction-info">
           <span className="transaction-description">{transaction.description}</span>
-          <span className="transaction-date">{transaction.date}</span>
+          <input 
+            type="date" 
+            value={transaction.date} 
+            onChange={handleDateChange}
+            className="mini-date-input"
+          />
         </div>
         <div className="transaction-category-edit">
           <select 

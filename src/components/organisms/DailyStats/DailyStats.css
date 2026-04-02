@@ -1,0 +1,116 @@
+.daily-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+  grid-column: 1 / -1; /* Full width in the grid */
+}
+
+.daily-stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.view-toggle {
+  display: flex;
+  background-color: var(--social-bg);
+  padding: 4px;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.toggle-btn {
+  padding: 0.4rem 1rem;
+  border: none;
+  background: none;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn.active {
+  background-color: var(--bg);
+  color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.date-picker-container {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.date-picker-container label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.date-input {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--code-bg);
+  color: var(--text-h);
+  font-family: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.daily-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.summary-item {
+  padding: 1rem;
+  background-color: var(--social-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.summary-item span {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.summary-item p {
+  margin: 0.3rem 0 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.summary-item.income p { color: #2ecc71; }
+.summary-item.expense p { color: #ff4b4b; }
+.summary-item.net p { color: var(--text-h); }
+
+.daily-chart-container {
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .daily-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

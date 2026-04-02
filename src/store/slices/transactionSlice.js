@@ -29,6 +29,14 @@ const transactionSlice = createSlice({
         localStorage.setItem('transactions', JSON.stringify(state.items));
       }
     },
+    updateTransactionDate: (state, action) => {
+      const { id, date } = action.payload;
+      const transaction = state.items.find(item => item.id === id);
+      if (transaction) {
+        transaction.date = date;
+        localStorage.setItem('transactions', JSON.stringify(state.items));
+      }
+    },
     clearTransactions: (state) => {
       state.items = [];
       localStorage.setItem('transactions', JSON.stringify([]));
@@ -36,7 +44,14 @@ const transactionSlice = createSlice({
   },
 });
 
-export const { setInitialBudget, addTransaction, removeTransaction, updateTransactionCategory, clearTransactions } = transactionSlice.actions;
+export const { 
+  setInitialBudget, 
+  addTransaction, 
+  removeTransaction, 
+  updateTransactionCategory, 
+  updateTransactionDate, 
+  clearTransactions 
+} = transactionSlice.actions;
 
 export const selectTransactions = (state) => state.transactions.items;
 export const selectInitialBudget = (state) => state.transactions.initialBudget;
