@@ -8,11 +8,24 @@ import Reports from '../../views/Reports/Reports.jsx';
 import Settings from '../../views/Settings/Settings.jsx';
 import Login from '../../views/Login/Login.jsx';
 import { selectIsAuthenticated, logout } from '../../store/slices/authSlice.js';
+import { selectThemeMode } from '../../store/slices/themeSlice.js';
 import './App.css';
+import { useEffect } from 'react';
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const themeMode = useSelector(selectThemeMode);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.remove('light-theme', 'dark-theme');
+    if (themeMode === 'light') {
+      root.classList.add('light-theme');
+    } else if (themeMode === 'dark') {
+      root.classList.add('dark-theme');
+    }
+  }, [themeMode]);
 
   const handleLogout = () => {
     dispatch(logout());
