@@ -1,4 +1,4 @@
-.expense-structure {
+.category-structure {
   padding: 1.5rem;
   background-color: var(--bg);
   border: 1px solid var(--border);
@@ -6,7 +6,7 @@
   margin-bottom: 2rem;
 }
 
-.expense-structure.empty {
+.category-structure.empty {
   text-align: center;
   padding: 3rem;
 }
@@ -15,7 +15,7 @@
   margin-top: 1rem;
 }
 
-.expense-structure h3 {
+.category-structure h3 {
   margin-bottom: 1rem;
   font-size: 1.2rem;
   text-align: left;

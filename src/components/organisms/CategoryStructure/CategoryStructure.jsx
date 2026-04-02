@@ -3,16 +3,16 @@ import { PieChart, Pie, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import { selectTransactions } from '../../../store/slices/transactionSlice.js';
 import { selectThemeMode } from '../../../store/slices/themeSlice.js';
 import { LIGHT_CHART_COLORS, DARK_CHART_COLORS } from '../../../constants/colors.js';
-import './ExpenseStructure.css';
+import './CategoryStructure.css';
 
-const ExpenseStructure = () => {
+const CategoryStructure = ({ type = 'expense', title = 'Expenses Structure' }) => {
   const transactions = useSelector(selectTransactions);
   const themeMode = useSelector(selectThemeMode);
   
   const colors = themeMode === 'dark' ? DARK_CHART_COLORS : LIGHT_CHART_COLORS;
 
-  const expenseData = transactions
-    .filter(t => t.type === 'expense')
+  const data = transactions
+    .filter(t => t.type === type)
     .reduce((acc, current) => {
       const existing = acc.find(item => item.name === current.category);
       if (existing) {
@@ -30,23 +30,23 @@ const ExpenseStructure = () => {
       fill: colors[index % colors.length]
     }));
 
-  if (expenseData.length === 0) {
+  if (data.length === 0) {
     return (
-      <div className="expense-structure empty">
-        <h3>Expenses Structure</h3>
-        <p>No expense data available to display.</p>
+      <div className="category-structure empty">
+        <h3>{title}</h3>
+        <p>No data available to display.</p>
       </div>
     );
   }
 
   return (
-    <div className="expense-structure">
-      <h3>Expenses Structure</h3>
+    <div className="category-structure">
+      <h3>{title}</h3>
       <div className="chart-container">
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie
-              data={expenseData}
+              data={data}
               cx="50%"
               cy="50%"
               innerRadius={60}
@@ -66,4 +66,4 @@ const ExpenseStructure = () => {
   );
 };
 
-export default ExpenseStructure;
+export default CategoryStructure;
