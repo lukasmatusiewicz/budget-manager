@@ -44,7 +44,14 @@ const transactionSlice = createSlice({
   },
 });
 
-export const { setInitialBudget, addTransaction, updateTransactionDate, removeTransaction, updateTransactionCategory, clearTransactions } = transactionSlice.actions;
+export const { 
+  setInitialBudget, 
+  addTransaction, 
+  removeTransaction, 
+  updateTransactionCategory, 
+  updateTransactionDate, 
+  clearTransactions 
+} = transactionSlice.actions;
 
 export const selectTransactions = (state) => state.transactions.items;
 export const selectInitialBudget = (state) => state.transactions.initialBudget;

@@ -9,9 +9,41 @@
 .daily-stats-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.5rem;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.view-toggle {
+  display: flex;
+  background-color: var(--social-bg);
+  padding: 4px;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.toggle-btn {
+  padding: 0.4rem 1rem;
+  border: none;
+  background: none;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn.active {
+  background-color: var(--bg);
+  color: var(--accent);
+  box-shadow: var(--shadow);
 }
 
 .date-picker-container {

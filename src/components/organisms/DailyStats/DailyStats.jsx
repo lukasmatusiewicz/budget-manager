@@ -5,12 +5,21 @@ import { selectTransactions } from '../../../store/slices/transactionSlice.js';
 import './DailyStats.css';
 
 const DailyStats = () => {
+  const [viewMode, setViewMode] = useState('daily'); // 'daily' or 'monthly'
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [selectedMonth, setSelectedMonth] = useState(new Date().toISOString().slice(0, 7)); // YYYY-MM
+  
   const transactions = useSelector(selectTransactions);
 
-  const dailyData = transactions.filter(t => t.date === selectedDate);
+  const filteredData = transactions.filter(t => {
+    if (viewMode === 'daily') {
+      return t.date === selectedDate;
+    } else {
+      return t.date.startsWith(selectedMonth);
+    }
+  });
   
-  const totals = dailyData.reduce((acc, current) => {
+  const totals = filteredData.reduce((acc, current) => {
     if (current.type === 'income') {
       acc.income += current.amount;
     } else {
@@ -27,30 +36,57 @@ const DailyStats = () => {
   return (
     <div className="daily-stats view-container">
       <div className="daily-stats-header">
-        <h3>Daily Statistics</h3>
+        <div className="header-left">
+          <h3>{viewMode === 'daily' ? 'Daily Statistics' : 'Monthly Statistics'}</h3>
+          <div className="view-toggle">
+            <button 
+              className={`toggle-btn ${viewMode === 'daily' ? 'active' : ''}`}
+              onClick={() => setViewMode('daily')}
+            >
+              Daily
+            </button>
+            <button 
+              className={`toggle-btn ${viewMode === 'monthly' ? 'active' : ''}`}
+              onClick={() => setViewMode('monthly')}
+            >
+              Monthly
+            </button>
+          </div>
+        </div>
+        
         <div className="date-picker-container">
-          <label htmlFor="date-select">Select Date:</label>
-          <input 
-            type="date" 
-            id="date-select" 
-            value={selectedDate} 
-            onChange={(e) => setSelectedDate(e.target.value)}
-            className="date-input"
-          />
+          <label htmlFor="date-select">Select {viewMode === 'daily' ? 'Date' : 'Month'}:</label>
+          {viewMode === 'daily' ? (
+            <input 
+              type="date" 
+              id="date-select" 
+              value={selectedDate} 
+              onChange={(e) => setSelectedDate(e.target.value)}
+              className="date-input"
+            />
+          ) : (
+            <input 
+              type="month" 
+              id="date-select" 
+              value={selectedMonth} 
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              className="date-input"
+            />
+          )}
         </div>
       </div>
 
       <div className="daily-summary-grid">
         <div className="summary-item income">
-          <span>Income</span>
+          <span>Total Income</span>
           <p>${totals.income.toFixed(2)}</p>
         </div>
         <div className="summary-item expense">
-          <span>Expenses</span>
+          <span>Total Expenses</span>
           <p>${totals.expenses.toFixed(2)}</p>
         </div>
         <div className="summary-item net">
-          <span>Net</span>
+          <span>Net Balance</span>
           <p>${(totals.income - totals.expenses).toFixed(2)}</p>
         </div>
       </div>
