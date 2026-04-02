@@ -1,0 +1,53 @@
+.danger-zone {
+  text-align: left;
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+  margin-top: 1rem;
+}
+
+.danger-zone h3 {
+  color: #ff4b4b;
+}
+
+.danger-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: var(--social-bg);
+  border-radius: 12px;
+  gap: 2rem;
+}
+
+.action-info h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-h);
+}
+
+.action-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.danger-btn {
+  border-color: #ff4b4b !important;
+  color: #ff4b4b !important;
+  white-space: nowrap;
+}
+
+.danger-btn:hover {
+  background-color: rgba(255, 75, 75, 0.1) !important;
+}
+
+@media (max-width: 600px) {
+  .danger-action {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .danger-btn {
+    width: 100%;
+  }
+}
