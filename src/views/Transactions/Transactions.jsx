@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import TransactionForm from '../../components/organisms/TransactionForm/TransactionForm.jsx';
+import TransactionItem from '../../components/molecules/TransactionItem/TransactionItem.jsx';
 import { selectTransactions } from '../../store/slices/transactionSlice.js';
 import './Transactions.css';
 
@@ -21,15 +22,7 @@ const Transactions = () => {
         ) : (
           <ul className="transactions-list">
             {transactions.map((transaction) => (
-              <li key={transaction.id} className={`transaction-item ${transaction.type}`}>
-                <div className="transaction-info">
-                  <span className="transaction-description">{transaction.description}</span>
-                  <span className="transaction-date">{transaction.date}</span>
-                </div>
-                <span className="transaction-amount">
-                  {transaction.type === 'expense' ? '-' : '+'}${transaction.amount.toFixed(2)}
-                </span>
-              </li>
+              <TransactionItem key={transaction.id} transaction={transaction} />
             ))}
           </ul>
         )}

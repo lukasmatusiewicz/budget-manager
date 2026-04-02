@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTransaction } from '../../../store/slices/transactionSlice.js';
+import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '../../../constants/categories.js';
 import FormField from '../../molecules/FormField/FormField.jsx';
 import TypeSelector from '../../molecules/TypeSelector/TypeSelector.jsx';
+import Button from '../../atoms/Button/Button.jsx';
 import './TransactionForm.css';
 
 const TransactionForm = () => {
@@ -11,8 +13,16 @@ const TransactionForm = () => {
     description: '',
     amount: '',
     type: 'expense',
-    category: 'Other'
+    category: 'Food'
   });
+
+  useEffect(() => {
+    // Reset category when type changes
+    setFormData(prev => ({
+      ...prev,
+      category: formData.type === 'expense' ? EXPENSE_CATEGORIES[0] : INCOME_CATEGORIES[0]
+    }));
+  }, [formData.type]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,7 +41,7 @@ const TransactionForm = () => {
       description: '',
       amount: '',
       type: 'expense',
-      category: 'Other'
+      category: 'Food'
     });
   };
 
@@ -39,6 +49,8 @@ const TransactionForm = () => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
+
+  const categories = formData.type === 'expense' ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
 
   return (
     <div className="transaction-form-container">
@@ -69,8 +81,22 @@ const TransactionForm = () => {
             onChange={handleChange}
           />
         </div>
+
+        <div className="form-group">
+          <label>Category</label>
+          <select 
+            name="category" 
+            value={formData.category} 
+            onChange={handleChange}
+            className="category-select"
+          >
+            {categories.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
         
-        <button type="submit" className="add-button">Add Transaction</button>
+        <Button type="submit" variant="primary" className="add-button">Add Transaction</Button>
       </form>
     </div>
   );
