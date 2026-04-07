@@ -8,7 +8,6 @@ import {
 } from 'firebase/auth';
 import { auth } from '../../../config/firebase.js';
 import { login } from '../../../store/slices/authSlice.js';
-import { setInitialBudget } from '../../../store/slices/transactionSlice.js';
 import FormField from '../../molecules/FormField/FormField.jsx';
 import Button from '../../atoms/Button/Button.jsx';
 import './LoginForm.css';

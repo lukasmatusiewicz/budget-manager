@@ -7,14 +7,12 @@ import Transactions from '../../views/Transactions/Transactions.jsx';
 import Reports from '../../views/Reports/Reports.jsx';
 import Settings from '../../views/Settings/Settings.jsx';
 import Login from '../../views/Login/Login.jsx';
-import Setup from '../../views/Setup/Setup.jsx';
-import { selectIsAuthenticated, logout, login } from '../../store/slices/authSlice.js';
+import Welcome from '../../views/Welcome/Welcome.jsx';
+import { selectIsAuthenticated, logout, login, selectHasCompletedWelcome, setWelcomeStatus } from '../../store/slices/authSlice.js';
 import { selectThemeMode, setTheme } from '../../store/slices/themeSlice.js';
 import { selectAccessibility, setAllAccessibility } from '../../store/slices/accessibilitySlice.js';
 import { 
   selectTransactions, 
-  selectInitialBudget, 
-  selectIsInitialSetup,
   selectTransactionPreferences,
   setAllData 
 } from '../../store/slices/transactionSlice.js';
@@ -26,11 +24,10 @@ import { useEffect, useRef, useState } from 'react';
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const isInitialSetup = useSelector(selectIsInitialSetup);
+  const hasCompletedWelcome = useSelector(selectHasCompletedWelcome);
   const themeMode = useSelector(selectThemeMode);
   const accessibility = useSelector(selectAccessibility);
   const transactions = useSelector(selectTransactions);
-  const initialBudget = useSelector(selectInitialBudget);
   const transactionPreferences = useSelector(selectTransactionPreferences);
   const dispatch = useDispatch();
   
@@ -58,6 +55,11 @@ function App() {
           if (data.transactions) {
             dispatch(setAllData(data.transactions));
           }
+          // If hasCompletedWelcome is missing in DB, it means they are new
+          dispatch(setWelcomeStatus(data.hasCompletedWelcome ?? false));
+        } else {
+          // New user
+          dispatch(setWelcomeStatus(false));
         }
         dataLoaded.current = true;
       } else {
@@ -80,13 +82,13 @@ function App() {
     if (isAuthenticated && dataLoaded.current) {
       saveToFirebase('theme', themeMode);
       saveToFirebase('accessibility', accessibility);
+      saveToFirebase('hasCompletedWelcome', hasCompletedWelcome);
       saveToFirebase('transactions', {
         items: transactions,
-        initialBudget: initialBudget,
         preferences: transactionPreferences
       });
     }
-  }, [themeMode, accessibility, transactions, initialBudget, transactionPreferences, isAuthenticated]);
+  }, [themeMode, accessibility, transactions, transactionPreferences, isAuthenticated, hasCompletedWelcome]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -127,7 +129,7 @@ function App() {
     }
   };
 
-  const showNav = isAuthenticated && !isInitialSetup;
+  const showNav = isAuthenticated && hasCompletedWelcome;
 
   if (isLoading) {
     return (
@@ -146,27 +148,27 @@ function App() {
         <Routes>
           <Route 
             path="/login" 
-            element={!isAuthenticated ? <Login /> : (isInitialSetup ? <Navigate to="/setup" /> : <Navigate to="/" />)} 
+            element={!isAuthenticated ? <Login /> : (hasCompletedWelcome ? <Navigate to="/" /> : <Navigate to="/welcome" />)} 
           />
           <Route 
-            path="/setup" 
-            element={isAuthenticated ? (isInitialSetup ? <Setup /> : <Navigate to="/" />) : <Navigate to="/login" />} 
+            path="/welcome" 
+            element={isAuthenticated ? (hasCompletedWelcome ? <Navigate to="/" /> : <Welcome />) : <Navigate to="/login" />} 
           />
           <Route 
             path="/" 
-            element={isAuthenticated ? (isInitialSetup ? <Navigate to="/setup" /> : <Dashboard />) : <Navigate to="/login" />} 
+            element={isAuthenticated ? (hasCompletedWelcome ? <Dashboard /> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
           />
           <Route 
             path="/transactions" 
-            element={isAuthenticated ? (isInitialSetup ? <Navigate to="/setup" /> : <Transactions />) : <Navigate to="/login" />} 
+            element={isAuthenticated ? (hasCompletedWelcome ? <Transactions /> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
           />
           <Route 
             path="/reports" 
-            element={isAuthenticated ? (isInitialSetup ? <Navigate to="/setup" /> : <Reports />) : <Navigate to="/login" />} 
+            element={isAuthenticated ? (hasCompletedWelcome ? <Reports /> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
           />
           <Route 
             path="/settings" 
-            element={isAuthenticated ? (isInitialSetup ? <Navigate to="/setup" /> : <Settings />) : <Navigate to="/login" />} 
+            element={isAuthenticated ? (hasCompletedWelcome ? <Settings /> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
           />
         </Routes>
       </div>
