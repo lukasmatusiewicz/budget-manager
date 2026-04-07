@@ -7,17 +7,77 @@ import Transactions from '../../views/Transactions/Transactions.jsx';
 import Reports from '../../views/Reports/Reports.jsx';
 import Settings from '../../views/Settings/Settings.jsx';
 import Login from '../../views/Login/Login.jsx';
-import { selectIsAuthenticated, logout } from '../../store/slices/authSlice.js';
-import { selectThemeMode } from '../../store/slices/themeSlice.js';
-import { selectAccessibility } from '../../store/slices/accessibilitySlice.js';
+import { selectIsAuthenticated, logout, login } from '../../store/slices/authSlice.js';
+import { selectThemeMode, setTheme } from '../../store/slices/themeSlice.js';
+import { selectAccessibility, setAllAccessibility } from '../../store/slices/accessibilitySlice.js';
+import { 
+  selectTransactions, 
+  selectInitialBudget, 
+  selectTransactionPreferences,
+  setAllData 
+} from '../../store/slices/transactionSlice.js';
+import { auth } from '../../config/firebase.js';
+import { onAuthStateChanged } from 'firebase/auth';
+import { fetchAllUserData, saveToFirebase } from '../../store/firebaseSync.js';
 import './App.css';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const themeMode = useSelector(selectThemeMode);
-  const { highContrast, reducedMotion, fontSize } = useSelector(selectAccessibility);
+  const accessibility = useSelector(selectAccessibility);
+  const transactions = useSelector(selectTransactions);
+  const initialBudget = useSelector(selectInitialBudget);
+  const transactionPreferences = useSelector(selectTransactionPreferences);
   const dispatch = useDispatch();
+  
+  const isInitialMount = useRef(true);
+
+  // Handle Auth State Changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userData = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName || 'User'
+        };
+        dispatch(login(userData));
+        
+        // Fetch and sync data
+        const data = await fetchAllUserData();
+        if (data) {
+          if (data.theme) dispatch(setTheme(data.theme));
+          if (data.accessibility) dispatch(setAllAccessibility(data.accessibility));
+          if (data.transactions) {
+            dispatch(setAllData(data.transactions));
+          }
+        }
+      } else {
+        dispatch(logout());
+      }
+    });
+
+    return () => unsubscribe();
+  }, [dispatch]);
+
+  // Sync state to Firebase on changes
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    if (isAuthenticated) {
+      saveToFirebase('theme', themeMode);
+      saveToFirebase('accessibility', accessibility);
+      saveToFirebase('transactions', {
+        items: transactions,
+        initialBudget: initialBudget,
+        preferences: transactionPreferences
+      });
+    }
+  }, [themeMode, accessibility, transactions, initialBudget, transactionPreferences, isAuthenticated]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -31,6 +91,7 @@ function App() {
 
   useEffect(() => {
     const root = document.documentElement;
+    const { highContrast, reducedMotion, fontSize } = accessibility;
     
     if (highContrast) {
       root.classList.add('high-contrast');
@@ -46,7 +107,7 @@ function App() {
 
     root.classList.remove('font-small', 'font-medium', 'font-large');
     root.classList.add(`font-${fontSize}`);
-  }, [highContrast, reducedMotion, fontSize]);
+  }, [accessibility]);
 
   const handleLogout = () => {
     dispatch(logout());
