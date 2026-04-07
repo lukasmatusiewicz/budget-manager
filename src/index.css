@@ -29,6 +29,43 @@
     }
 }
 
+:root.font-small {
+    font-size: 14px;
+}
+
+:root.font-medium {
+    font-size: 18px;
+}
+
+:root.font-large {
+    font-size: 22px;
+}
+
+:root.high-contrast {
+    --text: #000;
+    --text-h: #000;
+    --bg: #fff;
+    --border: #000;
+    --accent: #0000ff;
+    --accent-bg: rgba(0, 0, 255, 0.1);
+}
+
+:root.high-contrast.dark-theme {
+    --text: #fff;
+    --text-h: #fff;
+    --bg: #000;
+    --border: #fff;
+    --accent: #00ffff;
+    --accent-bg: rgba(0, 255, 255, 0.1);
+}
+
+:root.reduced-motion * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+}
+
 @media (prefers-color-scheme: dark) {
     :root:not(.light-theme) {
         --text: #9ca3af;
