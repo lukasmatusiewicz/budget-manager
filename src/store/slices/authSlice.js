@@ -1,12 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const savedUser = JSON.parse(localStorage.getItem('user')) || {
-  username: 'Admin',
-  email: 'admin@example.com'
-};
+const savedUser = JSON.parse(localStorage.getItem('user'));
 
 const initialState = {
-  isAuthenticated: localStorage.getItem('isLoggedIn') === 'true',
+  isAuthenticated: !!savedUser,
   user: savedUser
 };
 
@@ -14,21 +11,22 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login: (state) => {
+    login: (state, action) => {
       state.isAuthenticated = true;
-      localStorage.setItem('isLoggedIn', 'true');
+      state.user = action.payload;
+      localStorage.setItem('user', JSON.stringify(action.payload));
     },
     logout: (state) => {
       state.isAuthenticated = false;
-      localStorage.removeItem('isLoggedIn');
+      state.user = null;
+      localStorage.removeItem('user');
     },
     updateProfile: (state, action) => {
       state.user = { ...state.user, ...action.payload };
       localStorage.setItem('user', JSON.stringify(state.user));
     },
     updatePassword: (state, action) => {
-      // In a real app, you'd send this to a server
-      // For mock purposes, we just log it and maybe save a flag
+      // In a real app with Firebase, this would be handled via Firebase Auth directly
       console.log('Password updated successfully');
     }
   },
