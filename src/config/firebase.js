@@ -1,5 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+<<<<<<< Updated upstream
+=======
+import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
+>>>>>>> Stashed changes
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -15,6 +20,12 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+<<<<<<< Updated upstream
 const app = initializeApp(firebaseConfig);
+=======
+const firebaseApp = initializeApp(firebaseConfig);
+export const auth = getAuth(firebaseApp);
+export const db = getDatabase(firebaseApp);
+>>>>>>> Stashed changes
 
 export default app;
