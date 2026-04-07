@@ -9,12 +9,14 @@ import Settings from '../../views/Settings/Settings.jsx';
 import Login from '../../views/Login/Login.jsx';
 import { selectIsAuthenticated, logout } from '../../store/slices/authSlice.js';
 import { selectThemeMode } from '../../store/slices/themeSlice.js';
+import { selectAccessibility } from '../../store/slices/accessibilitySlice.js';
 import './App.css';
 import { useEffect } from 'react';
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const themeMode = useSelector(selectThemeMode);
+  const { highContrast, reducedMotion, fontSize } = useSelector(selectAccessibility);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,6 +28,25 @@ function App() {
       root.classList.add('dark-theme');
     }
   }, [themeMode]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    
+    if (highContrast) {
+      root.classList.add('high-contrast');
+    } else {
+      root.classList.remove('high-contrast');
+    }
+
+    if (reducedMotion) {
+      root.classList.add('reduced-motion');
+    } else {
+      root.classList.remove('reduced-motion');
+    }
+
+    root.classList.remove('font-small', 'font-medium', 'font-large');
+    root.classList.add(`font-${fontSize}`);
+  }, [highContrast, reducedMotion, fontSize]);
 
   const handleLogout = () => {
     dispatch(logout());
