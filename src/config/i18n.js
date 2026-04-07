@@ -99,6 +99,7 @@ const resources = {
         "preferences": "Transaction Preferences",
         "preferences_desc": "Set default values for new transactions.",
         "default_category": "Default Category",
+        "currency": "Currency",
         "danger_zone": "Danger Zone",
         "danger_zone_desc": "Permanent actions that cannot be undone.",
         "clear_history": "Clear Transaction History",
