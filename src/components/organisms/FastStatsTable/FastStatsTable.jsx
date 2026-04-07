@@ -1,11 +1,13 @@
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { selectTransactions } from '../../../store/slices/transactionSlice.js';
+import { selectTransactions, selectTransactionPreferences } from '../../../store/slices/transactionSlice.js';
+import { formatCurrency } from '../../../utils/formatters.js';
 import './FastStatsTable.css';
 
 const FastStatsTable = () => {
   const { t } = useTranslation();
   const transactions = useSelector(selectTransactions);
+  const { currency } = useSelector(selectTransactionPreferences);
 
   // Date logic for last 30 days
   const now = new Date();
@@ -32,10 +34,10 @@ const FastStatsTable = () => {
   };
 
   const stats = [
-    { label: t('reports.metrics.count'), income: incomes.length, expense: expenses.length, unit: '' },
-    { label: t('reports.metrics.avg_day'), income: incomeSum / 30, expense: expenseSum / 30, unit: '$' },
-    { label: t('reports.metrics.avg_month'), income: getMonthlyAverage('income'), expense: getMonthlyAverage('expense'), unit: '$' },
-    { label: t('reports.metrics.sum_30'), income: incomeSum, expense: expenseSum, unit: '$' },
+    { label: t('reports.metrics.count'), income: incomes.length, expense: expenses.length, isCurrency: false },
+    { label: t('reports.metrics.avg_day'), income: incomeSum / 30, expense: expenseSum / 30, isCurrency: true },
+    { label: t('reports.metrics.avg_month'), income: getMonthlyAverage('income'), expense: getMonthlyAverage('expense'), isCurrency: true },
+    { label: t('reports.metrics.sum_30'), income: incomeSum, expense: expenseSum, isCurrency: true },
   ];
 
   return (
@@ -54,10 +56,10 @@ const FastStatsTable = () => {
             <tr key={index}>
               <td className="metric-label">{row.label}</td>
               <td className="income-val">
-                {row.unit}{typeof row.income === 'number' ? row.income.toLocaleString(undefined, { minimumFractionDigits: row.unit ? 2 : 0, maximumFractionDigits: row.unit ? 2 : 0 }) : row.income}
+                {row.isCurrency ? formatCurrency(row.income, currency) : row.income}
               </td>
               <td className="expense-val">
-                {row.unit}{typeof row.expense === 'number' ? row.expense.toLocaleString(undefined, { minimumFractionDigits: row.unit ? 2 : 0, maximumFractionDigits: row.unit ? 2 : 0 }) : row.expense}
+                {row.isCurrency ? formatCurrency(row.expense, currency) : row.expense}
               </td>
             </tr>
           ))}

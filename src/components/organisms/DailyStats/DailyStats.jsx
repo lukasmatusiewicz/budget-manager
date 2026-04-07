@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-import { selectTransactions } from '../../../store/slices/transactionSlice.js';
+import { selectTransactions, selectTransactionPreferences } from '../../../store/slices/transactionSlice.js';
+import { formatCurrency } from '../../../utils/formatters.js';
 import './DailyStats.css';
 
 const DailyStats = () => {
   const { t } = useTranslation();
+  const { currency } = useSelector(selectTransactionPreferences);
   const [viewMode, setViewMode] = useState('daily'); // 'daily' or 'monthly'
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().toISOString().slice(0, 7)); // YYYY-MM
@@ -81,15 +83,15 @@ const DailyStats = () => {
       <div className="daily-summary-grid">
         <div className="summary-item income">
           <span>{t('reports.total_income')}</span>
-          <p>${totals.income.toFixed(2)}</p>
+          <p>{formatCurrency(totals.income, currency)}</p>
         </div>
         <div className="summary-item expense">
           <span>{t('reports.total_expenses')}</span>
-          <p>${totals.expenses.toFixed(2)}</p>
+          <p>{formatCurrency(totals.expenses, currency)}</p>
         </div>
         <div className="summary-item net">
           <span>{t('common.net_balance')}</span>
-          <p>${(totals.income - totals.expenses).toFixed(2)}</p>
+          <p>{formatCurrency(totals.income - totals.expenses, currency)}</p>
         </div>
       </div>
 
@@ -102,7 +104,7 @@ const DailyStats = () => {
             <Tooltip 
               cursor={{fill: 'var(--social-bg)'}}
               contentStyle={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border)', borderRadius: '8px', color: 'var(--text-h)' }}
-              formatter={(value) => `$${value.toFixed(2)}`}
+              formatter={(value) => formatCurrency(value, currency)}
             />
             <Bar dataKey="value" radius={[4, 4, 0, 0]}>
               {chartData.map((entry, index) => (

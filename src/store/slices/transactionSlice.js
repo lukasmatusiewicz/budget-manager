@@ -4,7 +4,8 @@ const initialState = {
   items: [],
   preferences: {
     defaultType: 'expense',
-    defaultCategory: 'Food'
+    defaultCategory: 'Food',
+    currency: 'USD'
   }
 };
 
