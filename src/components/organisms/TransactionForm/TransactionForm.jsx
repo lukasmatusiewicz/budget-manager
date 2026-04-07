@@ -51,7 +51,17 @@ const TransactionForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    if (name === 'type') {
+      const newCategories = value === 'expense' ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
+      setFormData(prev => ({ 
+        ...prev, 
+        [name]: value,
+        category: newCategories[0] // Reset category when type changes
+      }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const categories = formData.type === 'expense' ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
