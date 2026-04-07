@@ -51,7 +51,7 @@ const ProfileSettings = () => {
     <div className="profile-settings">
       <section className="settings-section">
         <h3>Profile Information</h3>
-        <p className="settings-description">Update your account details and how others see you.</p>
+        <p className="settings-description">Update your account details.</p>
         <form onSubmit={handleUpdateProfile} className="settings-form">
           <FormField
             label="Username"
