@@ -8,22 +8,26 @@ import {
 } from 'firebase/auth';
 import { auth } from '../../../config/firebase.js';
 import { login } from '../../../store/slices/authSlice.js';
-import { setInitialBudget } from '../../../store/slices/transactionSlice.js';
 import FormField from '../../molecules/FormField/FormField.jsx';
 import Button from '../../atoms/Button/Button.jsx';
 import './LoginForm.css';
 
-const LoginForm = () => {
+const LoginForm = ({ onToggleMode }) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
-  const [initialBudget, setBudget] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleModeToggle = () => {
+    const newMode = !isRegistering;
+    setIsRegistering(newMode);
+    if (onToggleMode) onToggleMode(newMode);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,7 +53,6 @@ const LoginForm = () => {
         displayName: user.displayName || username || 'User'
       };
 
-      dispatch(setInitialBudget(parseFloat(initialBudget) || 0));
       dispatch(login(userData));
       navigate('/');
     } catch (err) {
@@ -93,15 +96,6 @@ const LoginForm = () => {
         placeholder="••••••••"
         required
       />
-      <FormField
-        label="Initial Budget"
-        type="number"
-        name="initialBudget"
-        value={initialBudget}
-        onChange={(e) => setBudget(e.target.value)}
-        placeholder="0.00"
-        step="0.01"
-      />
       
       <Button type="submit" variant="primary" disabled={loading}>
         {loading ? 'Processing...' : (isRegistering ? 'Create Account' : 'Login')}
@@ -113,7 +107,7 @@ const LoginForm = () => {
           <button 
             type="button" 
             className="toggle-auth-btn"
-            onClick={() => setIsRegistering(!isRegistering)}
+            onClick={handleModeToggle}
           >
             {isRegistering ? 'Login here' : 'Register here'}
           </button>

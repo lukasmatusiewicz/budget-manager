@@ -11,25 +11,36 @@
   border-radius: 8px;
   font-size: 0.9rem;
   text-align: center;
+  border: 1px solid rgba(255, 0, 0, 0.2);
 }
 
 .form-footer {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
   text-align: center;
   font-size: 0.9rem;
   color: var(--text);
+  border-top: 1px solid var(--border);
 }
 
 .toggle-auth-btn {
   background: none;
   border: none;
   color: var(--accent);
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   padding: 0 0.5rem;
-  text-decoration: underline;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
 }
 
 .toggle-auth-btn:hover {
+  text-decoration: underline;
   opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.toggle-auth-btn:active {
+  transform: translateY(0);
 }
