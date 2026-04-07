@@ -3,6 +3,7 @@ import { createSlice, createSelector } from '@reduxjs/toolkit';
 const initialState = {
   items: [],
   initialBudget: 0,
+  isInitialSetup: true,
   preferences: {
     defaultType: 'expense',
     defaultCategory: 'Food'
@@ -16,12 +17,16 @@ const transactionSlice = createSlice({
     setAllData: (state, action) => {
       if (action.payload) {
         if (action.payload.items) state.items = action.payload.items;
-        if (action.payload.initialBudget !== undefined) state.initialBudget = action.payload.initialBudget;
+        if (action.payload.initialBudget !== undefined) {
+          state.initialBudget = action.payload.initialBudget;
+          state.isInitialSetup = false;
+        }
         if (action.payload.preferences) state.preferences = action.payload.preferences;
       }
     },
     setInitialBudget: (state, action) => {
       state.initialBudget = action.payload;
+      state.isInitialSetup = false;
     },
     setPreferences: (state, action) => {
       state.preferences = { ...state.preferences, ...action.payload };
@@ -65,6 +70,7 @@ export const {
 
 export const selectTransactions = (state) => state.transactions.items;
 export const selectInitialBudget = (state) => state.transactions.initialBudget;
+export const selectIsInitialSetup = (state) => state.transactions.isInitialSetup;
 export const selectTransactionPreferences = (state) => state.transactions.preferences;
 
 export const selectTotals = createSelector(
