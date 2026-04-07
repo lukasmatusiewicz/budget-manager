@@ -3,3 +3,33 @@
   flex-direction: column;
   gap: 1.5rem;
 }
+
+.error-message {
+  padding: 0.8rem;
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #ff4444;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.form-footer {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.toggle-auth-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  text-decoration: underline;
+}
+
+.toggle-auth-btn:hover {
+  opacity: 0.8;
+}
