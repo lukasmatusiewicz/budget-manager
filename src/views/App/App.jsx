@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import AppHeader from '../../components/organisms/AppHeader/AppHeader.jsx';
 import NavBar from '../../components/organisms/NavBar/NavBar.jsx';
 import Dashboard from '../../views/Dashboard/Dashboard.jsx';
@@ -23,6 +24,7 @@ import './App.css';
 import { useEffect, useRef, useState } from 'react';
 
 function App() {
+  const { t } = useTranslation();
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const hasCompletedWelcome = useSelector(selectHasCompletedWelcome);
   const themeMode = useSelector(selectThemeMode);
@@ -135,7 +137,7 @@ function App() {
     return (
       <div className="app-loading">
         <div className="loader"></div>
-        <p>Loading your budget...</p>
+        <p>{t('common.loading')}</p>
       </div>
     );
   }

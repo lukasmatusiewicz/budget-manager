@@ -1,10 +1,12 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { completeWelcome } from '../../store/slices/authSlice.js';
 import Button from '../../components/atoms/Button/Button.jsx';
 import './Welcome.css';
 
 const Welcome = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -16,26 +18,26 @@ const Welcome = () => {
   return (
     <div className="welcome-container">
       <div className="welcome-card">
-        <h1>Welcome to Budget Manager!</h1>
+        <h1>{t('welcome.title')}</h1>
         <p className="welcome-description">
-          Take control of your finances with our simple and effective budget tracking tool.
+          {t('welcome.description')}
         </p>
         <div className="welcome-features">
           <div className="feature-item">
             <span className="feature-icon">📊</span>
-            <p>Track your daily expenses and income</p>
+            <p>{t('welcome.feature_1')}</p>
           </div>
           <div className="feature-item">
             <span className="feature-icon">🏷️</span>
-            <p>Categorize transactions for better insights</p>
+            <p>{t('welcome.feature_2')}</p>
           </div>
           <div className="feature-item">
             <span className="feature-icon">📱</span>
-            <p>Access your data from anywhere</p>
+            <p>{t('welcome.feature_3')}</p>
           </div>
         </div>
         <Button onClick={handleStart} variant="primary" className="start-button">
-          Get Started
+          {t('welcome.button')}
         </Button>
       </div>
     </div>

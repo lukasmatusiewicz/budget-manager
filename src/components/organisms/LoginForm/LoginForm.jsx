@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword,
@@ -13,6 +14,7 @@ import Button from '../../atoms/Button/Button.jsx';
 import './LoginForm.css';
 
 const LoginForm = ({ onToggleMode }) => {
+  const { t } = useTranslation();
   const [isRegistering, setIsRegistering] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -68,7 +70,7 @@ const LoginForm = ({ onToggleMode }) => {
       
       {isRegistering && (
         <FormField
-          label="Username"
+          label={t('auth.username')}
           type="text"
           name="username"
           value={username}
@@ -79,7 +81,7 @@ const LoginForm = ({ onToggleMode }) => {
       )}
 
       <FormField
-        label="Email"
+        label={t('auth.email')}
         type="email"
         name="email"
         value={email}
@@ -88,7 +90,7 @@ const LoginForm = ({ onToggleMode }) => {
         required
       />
       <FormField
-        label="Password"
+        label={t('auth.password')}
         type="password"
         name="password"
         value={password}
@@ -98,18 +100,18 @@ const LoginForm = ({ onToggleMode }) => {
       />
       
       <Button type="submit" variant="primary" disabled={loading}>
-        {loading ? 'Processing...' : (isRegistering ? 'Create Account' : 'Login')}
+        {loading ? t('common.loading') : (isRegistering ? t('auth.create_account') : t('auth.login'))}
       </Button>
       
       <div className="form-footer">
         <p>
-          {isRegistering ? 'Already have an account?' : "Don't have an account?"}
+          {isRegistering ? t('auth.have_account') : t('auth.no_account')}
           <button 
             type="button" 
             className="toggle-auth-btn"
             onClick={handleModeToggle}
           >
-            {isRegistering ? 'Login here' : 'Register here'}
+            {isRegistering ? t('auth.login_here') : t('auth.register_here')}
           </button>
         </p>
       </div>

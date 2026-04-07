@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { selectTransactions } from '../../../store/slices/transactionSlice.js';
 import './DailyStats.css';
 
 const DailyStats = () => {
+  const { t } = useTranslation();
   const [viewMode, setViewMode] = useState('daily'); // 'daily' or 'monthly'
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().toISOString().slice(0, 7)); // YYYY-MM
@@ -29,33 +31,33 @@ const DailyStats = () => {
   }, { income: 0, expenses: 0 });
 
   const chartData = [
-    { name: 'Income', value: totals.income, fill: '#2ecc71' },
-    { name: 'Expenses', value: totals.expenses, fill: '#ff4b4b' }
+    { name: t('common.income'), value: totals.income, fill: '#2ecc71' },
+    { name: t('common.expenses'), value: totals.expenses, fill: '#ff4b4b' }
   ];
 
   return (
     <div className="daily-stats view-container">
       <div className="daily-stats-header">
         <div className="header-left">
-          <h3>{viewMode === 'daily' ? 'Daily Statistics' : 'Monthly Statistics'}</h3>
+          <h3>{viewMode === 'daily' ? t('reports.daily_stats') : t('reports.monthly_stats')}</h3>
           <div className="view-toggle">
             <button 
               className={`toggle-btn ${viewMode === 'daily' ? 'active' : ''}`}
               onClick={() => setViewMode('daily')}
             >
-              Daily
+              {t('reports.daily')}
             </button>
             <button 
               className={`toggle-btn ${viewMode === 'monthly' ? 'active' : ''}`}
               onClick={() => setViewMode('monthly')}
             >
-              Monthly
+              {t('reports.monthly')}
             </button>
           </div>
         </div>
         
         <div className="date-picker-container">
-          <label htmlFor="date-select">Select {viewMode === 'daily' ? 'Date' : 'Month'}:</label>
+          <label htmlFor="date-select">{t('common.select')} {viewMode === 'daily' ? t('common.date') : t('common.month')}:</label>
           {viewMode === 'daily' ? (
             <input 
               type="date" 
@@ -78,15 +80,15 @@ const DailyStats = () => {
 
       <div className="daily-summary-grid">
         <div className="summary-item income">
-          <span>Total Income</span>
+          <span>{t('reports.total_income')}</span>
           <p>${totals.income.toFixed(2)}</p>
         </div>
         <div className="summary-item expense">
-          <span>Total Expenses</span>
+          <span>{t('reports.total_expenses')}</span>
           <p>${totals.expenses.toFixed(2)}</p>
         </div>
         <div className="summary-item net">
-          <span>Net Balance</span>
+          <span>{t('common.net_balance')}</span>
           <p>${(totals.income - totals.expenses).toFixed(2)}</p>
         </div>
       </div>

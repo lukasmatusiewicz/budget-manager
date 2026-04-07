@@ -1,11 +1,13 @@
 import { useSelector } from 'react-redux';
-import { PieChart, Pie, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { useTranslation } from 'react-i18next';
+import { PieChart, Pie, ResponsiveContainer, Legend, Tooltip, Cell } from 'recharts';
 import { selectTransactions } from '../../../store/slices/transactionSlice.js';
 import { selectThemeMode } from '../../../store/slices/themeSlice.js';
 import { LIGHT_CHART_COLORS, DARK_CHART_COLORS } from '../../../constants/colors.js';
 import './CategoryStructure.css';
 
 const CategoryStructure = ({ type = 'expense', title = 'Expenses Structure' }) => {
+  const { t } = useTranslation();
   const transactions = useSelector(selectTransactions);
   const themeMode = useSelector(selectThemeMode);
   
@@ -34,7 +36,7 @@ const CategoryStructure = ({ type = 'expense', title = 'Expenses Structure' }) =
     return (
       <div className="category-structure empty">
         <h3>{title}</h3>
-        <p>No data available to display.</p>
+        <p>{t('common.no_data')}</p>
       </div>
     );
   }
@@ -53,12 +55,17 @@ const CategoryStructure = ({ type = 'expense', title = 'Expenses Structure' }) =
               outerRadius={80}
               paddingAngle={5}
               dataKey="value"
-            />
+              nameKey="name"
+            >
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.fill} />
+              ))}
+            </Pie>
             <Tooltip 
-              formatter={(value) => `$${value.toFixed(2)}`}
+              formatter={(value, name) => [`$${value.toFixed(2)}`, t(`categories.${name}`)]}
               contentStyle={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border)', borderRadius: '8px', color: 'var(--text-h)' }}
             />
-            <Legend />
+            <Legend formatter={(value) => t(`categories.${value}`)} />
           </PieChart>
         </ResponsiveContainer>
       </div>

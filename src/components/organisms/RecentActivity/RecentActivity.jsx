@@ -1,12 +1,15 @@
+import { useTranslation } from 'react-i18next';
 import './RecentActivity.css';
 
 const RecentActivity = ({ transactions = [] }) => {
+  const { t } = useTranslation();
+  
   return (
     <section className="recent-activity">
-      <h2>Recent Activity</h2>
+      <h2>{t('dashboard.recent_activity')}</h2>
       {transactions.length === 0 ? (
         <div className="placeholder-message">
-          <p>No recent transactions to show.</p>
+          <p>{t('dashboard.no_transactions')}</p>
         </div>
       ) : (
         <ul className="transaction-list">

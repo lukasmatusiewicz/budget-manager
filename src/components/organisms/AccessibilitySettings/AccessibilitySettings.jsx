@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { 
   selectAccessibility, 
   toggleHighContrast, 
@@ -8,25 +9,26 @@ import {
 import './AccessibilitySettings.css';
 
 const AccessibilitySettings = () => {
+  const { t } = useTranslation();
   const { highContrast, reducedMotion, fontSize } = useSelector(selectAccessibility);
   const dispatch = useDispatch();
 
   const fontSizes = [
-    { value: 'small', label: 'Small' },
-    { value: 'medium', label: 'Medium' },
-    { value: 'large', label: 'Large' },
+    { value: 'small', label: t('settings.small') },
+    { value: 'medium', label: t('settings.medium') },
+    { value: 'large', label: t('settings.large') },
   ];
 
   return (
     <div className="accessibility-settings">
-      <h3>Accessibility</h3>
-      <p className="settings-description">Adjust settings to make Budget Manager easier to use.</p>
+      <h3>{t('settings.accessibility')}</h3>
+      <p className="settings-description">{t('settings.accessibility_desc')}</p>
       
       <div className="settings-group">
         <label className="settings-item">
           <div className="settings-info">
-            <span className="settings-label">High Contrast</span>
-            <span className="settings-hint">Increase color contrast for better readability.</span>
+            <span className="settings-label">{t('settings.high_contrast')}</span>
+            <span className="settings-hint">{t('settings.high_contrast_desc')}</span>
           </div>
           <div className="toggle-switch">
             <input 
@@ -40,8 +42,8 @@ const AccessibilitySettings = () => {
 
         <label className="settings-item">
           <div className="settings-info">
-            <span className="settings-label">Reduced Motion</span>
-            <span className="settings-hint">Minimize animations and transitions.</span>
+            <span className="settings-label">{t('settings.reduced_motion')}</span>
+            <span className="settings-hint">{t('settings.reduced_motion_desc')}</span>
           </div>
           <div className="toggle-switch">
             <input 
@@ -55,7 +57,7 @@ const AccessibilitySettings = () => {
       </div>
 
       <div className="settings-group">
-        <span className="settings-label">Font Size</span>
+        <span className="settings-label">{t('settings.font_size')}</span>
         <div className="font-options">
           {fontSizes.map((size) => (
             <button

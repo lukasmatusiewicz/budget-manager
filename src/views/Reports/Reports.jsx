@@ -1,15 +1,18 @@
+import { useTranslation } from 'react-i18next';
 import CategoryStructure from '../../components/organisms/CategoryStructure/CategoryStructure.jsx';
 import DailyStats from '../../components/organisms/DailyStats/DailyStats.jsx';
 import FastStatsTable from '../../components/organisms/FastStatsTable/FastStatsTable.jsx';
 import './Reports.css';
 
 const Reports = () => {
+  const { t } = useTranslation();
+  
   return (
     <div className="view-container">
-      <h2>Financial Reports</h2>
+      <h2>{t('reports.title')}</h2>
       <div className="reports-dashboard">
-        <CategoryStructure type="expense" title="Expenses Structure" />
-        <CategoryStructure type="income" title="Incomes Structure" />
+        <CategoryStructure type="expense" title={t('reports.expenses_structure')} />
+        <CategoryStructure type="income" title={t('reports.incomes_structure')} />
         <FastStatsTable />
         <DailyStats />
       </div>

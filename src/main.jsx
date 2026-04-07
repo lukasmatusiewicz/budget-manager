@@ -7,6 +7,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './index.css'
+import './config/i18n.js'
 import App from './views/App/App.jsx'
 
 createRoot(document.getElementById('root')).render(

@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { selectUser, updateProfile, updatePassword } from '../../../store/slices/authSlice.js';
 import FormField from '../../molecules/FormField/FormField.jsx';
 import Button from '../../atoms/Button/Button.jsx';
 import './ProfileSettings.css';
 
 const ProfileSettings = () => {
+  const { t } = useTranslation();
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   const [profileData, setProfileData] = useState({
-    username: user.username,
-    email: user.email
+    username: user?.displayName || '',
+    email: user?.email || ''
   });
 
   const [passwords, setPasswords] = useState({
@@ -33,28 +35,28 @@ const ProfileSettings = () => {
   const handleUpdateProfile = (e) => {
     e.preventDefault();
     dispatch(updateProfile(profileData));
-    alert('Profile updated successfully!');
+    alert(t('settings.update_profile_success') || 'Profile updated!');
   };
 
   const handleUpdatePassword = (e) => {
     e.preventDefault();
     if (passwords.newPassword !== passwords.confirmPassword) {
-      alert('New passwords do not match!');
+      alert('Passwords do not match!');
       return;
     }
     dispatch(updatePassword(passwords.newPassword));
     setPasswords({ currentPassword: '', newPassword: '', confirmPassword: '' });
-    alert('Password updated successfully!');
+    alert(t('settings.update_password_success') || 'Password updated!');
   };
 
   return (
     <div className="profile-settings">
       <section className="settings-section">
-        <h3>Profile Information</h3>
-        <p className="settings-description">Update your account details.</p>
+        <h3>{t('settings.profile')}</h3>
+        <p className="settings-description">{t('settings.profile_desc')}</p>
         <form onSubmit={handleUpdateProfile} className="settings-form">
           <FormField
-            label="Username"
+            label={t('auth.username')}
             name="username"
             value={profileData.username}
             onChange={handleProfileChange}
@@ -62,7 +64,7 @@ const ProfileSettings = () => {
             required
           />
           <FormField
-            label="Email Address"
+            label={t('auth.email')}
             type="email"
             name="email"
             value={profileData.email}
@@ -70,16 +72,16 @@ const ProfileSettings = () => {
             placeholder="your@email.com"
             required
           />
-          <Button type="submit" variant="primary">Update Profile</Button>
+          <Button type="submit" variant="primary">{t('settings.update_profile')}</Button>
         </form>
       </section>
 
       <section className="settings-section password-section">
-        <h3>Security</h3>
-        <p className="settings-description">Manage your password to keep your account secure.</p>
+        <h3>{t('settings.security')}</h3>
+        <p className="settings-description">{t('settings.security_desc')}</p>
         <form onSubmit={handleUpdatePassword} className="settings-form">
           <FormField
-            label="Current Password"
+            label={t('settings.current_password')}
             type="password"
             name="currentPassword"
             value={passwords.currentPassword}
@@ -89,7 +91,7 @@ const ProfileSettings = () => {
           />
           <div className="form-row">
             <FormField
-              label="New Password"
+              label={t('settings.new_password')}
               type="password"
               name="newPassword"
               value={passwords.newPassword}
@@ -98,7 +100,7 @@ const ProfileSettings = () => {
               required
             />
             <FormField
-              label="Confirm New Password"
+              label={t('settings.confirm_password')}
               type="password"
               name="confirmPassword"
               value={passwords.confirmPassword}
@@ -107,7 +109,7 @@ const ProfileSettings = () => {
               required
             />
           </div>
-          <Button type="submit" variant="outline">Update Password</Button>
+          <Button type="submit" variant="outline">{t('settings.update_password')}</Button>
         </form>
       </section>
     </div>
