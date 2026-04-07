@@ -1,31 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  highContrast: JSON.parse(localStorage.getItem('accessibility-high-contrast')) || false,
-  reducedMotion: JSON.parse(localStorage.getItem('accessibility-reduced-motion')) || false,
-  fontSize: localStorage.getItem('accessibility-font-size') || 'medium',
+  highContrast: false,
+  reducedMotion: false,
+  fontSize: 'medium',
 };
 
 const accessibilitySlice = createSlice({
   name: 'accessibility',
   initialState,
   reducers: {
+    setAllAccessibility: (state, action) => {
+      if (action.payload) {
+        if (action.payload.highContrast !== undefined) state.highContrast = action.payload.highContrast;
+        if (action.payload.reducedMotion !== undefined) state.reducedMotion = action.payload.reducedMotion;
+        if (action.payload.fontSize) state.fontSize = action.payload.fontSize;
+      }
+    },
     toggleHighContrast: (state) => {
       state.highContrast = !state.highContrast;
-      localStorage.setItem('accessibility-high-contrast', JSON.stringify(state.highContrast));
     },
     toggleReducedMotion: (state) => {
       state.reducedMotion = !state.reducedMotion;
-      localStorage.setItem('accessibility-reduced-motion', JSON.stringify(state.reducedMotion));
     },
     setFontSize: (state, action) => {
       state.fontSize = action.payload;
-      localStorage.setItem('accessibility-font-size', action.payload);
     },
   },
 });
 
-export const { toggleHighContrast, toggleReducedMotion, setFontSize } = accessibilitySlice.actions;
+export const { setAllAccessibility, toggleHighContrast, toggleReducedMotion, setFontSize } = accessibilitySlice.actions;
 
 export const selectAccessibility = (state) => state.accessibility;
 
