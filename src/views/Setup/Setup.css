@@ -1,0 +1,42 @@
+.setup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 1.5rem;
+}
+
+.setup-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 3rem;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.setup-card h2 {
+  margin-bottom: 1rem;
+  color: var(--text-h);
+}
+
+.setup-description {
+  color: var(--text);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.setup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+@media (max-width: 600px) {
+  .setup-card {
+    padding: 2rem;
+  }
+}
