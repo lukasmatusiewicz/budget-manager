@@ -19,10 +19,10 @@ import {
   setAllData 
 } from '../../store/slices/transactionSlice.js';
 import { auth } from '../../config/firebase.js';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { fetchAllUserData, saveToFirebase } from '../../store/firebaseSync.js';
 import './App.css';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -34,11 +34,14 @@ function App() {
   const transactionPreferences = useSelector(selectTransactionPreferences);
   const dispatch = useDispatch();
   
+  const [isLoading, setIsLoading] = useState(true);
   const isInitialMount = useRef(true);
+  const dataLoaded = useRef(false);
 
   // Handle Auth State Changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setIsLoading(true);
       if (user) {
         const userData = {
           uid: user.uid,
@@ -56,9 +59,12 @@ function App() {
             dispatch(setAllData(data.transactions));
           }
         }
+        dataLoaded.current = true;
       } else {
         dispatch(logout());
+        dataLoaded.current = false;
       }
+      setIsLoading(false);
     });
 
     return () => unsubscribe();
@@ -71,7 +77,7 @@ function App() {
       return;
     }
 
-    if (isAuthenticated) {
+    if (isAuthenticated && dataLoaded.current) {
       saveToFirebase('theme', themeMode);
       saveToFirebase('accessibility', accessibility);
       saveToFirebase('transactions', {
@@ -112,11 +118,25 @@ function App() {
     root.classList.add(`font-${fontSize}`);
   }, [accessibility]);
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      dispatch(logout());
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
   };
 
   const showNav = isAuthenticated && !isInitialSetup;
+
+  if (isLoading) {
+    return (
+      <div className="app-loading">
+        <div className="loader"></div>
+        <p>Loading your budget...</p>
+      </div>
+    );
+  }
 
   return (
     <Router>
