@@ -7,12 +7,14 @@ import Transactions from '../../views/Transactions/Transactions.jsx';
 import Reports from '../../views/Reports/Reports.jsx';
 import Settings from '../../views/Settings/Settings.jsx';
 import Login from '../../views/Login/Login.jsx';
+import Setup from '../../views/Setup/Setup.jsx';
 import { selectIsAuthenticated, logout, login } from '../../store/slices/authSlice.js';
 import { selectThemeMode, setTheme } from '../../store/slices/themeSlice.js';
 import { selectAccessibility, setAllAccessibility } from '../../store/slices/accessibilitySlice.js';
 import { 
   selectTransactions, 
   selectInitialBudget, 
+  selectIsInitialSetup,
   selectTransactionPreferences,
   setAllData 
 } from '../../store/slices/transactionSlice.js';
@@ -24,6 +26,7 @@ import { useEffect, useRef } from 'react';
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const isInitialSetup = useSelector(selectIsInitialSetup);
   const themeMode = useSelector(selectThemeMode);
   const accessibility = useSelector(selectAccessibility);
   const transactions = useSelector(selectTransactions);
@@ -113,31 +116,37 @@ function App() {
     dispatch(logout());
   };
 
+  const showNav = isAuthenticated && !isInitialSetup;
+
   return (
     <Router>
       <div className="app-container">
         <AppHeader title="Budget Manager" />
-        {isAuthenticated && <NavBar onLogout={handleLogout} />}
+        {showNav && <NavBar onLogout={handleLogout} />}
         <Routes>
           <Route 
             path="/login" 
-            element={!isAuthenticated ? <Login /> : <Navigate to="/" />} 
+            element={!isAuthenticated ? <Login /> : (isInitialSetup ? <Navigate to="/setup" /> : <Navigate to="/" />)} 
+          />
+          <Route 
+            path="/setup" 
+            element={isAuthenticated ? (isInitialSetup ? <Setup /> : <Navigate to="/" />) : <Navigate to="/login" />} 
           />
           <Route 
             path="/" 
-            element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? (isInitialSetup ? <Navigate to="/setup" /> : <Dashboard />) : <Navigate to="/login" />} 
           />
           <Route 
             path="/transactions" 
-            element={isAuthenticated ? <Transactions /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? (isInitialSetup ? <Navigate to="/setup" /> : <Transactions />) : <Navigate to="/login" />} 
           />
           <Route 
             path="/reports" 
-            element={isAuthenticated ? <Reports /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? (isInitialSetup ? <Navigate to="/setup" /> : <Reports />) : <Navigate to="/login" />} 
           />
           <Route 
             path="/settings" 
-            element={isAuthenticated ? <Settings /> : <Navigate to="/login" />} 
+            element={isAuthenticated ? (isInitialSetup ? <Navigate to="/setup" /> : <Settings />) : <Navigate to="/login" />} 
           />
         </Routes>
       </div>
