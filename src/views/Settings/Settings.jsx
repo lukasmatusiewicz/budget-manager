@@ -3,12 +3,17 @@ import TransactionPreferences from '../../components/organisms/TransactionPrefer
 import ProfileSettings from '../../components/organisms/ProfileSettings/ProfileSettings.jsx';
 import AccessibilitySettings from '../../components/organisms/AccessibilitySettings/AccessibilitySettings.jsx';
 import DangerZone from '../../components/organisms/DangerZone/DangerZone.jsx';
+import LanguageSettings from '../../components/organisms/LanguageSettings/LanguageSettings.jsx';
+import { useTranslation } from 'react-i18next';
 
 const Settings = () => {
+  const { t } = useTranslation();
+  
   return (
     <div className="view-container">
-      <h2>Settings</h2>
+      <h2>{t('settings.title')}</h2>
       <ProfileSettings />
+      <LanguageSettings />
       <ThemeSettings />
       <AccessibilitySettings />
       <TransactionPreferences />

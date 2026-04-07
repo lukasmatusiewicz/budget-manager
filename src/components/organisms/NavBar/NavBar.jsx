@@ -1,13 +1,15 @@
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Icon from '../../atoms/Icon/Icon.jsx';
 import './NavBar.css';
 
 const NavBar = ({ onLogout }) => {
+  const { t } = useTranslation();
   const navItems = [
-    { name: 'Dashboard', path: '/', icon: 'chart-icon' },
-    { name: 'Transactions', path: '/transactions', icon: 'wallet-icon' },
-    { name: 'Reports', path: '/reports', icon: 'reports-icon' },
-    { name: 'Settings', path: '/settings', icon: 'settings-icon' },
+    { name: t('nav.dashboard'), path: '/', icon: 'chart-icon' },
+    { name: t('nav.transactions'), path: '/transactions', icon: 'wallet-icon' },
+    { name: t('nav.reports'), path: '/reports', icon: 'reports-icon' },
+    { name: t('nav.settings'), path: '/settings', icon: 'settings-icon' },
   ];
 
   return (
@@ -28,7 +30,7 @@ const NavBar = ({ onLogout }) => {
         <li className="nav-item logout">
           <button onClick={onLogout} className="logout-button">
             <Icon name="logout-icon" className="nav-icon" />
-            <span>Logout</span>
+            <span>{t('common.logout')}</span>
           </button>
         </li>
       </ul>

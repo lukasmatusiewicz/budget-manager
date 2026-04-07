@@ -1,8 +1,10 @@
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { selectTransactions } from '../../../store/slices/transactionSlice.js';
 import './FastStatsTable.css';
 
 const FastStatsTable = () => {
+  const { t } = useTranslation();
   const transactions = useSelector(selectTransactions);
 
   // Date logic for last 30 days
@@ -30,21 +32,21 @@ const FastStatsTable = () => {
   };
 
   const stats = [
-    { label: 'Transactions Count', income: incomes.length, expense: expenses.length, unit: '' },
-    { label: 'Average per Day', income: incomeSum / 30, expense: expenseSum / 30, unit: '$' },
-    { label: 'Average Monthly', income: getMonthlyAverage('income'), expense: getMonthlyAverage('expense'), unit: '$' },
-    { label: 'Sum (Last 30 Days)', income: incomeSum, expense: expenseSum, unit: '$' },
+    { label: t('reports.metrics.count'), income: incomes.length, expense: expenses.length, unit: '' },
+    { label: t('reports.metrics.avg_day'), income: incomeSum / 30, expense: expenseSum / 30, unit: '$' },
+    { label: t('reports.metrics.avg_month'), income: getMonthlyAverage('income'), expense: getMonthlyAverage('expense'), unit: '$' },
+    { label: t('reports.metrics.sum_30'), income: incomeSum, expense: expenseSum, unit: '$' },
   ];
 
   return (
     <div className="fast-stats-container view-container">
-      <h3>Quick Stats (Last 30 Days)</h3>
+      <h3>{t('reports.quick_stats')}</h3>
       <table className="fast-stats-table">
         <thead>
           <tr>
-            <th>Metric</th>
-            <th className="income-col">Incomes</th>
-            <th className="expense-col">Outcomes</th>
+            <th>{t('reports.metric')}</th>
+            <th className="income-col">{t('common.incomes')}</th>
+            <th className="expense-col">{t('common.outcomes')}</th>
           </tr>
         </thead>
         <tbody>

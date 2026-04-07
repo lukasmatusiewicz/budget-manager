@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { clearTransactions } from '../../../store/slices/transactionSlice.js';
 import Button from '../../atoms/Button/Button.jsx';
 import Modal from '../../atoms/Modal/Modal.jsx';
 import './DangerZone.css';
 
 const DangerZone = () => {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -16,16 +18,16 @@ const DangerZone = () => {
 
   return (
     <div className="danger-zone">
-      <h3>Danger Zone</h3>
-      <p className="settings-description">Permanent actions that cannot be undone.</p>
+      <h3>{t('settings.danger_zone')}</h3>
+      <p className="settings-description">{t('settings.danger_zone_desc')}</p>
       
       <div className="danger-action">
         <div className="action-info">
-          <h4>Clear Transaction History</h4>
-          <p>Remove all income and expense entries from your account.</p>
+          <h4>{t('settings.clear_history')}</h4>
+          <p>{t('settings.clear_history_desc')}</p>
         </div>
         <Button variant="outline" onClick={() => setIsModalOpen(true)} className="danger-btn">
-          Clear History
+          {t('settings.clear_button')}
         </Button>
       </div>
 
@@ -33,9 +35,9 @@ const DangerZone = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleClearHistory}
-        title="Are you absolutely sure?"
-        message="This will permanently delete all your transaction data. This action cannot be reversed."
-        confirmText="Yes, delete everything"
+        title={t('settings.modal_title')}
+        message={t('settings.modal_message')}
+        confirmText={t('settings.modal_confirm')}
         variant="primary" // You could add a 'danger' variant later
       />
     </div>

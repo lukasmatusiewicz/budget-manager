@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { addTransaction, selectTransactionPreferences } from '../../../store/slices/transactionSlice.js';
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '../../../constants/categories.js';
 import FormField from '../../molecules/FormField/FormField.jsx';
@@ -8,6 +9,7 @@ import Button from '../../atoms/Button/Button.jsx';
 import './TransactionForm.css';
 
 const TransactionForm = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const preferences = useSelector(selectTransactionPreferences);
 
@@ -68,20 +70,20 @@ const TransactionForm = () => {
 
   return (
     <div className="transaction-form-container">
-      <h3>Add New Transaction</h3>
+      <h3>{t('transactions.add_new')}</h3>
       <form onSubmit={handleSubmit} className="transaction-form">
         <FormField 
-          label="Description"
+          label={t('common.description')}
           name="description"
           value={formData.description}
           onChange={handleChange}
-          placeholder="What was it for?"
+          placeholder={t('transactions.description_placeholder')}
           required
         />
         
         <div className="form-row">
           <FormField 
-            label="Amount"
+            label={t('common.amount')}
             name="amount"
             type="number"
             value={formData.amount}
@@ -97,7 +99,7 @@ const TransactionForm = () => {
         </div>
 
         <div className="form-group">
-          <label>Category</label>
+          <label>{t('common.category')}</label>
           <select 
             name="category" 
             value={formData.category} 
@@ -105,12 +107,12 @@ const TransactionForm = () => {
             className="category-select"
           >
             {categories.map(cat => (
-              <option key={cat} value={cat}>{cat}</option>
+              <option key={cat} value={cat}>{t(`categories.${cat}`)}</option>
             ))}
           </select>
         </div>
         
-        <Button type="submit" variant="primary" className="add-button">Add Transaction</Button>
+        <Button type="submit" variant="primary" className="add-button">{t('transactions.add_button')}</Button>
       </form>
     </div>
   );
