@@ -7,6 +7,11 @@ vi.mock('react-redux', () => ({
   useSelector: vi.fn(),
 }));
 
+// Mock formatters
+vi.mock('../../../utils/formatters.js', () => ({
+  formatCurrency: (amount) => `$${amount}`,
+}));
+
 describe('RecentActivity', () => {
   beforeEach(() => {
     useSelector.mockReturnValue({ currency: 'USD' });

@@ -7,6 +7,10 @@ vi.mock('react-redux', () => ({
   useSelector: vi.fn(),
 }));
 
+vi.mock('../../../utils/formatters.js', () => ({
+  formatCurrency: (amount) => `$${amount}`,
+}));
+
 describe('QuickStatsTable', () => {
   const mockTransactions = [
     { id: '1', type: 'expense', amount: 50, date: new Date().toISOString().split('T')[0], category: 'Food' },

@@ -7,7 +7,3 @@ vi.mock('react-i18next', () => ({
     t: (key) => key,
   }),
 }));
-
-vi.mock('./src/utils/formatters.js', () => ({
-  formatCurrency: (amount) => `$${amount}`,
-}));

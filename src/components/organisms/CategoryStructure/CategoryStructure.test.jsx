@@ -17,6 +17,10 @@ vi.mock('react-redux', () => ({
   useSelector: vi.fn(),
 }));
 
+vi.mock('../../../utils/formatters.js', () => ({
+  formatCurrency: (amount) => `$${amount}`,
+}));
+
 describe('CategoryStructure', () => {
   beforeEach(() => {
     vi.clearAllMocks();

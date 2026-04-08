@@ -19,6 +19,10 @@ vi.mock('react-redux', () => ({
   useSelector: vi.fn(),
 }));
 
+vi.mock('../../../utils/formatters.js', () => ({
+  formatCurrency: (amount) => `$${amount}`,
+}));
+
 describe('DailyStats', () => {
   const mockTransactions = [
     { id: 1, type: 'income', amount: 100, date: new Date().toISOString().split('T')[0] },
