@@ -26,19 +26,19 @@ describe('useFirebaseSync', () => {
     const dataLoaded = { current: true };
 
     const { rerender } = renderHook(
-      ({ auth, welcome, loaded, theme }) => {
+      ({ auth, welcome, loaded }) => {
         // We need to ensure themeMode is tracked
         return useFirebaseSync(auth, welcome, loaded);
       },
       {
-        initialProps: { auth: isAuthenticated, welcome: hasCompletedWelcome, loaded: dataLoaded, theme: 'dark' }
+        initialProps: { auth: isAuthenticated, welcome: hasCompletedWelcome, loaded: dataLoaded }
       }
     );
 
     // Change a value that triggers the effect
     useSelector.mockReturnValue('light');
     
-    rerender({ auth: isAuthenticated, welcome: hasCompletedWelcome, loaded: dataLoaded, theme: 'light' });
+    rerender({ auth: isAuthenticated, welcome: hasCompletedWelcome, loaded: dataLoaded });
 
     await waitFor(() => {
       expect(saveToFirebase).toHaveBeenCalledWith('theme', 'light');
