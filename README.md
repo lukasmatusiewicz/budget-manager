@@ -1,16 +1,81 @@
-# React + Vite
+# 💸 Budget Manager - Portfolio Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive personal finance tracking application built with **React 19** and **Vite**. This project demonstrates advanced front-end engineering practices, clean architecture using **Atomic Design**, and seamless integration with **Firebase** services.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Key Features
 
-## React Compiler
+- **📊 Dynamic Dashboard:** Real-time summary of balance, monthly income, and expenses with visual indicators.
+- **💸 Transaction Management:** Intuitive interface for recording, editing, and deleting financial transactions.
+- **📈 Advanced Analytics:** Data-driven insights powered by **Recharts**, including category breakdowns and daily spending trends.
+- **🌍 Internationalization (i18n):** Full support for multiple languages (English, Polish, Spanish, German) using **i18next**.
+- **🌓 Adaptive Theme Engine:** Dynamic switching between Light and Dark modes with persistent user preferences.
+- **🔒 Firebase Authentication:** Secure user authentication and real-time data synchronization with **Firebase Realtime Database**.
+- **♿ Accessibility Focus:** Customizable UI settings, including high contrast, increased font size, and reduced motion.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack & Skills
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### **Core Frontend**
+- **React 19:** Functional components, Hooks (`useMemo`, `useCallback`, `useEffect`), and modern React patterns.
+- **Vite:** Blazing fast build tool and HMR.
+- **Redux Toolkit:** Centralized state management with Slices and asynchronous thunks for Firebase sync.
+- **React Router v7:** Modern client-side routing and navigation.
+
+### **Backend & Infrastructure**
+- **Firebase Auth:** Secure login, registration, and session persistence.
+- **Firebase Realtime Database:** NoSQL cloud database for real-time data persistence.
+
+### **UI & Visualization**
+- **Vanilla CSS:** Modular styling following **Atomic Design** principles, utilizing CSS Variables for theming.
+- **Recharts:** Interactive and responsive data visualization (Pie Charts, Area Charts).
+- **SVG Sprites:** Optimized icon delivery system for performance and scalability.
+
+---
+
+## 🏗️ Architectural Excellence
+
+- **Atomic Design Methodology:** Components are organized into Atoms, Molecules, and Organisms to ensure maximum reusability and maintainability.
+- **Clean Code & Patterns:** Strict adherence to SOLID principles, custom hooks for logic abstraction, and modular state management.
+- **Responsive Architecture:** A mobile-first approach ensuring a seamless experience across all device sizes.
+- **Type Safety & Standards:** ESLint configuration for code quality and consistency.
+
+---
+
+## ⚠️ Important Note
+This application was developed as a **portfolio project** to showcase software engineering skills, architectural knowledge, and a commitment to building high-quality, accessible user experiences. It is intended for demonstration purposes only.
+
+---
+
+## 🚦 Getting Started
+
+To run this project locally, clone the repository and follow these steps:
+
+1. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Environment Setup:**
+   Create a `.env` file in the root directory and add your Firebase configuration:
+   ```env
+   VITE_FIREBASE_API_KEY=your_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+   VITE_FIREBASE_DATABASE_URL=your_database_url
+   VITE_FIREBASE_PROJECT_ID=your_project_id
+   VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+   VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+   VITE_FIREBASE_APP_ID=your_app_id
+   ```
+
+3. **Run Development Server:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for Production:**
+   ```bash
+   npm run build
+   ```
