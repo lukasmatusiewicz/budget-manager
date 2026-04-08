@@ -2,9 +2,9 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { selectTransactions, selectTransactionPreferences } from '../../../store/slices/transactionSlice.js';
 import { formatCurrency } from '../../../utils/formatters.js';
-import './FastStatsTable.css';
+import './QuickStatsTable.css';
 
-const FastStatsTable = () => {
+const QuickStatsTable = () => {
   const { t } = useTranslation();
   const transactions = useSelector(selectTransactions);
   const { currency } = useSelector(selectTransactionPreferences);
@@ -41,9 +41,9 @@ const FastStatsTable = () => {
   ];
 
   return (
-    <div className="fast-stats-container view-container">
+    <div className="quick-stats-container view-container">
       <h3>{t('reports.quick_stats')}</h3>
-      <table className="fast-stats-table">
+      <table className="quick-stats-table">
         <thead>
           <tr>
             <th>{t('reports.metric')}</th>
@@ -69,4 +69,4 @@ const FastStatsTable = () => {
   );
 };
 
-export default FastStatsTable;
+export default QuickStatsTable;

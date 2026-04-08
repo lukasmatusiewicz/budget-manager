@@ -24,6 +24,11 @@ A comprehensive personal finance tracking application built with **React 19** an
 - **Redux Toolkit:** Centralized state management with Slices and asynchronous thunks for Firebase sync.
 - **React Router v7:** Modern client-side routing and navigation.
 
+### **Testing & QA**
+- **Vitest:** Blazing fast unit testing framework powered by Vite.
+- **React Testing Library:** User-centric testing for UI components.
+- **JSDOM:** Browser environment simulation for reliable DOM testing.
+
 ### **Backend & Infrastructure**
 - **Firebase Auth:** Secure login, registration, and session persistence.
 - **Firebase Realtime Database:** NoSQL cloud database for real-time data persistence.
@@ -41,6 +46,16 @@ A comprehensive personal finance tracking application built with **React 19** an
 - **Clean Code & Patterns:** Strict adherence to SOLID principles, custom hooks for logic abstraction, and modular state management.
 - **Responsive Architecture:** A mobile-first approach ensuring a seamless experience across all device sizes.
 - **Type Safety & Standards:** ESLint configuration for code quality and consistency.
+
+---
+
+## 🧪 Quality Assurance & Testing
+
+The project maintains high reliability through a comprehensive suite of unit and integration tests. The testing strategy focuses on:
+
+- **Component Integrity:** Verifying that UI components (Atoms and Molecules) render correctly and handle user interactions (clicks, input changes) as expected.
+- **State Logic:** Ensuring that Redux actions and slices correctly manage transaction data and UI states.
+- **Mocking Strategy:** Robust use of Vitest mocks for external dependencies like `react-i18next`, `react-redux`, and Firebase to ensure isolated and deterministic test results.
 
 ---
 
@@ -75,7 +90,12 @@ To run this project locally, clone the repository and follow these steps:
    npm run dev
    ```
 
-4. **Build for Production:**
+4. **Run Tests:**
+   ```bash
+   npm test
+   ```
+
+5. **Build for Production:**
    ```bash
    npm run build
    ```
