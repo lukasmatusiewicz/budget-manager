@@ -42,7 +42,7 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        <AppHeader title="Budget Managerxxxx" />
+        <AppHeader title="Budget Manager" />
         {showNav && <NavBar onLogout={handleLogout} />}
         <Routes>
           <Route
