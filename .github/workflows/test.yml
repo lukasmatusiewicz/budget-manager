@@ -7,6 +7,9 @@ jobs:
   test:
     name: Run tests and linting
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
     env:
       VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
       VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
@@ -27,7 +30,13 @@ jobs:
         run: npm ci
       - name: Run linting
         run: npm run lint
-      - name: Run tests
-        run: npm test
+      - name: Run tests with coverage
+        run: npm run test:coverage
+      - name: Vitest Coverage Report
+        uses: davelosert/vitest-coverage-report-action@v2
+        if: always()
+        with:
+          json-summary-path: './coverage/coverage-summary.json'
+          json-final-path: './coverage/coverage-final.json'
       - name: Build
         run: npm run build

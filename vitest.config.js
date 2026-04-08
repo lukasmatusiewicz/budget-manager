@@ -8,5 +8,9 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './vitest.setup.js',
     include: ['src/**/*.test.{js,jsx}'],
+    coverage: {
+      reporter: ['text', 'json-summary', 'json'],
+      reportOnFailure: true,
+    },
   },
 });
