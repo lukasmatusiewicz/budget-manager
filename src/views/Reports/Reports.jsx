@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import CategoryStructure from '../../components/organisms/CategoryStructure/CategoryStructure.jsx';
 import DailyStats from '../../components/organisms/DailyStats/DailyStats.jsx';
-import FastStatsTable from '../../components/organisms/FastStatsTable/FastStatsTable.jsx';
+import QuickStatsTable from '../../components/organisms/QuickStatsTable/QuickStatsTable.jsx';
 import './Reports.css';
 
 const Reports = () => {
@@ -13,7 +13,7 @@ const Reports = () => {
       <div className="reports-dashboard">
         <CategoryStructure type="expense" title={t('reports.expenses_structure')} />
         <CategoryStructure type="income" title={t('reports.incomes_structure')} />
-        <FastStatsTable />
+        <QuickStatsTable />
         <DailyStats />
       </div>
     </div>
