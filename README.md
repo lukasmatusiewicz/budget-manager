@@ -1,5 +1,8 @@
 # 💸 Budget Manager - Portfolio Project
 
+![Tests and Linting](https://github.com/lukasmatusiewicz/budget-manager/actions/workflows/test.yml/badge.svg)
+![Coverage](https://img.shields.io/badge/coverage-93.8%25-brightgreen)
+
 A comprehensive personal finance tracking application built with **React 19** and **Vite**. This project demonstrates advanced front-end engineering practices, clean architecture using **Atomic Design**, and seamless integration with **Firebase** services.
 
 ---
