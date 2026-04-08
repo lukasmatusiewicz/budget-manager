@@ -4,6 +4,13 @@ A comprehensive personal finance tracking application built with **React 19** an
 
 ---
 
+## 🔗 Live Demo
+
+You can experience the live application here:
+**[Budget Manager Hosted on Firebase](https://budget-manager-e11d2.web.app/)**
+
+---
+
 ## 🚀 Key Features
 
 - **📊 Dynamic Dashboard:** Real-time summary of balance, monthly income, and expenses with visual indicators.
@@ -90,10 +97,16 @@ To run this project locally, clone the repository and follow these steps:
    npm run dev
    ```
 
-4. **Run Tests:**
+4. **Quality Assurance (Tests & Linting):**
+   Execute the full test suite and check for code quality:
    ```bash
+   # Run all unit and integration tests
    npm test
+
+   # Run ESLint to verify code standards
+   npm run lint
    ```
+   *Note: A GitHub Actions workflow automatically runs these checks on every pull request to ensure high code quality.*
 
 5. **Build for Production:**
    ```bash
