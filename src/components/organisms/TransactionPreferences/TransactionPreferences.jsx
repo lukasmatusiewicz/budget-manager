@@ -20,6 +20,18 @@ const TransactionPreferences = () => {
     dispatch(setPreferences({ defaultCategory: e.target.value }));
   };
 
+  const handleCurrencyChange = (e) => {
+    dispatch(setPreferences({ currency: e.target.value }));
+  };
+
+  const currencies = [
+    { code: 'USD', symbol: '$' },
+    { code: 'EUR', symbol: '€' },
+    { code: 'GBP', symbol: '£' },
+    { code: 'JPY', symbol: '¥' },
+    { code: 'PLN', symbol: 'zł' }
+  ];
+
   const categories = preferences.defaultType === 'expense' ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
 
   return (
@@ -35,17 +47,34 @@ const TransactionPreferences = () => {
           />
         </div>
 
-        <div className="pref-group">
-          <label className="pref-label">{t('settings.default_category')}</label>
-          <select 
-            value={preferences.defaultCategory} 
-            onChange={handleCategoryChange}
-            className="pref-select"
-          >
-            {categories.map(cat => (
-              <option key={cat} value={cat}>{t(`categories.${cat}`)}</option>
-            ))}
-          </select>
+        <div className="pref-row">
+          <div className="pref-group">
+            <label className="pref-label">{t('settings.default_category')}</label>
+            <select 
+              value={preferences.defaultCategory} 
+              onChange={handleCategoryChange}
+              className="pref-select"
+            >
+              {categories.map(cat => (
+                <option key={cat} value={cat}>{t(`categories.${cat}`)}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="pref-group">
+            <label className="pref-label">{t('settings.currency')}</label>
+            <select 
+              value={preferences.currency} 
+              onChange={handleCurrencyChange}
+              className="pref-select"
+            >
+              {currencies.map(curr => (
+                <option key={curr.code} value={curr.code}>
+                  {curr.code} ({curr.symbol})
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
     </div>

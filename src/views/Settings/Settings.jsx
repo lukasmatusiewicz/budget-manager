@@ -13,10 +13,10 @@ const Settings = () => {
     <div className="view-container">
       <h2>{t('settings.title')}</h2>
       <ProfileSettings />
-      <LanguageSettings />
       <ThemeSettings />
-      <AccessibilitySettings />
+      <LanguageSettings />
       <TransactionPreferences />
+      <AccessibilitySettings />
       <DangerZone />
     </div>
   );

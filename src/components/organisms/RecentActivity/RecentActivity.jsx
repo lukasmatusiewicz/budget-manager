@@ -1,8 +1,12 @@
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { selectTransactionPreferences } from '../../../store/slices/transactionSlice.js';
+import { formatCurrency } from '../../../utils/formatters.js';
 import './RecentActivity.css';
 
 const RecentActivity = ({ transactions = [] }) => {
   const { t } = useTranslation();
+  const { currency } = useSelector(selectTransactionPreferences);
   
   return (
     <section className="recent-activity">
@@ -20,7 +24,7 @@ const RecentActivity = ({ transactions = [] }) => {
                 <span className="transaction-date">{transaction.date}</span>
               </div>
               <span className="transaction-amount">
-                {transaction.type === 'expense' ? '-' : '+'}${transaction.amount.toFixed(2)}
+                {transaction.type === 'expense' ? '-' : '+'}{formatCurrency(transaction.amount, currency)}
               </span>
             </li>
           ))}

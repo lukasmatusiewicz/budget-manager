@@ -1,6 +1,7 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { updateTransactionCategory, updateTransactionDate, removeTransaction } from '../../../store/slices/transactionSlice.js';
+import { updateTransactionCategory, updateTransactionDate, removeTransaction, selectTransactionPreferences } from '../../../store/slices/transactionSlice.js';
+import { formatCurrency } from '../../../utils/formatters.js';
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '../../../constants/categories.js';
 import Button from '../../atoms/Button/Button.jsx';
 import Icon from '../../atoms/Icon/Icon.jsx';
@@ -9,6 +10,7 @@ import './TransactionItem.css';
 const TransactionItem = ({ transaction }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { currency } = useSelector(selectTransactionPreferences);
   const categories = transaction.type === 'expense' ? EXPENSE_CATEGORIES : INCOME_CATEGORIES;
 
   const handleCategoryChange = (e) => {
@@ -55,7 +57,7 @@ const TransactionItem = ({ transaction }) => {
       </div>
       <div className="transaction-right">
         <span className="transaction-amount">
-          {transaction.type === 'expense' ? '-' : '+'}${transaction.amount.toFixed(2)}
+          {transaction.type === 'expense' ? '-' : '+'}{formatCurrency(transaction.amount, currency)}
         </span>
         <Button variant="text" onClick={handleRemove} className="remove-btn">
           <Icon name="trash-icon" className="remove-icon" />
