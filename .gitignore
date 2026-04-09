@@ -14,7 +14,7 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 node_modules/
 
 # Build outputs
-#dist/
+dist/
 build/
 
 # IDEs and editors
@@ -53,4 +53,4 @@ out/
 /.ai
 /.agents
 /.junie
-/.firebase
+.firebase/hosting.ZGlzdA.cache

@@ -22,12 +22,15 @@ const TransactionForm = () => {
 
   // Update form if preferences change (e.g. from settings)
   useEffect(() => {
-    setFormData(prev => ({
-      ...prev,
-      type: preferences.defaultType,
-      category: preferences.defaultCategory
-    }));
-  }, [preferences]);
+    if (formData.description === '' && formData.amount === '') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setFormData(prev => ({
+        ...prev,
+        type: preferences.defaultType,
+        category: preferences.defaultCategory
+      }));
+    }
+  }, [preferences, formData.description, formData.amount]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

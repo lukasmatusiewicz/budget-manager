@@ -1,6 +1,16 @@
 # 💸 Budget Manager - Portfolio Project
 
+![Tests and Linting](https://github.com/lukasmatusiewicz/budget-manager/actions/workflows/test.yml/badge.svg)
+![Coverage](https://img.shields.io/badge/coverage-93.8%25-brightgreen)
+
 A comprehensive personal finance tracking application built with **React 19** and **Vite**. This project demonstrates advanced front-end engineering practices, clean architecture using **Atomic Design**, and seamless integration with **Firebase** services.
+
+---
+
+## 🔗 Live Demo
+
+You can experience the live application here:
+**[Budget Manager Hosted on Firebase](https://budget-manager-e11d2.web.app/)**
 
 ---
 
@@ -90,10 +100,16 @@ To run this project locally, clone the repository and follow these steps:
    npm run dev
    ```
 
-4. **Run Tests:**
+4. **Quality Assurance (Tests & Linting):**
+   Execute the full test suite and check for code quality:
    ```bash
+   # Run all unit and integration tests
    npm test
+
+   # Run ESLint to verify code standards
+   npm run lint
    ```
+   *Note: A GitHub Actions workflow automatically runs these checks on every pull request to ensure high code quality.*
 
 5. **Build for Production:**
    ```bash

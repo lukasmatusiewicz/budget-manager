@@ -1,5 +1,4 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { useTranslation } from 'react-i18next';
 import { vi } from 'vitest';
 import LanguageSettings from './LanguageSettings.jsx';
 

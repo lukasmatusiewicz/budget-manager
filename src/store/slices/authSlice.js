@@ -33,7 +33,7 @@ const authSlice = createSlice({
       state.user = { ...state.user, ...action.payload };
       localStorage.setItem('user', JSON.stringify(state.user));
     },
-    updatePassword: (state, action) => {
+    updatePassword: () => {
       // In a real app with Firebase, this would be handled via Firebase Auth directly
       console.log('Password updated successfully');
     }

@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { vi } from 'vitest';
 import SummaryGrid from './SummaryGrid.jsx';
 
 describe('SummaryGrid', () => {
