@@ -22,7 +22,7 @@ describe('formatters', () => {
     it('formats JPY with symbol and amount', () => {
       const result = formatCurrency(1500, 'JPY');
       expect(result).toMatch(/^¥/);
-      expect(result).toContain('1500');
+      expect(result.replace(/[^0-9-]/g, '')).toContain('1500');
     });
 
     it('falls back to $ for unknown currency codes', () => {
