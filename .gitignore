@@ -54,3 +54,4 @@ out/
 /.agents
 /.junie
 .firebase/
+/dist
