@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { addTransaction, selectTransactionPreferences, selectBudgetLimits, selectMonthlyCategorySpending } from '../../../store/slices/transactionSlice.js';
@@ -22,38 +22,18 @@ const TransactionForm = () => {
     category: preferences.defaultCategory
   });
 
-  const [budgetWarning, setBudgetWarning] = useState('');
-
-  // Update form if preferences change (e.g. from settings)
-  useEffect(() => {
-    if (formData.description === '' && formData.amount === '') {
-      setFormData(prev => ({
-        ...prev,
-        type: preferences.defaultType,
-        category: preferences.defaultCategory
-      }));
-    }
-  }, [preferences, formData.description, formData.amount]);
-
-  // Check for budget limit when amount or category changes
-  useEffect(() => {
-    if (formData.type === 'expense' && formData.amount && formData.category) {
-      const limit = budgetLimits[formData.category];
-      if (limit > 0) {
-        const spent = currentSpending[formData.category] || 0;
-        const newAmount = parseFloat(formData.amount) || 0;
-        if (spent + newAmount > limit) {
-          setBudgetWarning(t('transactions.budget_warning_form', { category: t(`categories.${formData.category}`) }));
-        } else {
-          setBudgetWarning('');
-        }
-      } else {
-        setBudgetWarning('');
+  // Calculate budget warning during render instead of using an effect
+  let budgetWarning = '';
+  if (formData.type === 'expense' && formData.amount && formData.category) {
+    const limit = budgetLimits[formData.category];
+    if (limit > 0) {
+      const spent = currentSpending[formData.category] || 0;
+      const newAmount = parseFloat(formData.amount) || 0;
+      if (spent + newAmount > limit) {
+        budgetWarning = t('transactions.budget_warning_form', { category: t(`categories.${formData.category}`) });
       }
-    } else {
-      setBudgetWarning('');
     }
-  }, [formData.amount, formData.category, formData.type, budgetLimits, currentSpending, t]);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -74,7 +54,6 @@ const TransactionForm = () => {
       type: preferences.defaultType,
       category: preferences.defaultCategory
     });
-    setBudgetWarning('');
   };
 
 
