@@ -4,6 +4,7 @@ import ProfileSettings from '../../components/organisms/ProfileSettings/ProfileS
 import AccessibilitySettings from '../../components/organisms/AccessibilitySettings/AccessibilitySettings.jsx';
 import DangerZone from '../../components/organisms/DangerZone/DangerZone.jsx';
 import LanguageSettings from '../../components/organisms/LanguageSettings/LanguageSettings.jsx';
+import BudgetLimits from '../../components/organisms/BudgetLimits/BudgetLimits.jsx';
 import { useTranslation } from 'react-i18next';
 
 const Settings = () => {
@@ -16,6 +17,7 @@ const Settings = () => {
       <ThemeSettings />
       <LanguageSettings />
       <TransactionPreferences />
+      <BudgetLimits />
       <AccessibilitySettings />
       <DangerZone />
     </div>

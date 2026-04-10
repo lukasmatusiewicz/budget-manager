@@ -1,0 +1,55 @@
+.budget-limits {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.budget-limits h3 {
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+}
+
+.limits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.limit-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.limit-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.limit-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.limit-input {
+  width: 100%;
+  padding: 0.8rem;
+  padding-left: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.limit-currency {
+  position: absolute;
+  left: 0.8rem;
+  color: var(--text-light);
+  font-weight: 600;
+}

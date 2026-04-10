@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import SummaryGrid from '../../components/organisms/SummaryGrid/SummaryGrid.jsx';
 import RecentActivity from '../../components/organisms/RecentActivity/RecentActivity.jsx';
+import BudgetWarnings from '../../components/organisms/BudgetWarnings/BudgetWarnings.jsx';
 import { selectTransactions, selectTotals, selectBalance, selectTransactionPreferences } from '../../store/slices/transactionSlice.js';
 import { formatCurrency } from '../../utils/formatters.js';
 import './Dashboard.css';
@@ -20,6 +21,7 @@ const Dashboard = () => {
 
   return (
     <main className="dashboard">
+      <BudgetWarnings />
       <SummaryGrid 
         balance={data.balance} 
         income={data.income} 

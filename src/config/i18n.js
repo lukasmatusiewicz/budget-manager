@@ -38,7 +38,9 @@ const resources = {
       "dashboard": {
         "total_balance": "Total Balance",
         "recent_activity": "Recent Activity",
-        "no_transactions": "No recent transactions to show."
+        "no_transactions": "No recent transactions to show.",
+        "budget_near": "You are approaching your budget for {{category}}",
+        "budget_exceeded": "You have exceeded your budget for {{category}}"
       },
       "transactions": {
         "title": "Transactions",
@@ -100,6 +102,8 @@ const resources = {
         "preferences_desc": "Set default values for new transactions.",
         "default_category": "Default Category",
         "currency": "Currency",
+        "budget_limits": "Monthly Budget Limits",
+        "budget_limits_desc": "Set maximum monthly spending for specific categories.",
         "danger_zone": "Danger Zone",
         "danger_zone_desc": "Permanent actions that cannot be undone.",
         "clear_history": "Clear Transaction History",
@@ -194,7 +198,9 @@ const resources = {
       "dashboard": {
         "total_balance": "Całkowite saldo",
         "recent_activity": "Ostatnia aktywność",
-        "no_transactions": "Brak ostatnich transakcji."
+        "no_transactions": "Brak ostatnich transakcji.",
+        "budget_near": "Zbliżasz się do limitu dla kategorii {{category}}",
+        "budget_exceeded": "Przekroczyłeś limit dla kategorii {{category}}"
       },
       "transactions": {
         "title": "Transakcje",
@@ -349,7 +355,9 @@ const resources = {
       "dashboard": {
         "total_balance": "Gesamtguthaben",
         "recent_activity": "Letzte Aktivität",
-        "no_transactions": "Keine letzten Transaktionen anzuzeigen."
+        "no_transactions": "Keine letzten Transaktionen anzuzeigen.",
+        "budget_near": "Sie nähern sich Ihrem Budget für {{category}}",
+        "budget_exceeded": "Sie haben Ihr Budget für {{category}} überschritten"
       },
       "transactions": {
         "title": "Transaktionen",
@@ -565,6 +573,8 @@ const resources = {
         "preferences": "Préférences de transaction",
         "preferences_desc": "Définir les valeurs par défaut pour les nouvelles transactions.",
         "default_category": "Catégorie par défaut",
+        "budget_limits": "Limites budgétaires mensuelles",
+        "budget_limits_desc": "Définissez des dépenses mensuelles maximales pour des catégories spécifiques.",
         "danger_zone": "Zone de danger",
         "danger_zone_desc": "Actions permanentes qui ne peuvent pas être annulées.",
         "clear_history": "Effacer l'historique des transactions",
