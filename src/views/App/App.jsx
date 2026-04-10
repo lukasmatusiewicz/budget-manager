@@ -2,12 +2,14 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useTranslation } from 'react-i18next';
 import AppHeader from '../../components/organisms/AppHeader/AppHeader.jsx';
 import NavBar from '../../components/organisms/NavBar/NavBar.jsx';
+import AppFooter from '../../components/organisms/AppFooter/AppFooter.jsx';
 import Dashboard from '../../views/Dashboard/Dashboard.jsx';
 import Transactions from '../../views/Transactions/Transactions.jsx';
 import Reports from '../../views/Reports/Reports.jsx';
 import Settings from '../../views/Settings/Settings.jsx';
 import Login from '../../views/Login/Login.jsx';
 import Welcome from '../../views/Welcome/Welcome.jsx';
+import Legal from '../../views/Legal/Legal.jsx';
 import { useAuth } from '../../hooks/useAuth.js';
 import { useFirebaseSync } from '../../hooks/useFirebaseSync.js';
 import { useUIAffects } from '../../hooks/useUIAffects.js';
@@ -69,7 +71,9 @@ function App() {
             path="/settings" 
             element={isAuthenticated ? (hasCompletedWelcome ? <Settings /> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
           />
+          <Route path="/legal" element={<Legal />} />
         </Routes>
+        <AppFooter />
       </div>
     </Router>
   );

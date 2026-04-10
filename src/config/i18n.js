@@ -141,6 +141,23 @@ const resources = {
         "Investment": "Investment",
         "Gift": "Gift",
         "Other": "Other"
+      },
+      "legal": {
+        "impressum_title": "Legal Notice (Impressum)",
+        "agb_title": "General Terms & Conditions (AGB)",
+        "name": "Name",
+        "email": "Email",
+        "impressum_disclaimer": "This application is a portfolio project created solely to demonstrate my software development skills. It is not intended for commercial use. The author accepts no responsibility or liability for any actions taken based on the use of this application or for any data entered into it.",
+        "agb_scope_title": "Scope of Application",
+        "agb_scope_text": "These terms apply to the use of the Budget Manager application.",
+        "agb_usage_title": "Usage Rights",
+        "agb_usage_text": "The application is provided for private use. Commercial redistribution is prohibited.",
+        "agb_liability_title": "Limitation of Liability",
+        "agb_liability_text": "The application is provided 'as is'. We are not liable for any financial decisions made based on the data provided by this app.",
+        "agb_privacy_title": "Data Protection",
+        "agb_privacy_text": "Your data is stored securely in Firebase. Please refer to our privacy policy for more details.",
+        "agb_changes_title": "Changes to Terms",
+        "agb_changes_text": "We reserve the right to update these terms at any time."
       }
     }
   },
@@ -279,6 +296,23 @@ const resources = {
         "Investment": "Inwestycje",
         "Gift": "Prezent",
         "Other": "Inne"
+      },
+      "legal": {
+        "impressum_title": "Nota prawna (Impressum)",
+        "agb_title": "Ogólne warunki korzystania (AGB)",
+        "name": "Imię i nazwisko",
+        "email": "Email",
+        "impressum_disclaimer": "Ta aplikacja jest projektem do portfolio, stworzonym wyłącznie w celu zaprezentowania moich umiejętności programistycznych. Nie jest ona przeznaczona do użytku komercyjnego. Autor nie ponosi żadnej odpowiedzialności za działania podjęte na podstawie korzystania z tej aplikacji ani za dane do niej wprowadzone.",
+        "agb_scope_title": "Zakres obowiązywania",
+        "agb_scope_text": "Niniejsze warunki dotyczą korzystania z aplikacji Budget Manager.",
+        "agb_usage_title": "Prawa do użytkowania",
+        "agb_usage_text": "Aplikacja jest udostępniana do użytku prywatnego. Komercyjna redystrybucja jest zabroniona.",
+        "agb_liability_title": "Ograniczenie odpowiedzialności",
+        "agb_liability_text": "Aplikacja jest dostarczana 'taka, jaka jest'. Nie ponosimy odpowiedzialności za żadne decyzje finansowe podjęte na podstawie danych dostarczonych przez tę aplikację.",
+        "agb_privacy_title": "Ochrona danych",
+        "agb_privacy_text": "Twoje dane są bezpiecznie przechowywane w Firebase. Więcej szczegółów znajdziesz w naszej polityce prywatności.",
+        "agb_changes_title": "Zmiany w warunkach",
+        "agb_changes_text": "Zastrzegamy sobie prawo do aktualizacji niniejszych warunków w dowolnym momencie."
       }
     }
   },
@@ -417,6 +451,23 @@ const resources = {
         "Investment": "Investition",
         "Gift": "Geschenk",
         "Other": "Andere"
+      },
+      "legal": {
+        "impressum_title": "Impressum",
+        "agb_title": "Allgemeine Geschäftsbedingungen (AGB)",
+        "name": "Name",
+        "email": "E-Mail",
+        "impressum_disclaimer": "Diese Anwendung ist ein Portfolio-Projekt, das ausschließlich zur Demonstration meiner Softwareentwicklungsfähigkeiten erstellt wurde. Sie ist nicht für den kommerziellen Gebrauch bestimmt. Der Autor übernimmt keine Verantwortung oder Haftung für Handlungen, die auf der Grundlage der Nutzung dieser Anwendung erfolgen, oder für die darin eingegebenen Daten.",
+        "agb_scope_title": "Geltungsbereich",
+        "agb_scope_text": "Diese Bedingungen gelten für die Nutzung der Budget Manager-Anwendung.",
+        "agb_usage_title": "Nutzungsrechte",
+        "agb_usage_text": "Die Anwendung wird für den privaten Gebrauch zur Verfügung gestellt. Eine kommerzielle Weitergabe ist untersagt.",
+        "agb_liability_title": "Limitation of Liability",
+        "agb_liability_text": "Die Anwendung wird 'wie besehen' zur Verfügung gestellt. Wir haften nicht für finanzielle Entscheidungen, die auf der Grundlage der von dieser App bereitgestellten Daten getroffen werden.",
+        "agb_privacy_title": "Datenschutz",
+        "agb_privacy_text": "Ihre Daten werden sicher in Firebase gespeichert. Weitere Einzelheiten entnehmen Sie bitte unserer Datenschutzerklärung.",
+        "agb_changes_title": "Änderungen der Bedingungen",
+        "agb_changes_text": "Wir behalten uns das Recht vor, diese Bedingungen jederzeit zu aktualisieren."
       }
     }
   },
@@ -555,6 +606,23 @@ const resources = {
         "Investment": "Investissement",
         "Gift": "Cadeau",
         "Other": "Autre"
+      },
+      "legal": {
+        "impressum_title": "Mentions Légales",
+        "agb_title": "Conditions Générales d'Utilisation (CGU)",
+        "name": "Nom",
+        "email": "Email",
+        "impressum_disclaimer": "Cette application est un projet de portfolio créé uniquement pour démontrer mes compétences en développement de logiciels. Elle n'est pas destinée à un usage commercial. L'auteur n'accepte aucune responsabilité pour toute action entreprise sur la base de l'utilisation de cette application ou pour toutes les données qui y sont saisies.",
+        "agb_scope_title": "Champ d'application",
+        "agb_scope_text": "Ces conditions s'appliquent à l'utilisation de l'application Budget Manager.",
+        "agb_usage_title": "Droits d'utilisation",
+        "agb_usage_text": "L'application est fournie pour un usage privé. La redistribution commerciale est interdite.",
+        "agb_liability_title": "Limitation de responsabilité",
+        "agb_liability_text": "L'application est fournie 'en l'état'. Nous ne sommes pas responsables des décisions financières prises sur la base des données fournies par cette application.",
+        "agb_privacy_title": "Protection des données",
+        "agb_privacy_text": "Vos données sont stockées en toute sécurité dans Firebase. Veuillez vous référer à notre politique de confidentialité pour plus de détails.",
+        "agb_changes_title": "Modifications des conditions",
+        "agb_changes_text": "Nous nous réservons le droit de mettre à jour ces conditions à tout moment."
       }
     }
   }
