@@ -1,8 +1,9 @@
 .budget-limits {
-  background: var(--card-bg);
+  background: var(--bg);
   padding: 1.5rem;
+  border: 1px solid var(--border);
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
   margin-top: 2rem;
 }
 
@@ -27,7 +28,7 @@
 .limit-label {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--text);
+  color: var(--text-h);
 }
 
 .limit-input-wrapper {
@@ -50,6 +51,6 @@
 .limit-currency {
   position: absolute;
   left: 0.8rem;
-  color: var(--text-light);
+  color: var(--text);
   font-weight: 600;
 }

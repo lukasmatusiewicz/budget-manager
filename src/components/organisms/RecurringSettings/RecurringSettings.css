@@ -1,0 +1,115 @@
+.recurring-settings {
+  background: var(--bg);
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-top: 2rem;
+}
+
+.recurring-settings h3 {
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+}
+
+.recurring-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.recurring-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.subscriptions-section {
+  margin-top: 2rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+
+.subscription-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.subscription-form input, 
+.subscription-form select {
+  padding: 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  flex: 1;
+  min-width: 120px;
+}
+
+.subscription-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.subscription-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+  background: var(--bg);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.subscription-info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.subscription-name {
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.subscription-cost {
+  color: var(--danger);
+}
+
+.subscription-frequency {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+  background: var(--accent);
+  border-radius: 4px;
+  color: white;
+}
+
+.remove-sub {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 4px;
+}
+
+.remove-sub:hover {
+  background: rgba(244, 67, 54, 0.1);
+}
+
+.add-sub-btn {
+  padding: 0.6rem 1rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-sub-btn:hover {
+  filter: brightness(1.1);
+}

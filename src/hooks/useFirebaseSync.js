@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { selectThemeMode } from '../store/slices/themeSlice.js';
 import { selectAccessibility } from '../store/slices/accessibilitySlice.js';
-import { selectTransactions, selectTransactionPreferences, selectBudgetLimits } from '../store/slices/transactionSlice.js';
+import { selectTransactions, selectTransactionPreferences, selectBudgetLimits, selectRecurringItems } from '../store/slices/transactionSlice.js';
 import { saveToFirebase } from '../store/firebaseSync.js';
 
 export const useFirebaseSync = (isAuthenticated, hasCompletedWelcome, dataLoaded) => {
@@ -11,6 +11,7 @@ export const useFirebaseSync = (isAuthenticated, hasCompletedWelcome, dataLoaded
   const transactions = useSelector(selectTransactions);
   const transactionPreferences = useSelector(selectTransactionPreferences);
   const budgetLimits = useSelector(selectBudgetLimits);
+  const recurringItems = useSelector(selectRecurringItems);
   const isInitialMount = useRef(true);
 
   useEffect(() => {
@@ -27,11 +28,12 @@ export const useFirebaseSync = (isAuthenticated, hasCompletedWelcome, dataLoaded
         saveToFirebase('transactions', {
           items: transactions,
           preferences: transactionPreferences,
-          budgetLimits: budgetLimits
+          budgetLimits: budgetLimits,
+          recurringItems: recurringItems
         })
       ]).catch(error => {
         console.error('Failed to sync data to Firebase:', error);
       });
     }
-  }, [themeMode, accessibility, transactions, transactionPreferences, budgetLimits, isAuthenticated, hasCompletedWelcome, dataLoaded]);
+  }, [themeMode, accessibility, transactions, transactionPreferences, budgetLimits, recurringItems, isAuthenticated, hasCompletedWelcome, dataLoaded]);
 };

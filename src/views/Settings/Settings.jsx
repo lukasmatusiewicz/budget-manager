@@ -5,19 +5,21 @@ import AccessibilitySettings from '../../components/organisms/AccessibilitySetti
 import DangerZone from '../../components/organisms/DangerZone/DangerZone.jsx';
 import LanguageSettings from '../../components/organisms/LanguageSettings/LanguageSettings.jsx';
 import BudgetLimits from '../../components/organisms/BudgetLimits/BudgetLimits.jsx';
+import RecurringSettings from '../../components/organisms/RecurringSettings/RecurringSettings.jsx';
 import { useTranslation } from 'react-i18next';
 
 const Settings = () => {
   const { t } = useTranslation();
   
   return (
-    <div className="view-container">
+    <div className="settings-view">
       <h2>{t('settings.title')}</h2>
       <ProfileSettings />
       <ThemeSettings />
       <LanguageSettings />
       <TransactionPreferences />
       <BudgetLimits />
+      <RecurringSettings />
       <AccessibilitySettings />
       <DangerZone />
     </div>
