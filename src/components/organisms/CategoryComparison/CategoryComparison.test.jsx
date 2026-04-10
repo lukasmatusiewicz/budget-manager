@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { useTranslation } from 'react-i18next';
 import CategoryComparison from './CategoryComparison.jsx';
 import transactionReducer from '../../../store/slices/transactionSlice.js';
 import { describe, it, expect, vi } from 'vitest';
