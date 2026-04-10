@@ -142,4 +142,44 @@ export const selectMonthlyCategorySpending = createSelector(
   }
 );
 
+export const selectMonthlyHistory = createSelector(
+  [selectTransactions],
+  (items) => {
+    const history = items.reduce((acc, item) => {
+      const monthKey = item.date.substring(0, 7); // YYYY-MM
+      if (!acc[monthKey]) {
+        acc[monthKey] = { month: monthKey, income: 0, expenses: 0, categories: {} };
+      }
+      
+      if (item.type === 'income') {
+        acc[monthKey].income += item.amount;
+      } else {
+        acc[monthKey].expenses += item.amount;
+        acc[monthKey].categories[item.category] = (acc[monthKey].categories[item.category] || 0) + item.amount;
+      }
+      return acc;
+    }, {});
+
+    return Object.values(history).sort((a, b) => a.month.localeCompare(b.month));
+  }
+);
+
+export const selectTopMerchants = createSelector(
+  [selectTransactions],
+  (items) => {
+    const merchants = items
+      .filter(item => item.type === 'expense')
+      .reduce((acc, item) => {
+        const name = item.description || 'Unknown';
+        acc[name] = (acc[name] || 0) + item.amount;
+        return acc;
+      }, {});
+
+    return Object.entries(merchants)
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10);
+  }
+);
+
 export default transactionSlice.reducer;
