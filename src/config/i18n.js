@@ -70,7 +70,13 @@ const resources = {
           "avg_day": "Average per Day",
           "avg_month": "Average Monthly",
           "sum_30": "Sum (Last 30 Days)"
-        }
+        },
+        "monthly_trends": "Monthly Spending Trends",
+        "category_comparison": "Category Comparison Over Time",
+        "top_merchants": "Top Merchants / Descriptions",
+        "income_vs_expense": "Income vs Expense",
+        "savings_rate": "Savings Rate",
+        "savings_rate_desc": "Percentage of income saved each month"
       },
       "settings": {
         "title": "Settings",
@@ -238,7 +244,13 @@ const resources = {
           "avg_day": "Średnia dziennie",
           "avg_month": "Średnia miesięcznie",
           "sum_30": "Suma (Ostatnie 30 dni)"
-        }
+        },
+        "monthly_trends": "Miesięczne trendy wydatków",
+        "category_comparison": "Porównanie kategorii w czasie",
+        "top_merchants": "Najwięksi dostawcy / opisy",
+        "income_vs_expense": "Przychody vs Wydatki",
+        "savings_rate": "Stopa oszczędności",
+        "savings_rate_desc": "Procent dochodów zaoszczędzonych każdego miesiąca"
       },
       "settings": {
         "title": "Ustawienia",
@@ -395,7 +407,13 @@ const resources = {
           "avg_day": "Durchschnitt pro Tag",
           "avg_month": "Durchschnitt pro Monat",
           "sum_30": "Summe (Letzte 30 Tage)"
-        }
+        },
+        "monthly_trends": "Monatliche Ausgabentrends",
+        "category_comparison": "Kategorienvergleich im Zeitverlauf",
+        "top_merchants": "Top-Händler / Beschreibungen",
+        "income_vs_expense": "Einnahmen vs. Ausgaben",
+        "savings_rate": "Sparquote",
+        "savings_rate_desc": "Prozentsatz des jeden Monat gesparten Einkommens"
       },
       "settings": {
         "title": "Einstellungen",
@@ -551,7 +569,13 @@ const resources = {
           "avg_day": "Moyenne par jour",
           "avg_month": "Moyenne mensuelle",
           "sum_30": "Somme (30 derniers jours)"
-        }
+        },
+        "monthly_trends": "Tendances mensuelles des dépenses",
+        "category_comparison": "Comparaison des catégories au fil du temps",
+        "top_merchants": "Principaux marchands / descriptions",
+        "income_vs_expense": "Revenus vs Dépenses",
+        "savings_rate": "Taux d'épargne",
+        "savings_rate_desc": "Pourcentage de revenus épargnés chaque mois"
       },
       "settings": {
         "title": "Paramètres",
