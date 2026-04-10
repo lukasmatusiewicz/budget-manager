@@ -16,7 +16,7 @@ const LanguageSettings = () => {
   ];
 
   return (
-    <section className="settings-section">
+    <section className="settings-section language-settings">
       <h3>{t('settings.language')}</h3>
       <div className="language-options">
         {languages.map((lang) => (

@@ -1,7 +1,19 @@
 .profile-settings {
+  background: var(--bg);
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  text-align: left;
+}
+
+.profile-settings h3 {
+  margin-bottom: 0.5rem;
+  color: var(--accent);
 }
 
 .settings-section {
@@ -16,8 +28,7 @@
 }
 
 .password-section {
-  padding-top: 2rem;
-  border-top: 1px solid var(--border);
+  padding-top: 1rem;
 }
 
 @media (max-width: 600px) {
