@@ -18,6 +18,12 @@ describe('transactionSlice', () => {
       defaultType: 'expense',
       defaultCategory: 'Food',
       currency: 'USD'
+    },
+    budgetLimits: {},
+    recurringItems: {
+      salary: 0,
+      rent: 0,
+      subscriptions: []
     }
   };
 
@@ -79,7 +85,12 @@ describe('transactionSlice', () => {
           { type: 'income', amount: 1000 },
           { type: 'expense', amount: 300 },
           { type: 'expense', amount: 200 }
-        ]
+        ],
+        recurringItems: {
+          salary: 0,
+          rent: 0,
+          subscriptions: []
+        }
       }
     };
 
