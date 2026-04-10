@@ -7,7 +7,12 @@ const initialState = {
     defaultCategory: 'Food',
     currency: 'USD'
   },
-  budgetLimits: {}
+  budgetLimits: {},
+  recurringItems: {
+    salary: 0,
+    rent: 0,
+    subscriptions: []
+  }
 };
 
 const transactionSlice = createSlice({
@@ -19,6 +24,7 @@ const transactionSlice = createSlice({
         if (action.payload.items) state.items = action.payload.items;
         if (action.payload.preferences) state.preferences = action.payload.preferences;
         if (action.payload.budgetLimits) state.budgetLimits = action.payload.budgetLimits;
+        if (action.payload.recurringItems) state.recurringItems = action.payload.recurringItems;
       }
     },
     setPreferences: (state, action) => {
@@ -27,6 +33,15 @@ const transactionSlice = createSlice({
     setBudgetLimit: (state, action) => {
       const { category, limit } = action.payload;
       state.budgetLimits[category] = limit;
+    },
+    setRecurringItems: (state, action) => {
+      state.recurringItems = { ...state.recurringItems, ...action.payload };
+    },
+    addSubscription: (state, action) => {
+      state.recurringItems.subscriptions.push(action.payload);
+    },
+    removeSubscription: (state, action) => {
+      state.recurringItems.subscriptions = state.recurringItems.subscriptions.filter(s => s.id !== action.payload);
     },
     addTransaction: (state, action) => {
       state.items.unshift(action.payload);
@@ -58,6 +73,9 @@ export const {
   setAllData,
   setPreferences,
   setBudgetLimit,
+  setRecurringItems,
+  addSubscription,
+  removeSubscription,
   addTransaction, 
   removeTransaction, 
   updateTransactionCategory, 
@@ -68,11 +86,12 @@ export const {
 export const selectTransactions = (state) => state.transactions.items;
 export const selectTransactionPreferences = (state) => state.transactions.preferences;
 export const selectBudgetLimits = (state) => state.transactions.budgetLimits;
+export const selectRecurringItems = (state) => state.transactions.recurringItems;
 
 export const selectTotals = createSelector(
-  [selectTransactions],
-  (items) => {
-    return items.reduce((acc, current) => {
+  [selectTransactions, selectRecurringItems],
+  (items, recurring) => {
+    const totals = items.reduce((acc, current) => {
       if (current.type === 'income') {
         acc.income += current.amount;
       } else {
@@ -80,6 +99,20 @@ export const selectTotals = createSelector(
       }
       return acc;
     }, { income: 0, expenses: 0 });
+
+    // Add recurring items
+    totals.income += (recurring.salary || 0);
+    totals.expenses += (recurring.rent || 0);
+    
+    recurring.subscriptions.forEach(sub => {
+      if (sub.frequency === 'weekly') {
+        totals.expenses += sub.amount * 4; // Approximate monthly cost
+      } else {
+        totals.expenses += sub.amount;
+      }
+    });
+
+    return totals;
   }
 );
 
