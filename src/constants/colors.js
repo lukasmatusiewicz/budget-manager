@@ -1,3 +1,18 @@
+export const CATEGORY_COLORS = {
+  'Food': '#FF6384',
+  'Transport': '#36A2EB',
+  'Housing': '#FFCE56',
+  'Entertainment': '#4BC0C0',
+  'Health': '#9966FF',
+  'Shopping': '#FF9F40',
+  'Salary': '#2ecc71',
+  'Freelance': '#3498db',
+  'Investment': '#f1c40f',
+  'Gift': '#e67e22',
+  'Other': '#95a5a6'
+};
+
+// Chart color constants
 export const LIGHT_CHART_COLORS = [
   '#FF6384', // Pink
   '#36A2EB', // Blue
