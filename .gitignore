@@ -56,3 +56,4 @@ out/
 .firebase/
 /dist
 GEMINI.md
+package-lock.json
