@@ -30,7 +30,7 @@ jobs:
         run: npm ci
       - name: Run linting
         run: npm run lint
-      - name: Run tests with coverage
+      - name: Run tests with coverage report
         run: npm run test:coverage
       - name: Vitest Coverage Report
         uses: davelosert/vitest-coverage-report-action@v2
