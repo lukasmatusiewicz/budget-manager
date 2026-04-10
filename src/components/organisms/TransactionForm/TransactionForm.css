@@ -39,3 +39,19 @@
 .add-button {
   width: 100%;
 }
+
+.form-budget-warning {
+  padding: 0.8rem;
+  background-color: rgba(244, 67, 54, 0.1);
+  border: 1px solid var(--danger);
+  border-radius: 6px;
+  color: var(--danger);
+  font-size: 0.85rem;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

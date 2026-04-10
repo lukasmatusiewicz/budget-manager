@@ -48,7 +48,8 @@ const resources = {
         "history": "Transaction History",
         "no_history": "Your transaction history will appear here.",
         "description_placeholder": "What was it for?",
-        "add_button": "Add Transaction"
+        "add_button": "Add Transaction",
+        "budget_warning_form": "Warning: This transaction will exceed your budget for {{category}}"
       },
       "reports": {
         "title": "Financial Reports",
@@ -520,7 +521,8 @@ const resources = {
         "history": "Historique des transactions",
         "no_history": "Votre historique de transactions apparaîtra ici.",
         "description_placeholder": "C'était pour quoi ?",
-        "add_button": "Ajouter une transaction"
+        "add_button": "Ajouter une transaction",
+        "budget_warning_form": "Attention : cette transaction dépassera votre budget pour {{category}}"
       },
       "reports": {
         "title": "Rapports financiers",

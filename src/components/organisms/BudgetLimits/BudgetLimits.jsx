@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { selectBudgetLimits, setBudgetLimit, selectTransactionPreferences } from '../../../store/slices/transactionSlice.js';
 import { EXPENSE_CATEGORIES } from '../../../constants/categories.js';
+import { getCurrencySymbol } from '../../../utils/formatters.js';
 import './BudgetLimits.css';
 
 const BudgetLimits = () => {
@@ -9,6 +10,7 @@ const BudgetLimits = () => {
   const dispatch = useDispatch();
   const limits = useSelector(selectBudgetLimits);
   const { currency } = useSelector(selectTransactionPreferences);
+  const currencySymbol = getCurrencySymbol(currency);
 
   const handleLimitChange = (category, value) => {
     const limit = parseFloat(value) || 0;
@@ -27,7 +29,7 @@ const BudgetLimits = () => {
           <div key={cat} className="limit-item">
             <label className="limit-label">{t(`categories.${cat}`)}</label>
             <div className="limit-input-wrapper">
-              <span className="limit-currency">{currency === 'USD' ? '$' : currency}</span>
+              <span className="limit-currency">{currencySymbol}</span>
               <input
                 type="number"
                 className="limit-input"
