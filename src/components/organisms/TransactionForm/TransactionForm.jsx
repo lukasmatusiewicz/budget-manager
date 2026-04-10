@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { addTransaction, selectTransactionPreferences } from '../../../store/slices/transactionSlice.js';
+import { addTransaction, selectTransactionPreferences, selectBudgetLimits, selectMonthlyCategorySpending } from '../../../store/slices/transactionSlice.js';
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '../../../constants/categories.js';
 import FormField from '../../molecules/FormField/FormField.jsx';
 import TypeSelector from '../../molecules/TypeSelector/TypeSelector.jsx';
@@ -12,6 +12,8 @@ const TransactionForm = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const preferences = useSelector(selectTransactionPreferences);
+  const budgetLimits = useSelector(selectBudgetLimits);
+  const currentSpending = useSelector(selectMonthlyCategorySpending);
 
   const [formData, setFormData] = useState({
     description: '',
@@ -20,10 +22,11 @@ const TransactionForm = () => {
     category: preferences.defaultCategory
   });
 
+  const [budgetWarning, setBudgetWarning] = useState('');
+
   // Update form if preferences change (e.g. from settings)
   useEffect(() => {
     if (formData.description === '' && formData.amount === '') {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormData(prev => ({
         ...prev,
         type: preferences.defaultType,
@@ -31,6 +34,26 @@ const TransactionForm = () => {
       }));
     }
   }, [preferences, formData.description, formData.amount]);
+
+  // Check for budget limit when amount or category changes
+  useEffect(() => {
+    if (formData.type === 'expense' && formData.amount && formData.category) {
+      const limit = budgetLimits[formData.category];
+      if (limit > 0) {
+        const spent = currentSpending[formData.category] || 0;
+        const newAmount = parseFloat(formData.amount) || 0;
+        if (spent + newAmount > limit) {
+          setBudgetWarning(t('transactions.budget_warning_form', { category: t(`categories.${formData.category}`) }));
+        } else {
+          setBudgetWarning('');
+        }
+      } else {
+        setBudgetWarning('');
+      }
+    } else {
+      setBudgetWarning('');
+    }
+  }, [formData.amount, formData.category, formData.type, budgetLimits, currentSpending, t]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,6 +74,7 @@ const TransactionForm = () => {
       type: preferences.defaultType,
       category: preferences.defaultCategory
     });
+    setBudgetWarning('');
   };
 
 
@@ -114,6 +138,12 @@ const TransactionForm = () => {
             ))}
           </select>
         </div>
+
+        {budgetWarning && (
+          <div className="form-budget-warning">
+            {budgetWarning}
+          </div>
+        )}
         
         <Button type="submit" variant="primary" className="add-button">{t('transactions.add_button')}</Button>
       </form>

@@ -6,7 +6,8 @@ const initialState = {
     defaultType: 'expense',
     defaultCategory: 'Food',
     currency: 'USD'
-  }
+  },
+  budgetLimits: {}
 };
 
 const transactionSlice = createSlice({
@@ -17,10 +18,15 @@ const transactionSlice = createSlice({
       if (action.payload) {
         if (action.payload.items) state.items = action.payload.items;
         if (action.payload.preferences) state.preferences = action.payload.preferences;
+        if (action.payload.budgetLimits) state.budgetLimits = action.payload.budgetLimits;
       }
     },
     setPreferences: (state, action) => {
       state.preferences = { ...state.preferences, ...action.payload };
+    },
+    setBudgetLimit: (state, action) => {
+      const { category, limit } = action.payload;
+      state.budgetLimits[category] = limit;
     },
     addTransaction: (state, action) => {
       state.items.unshift(action.payload);
@@ -51,6 +57,7 @@ const transactionSlice = createSlice({
 export const { 
   setAllData,
   setPreferences,
+  setBudgetLimit,
   addTransaction, 
   removeTransaction, 
   updateTransactionCategory, 
@@ -60,6 +67,7 @@ export const {
 
 export const selectTransactions = (state) => state.transactions.items;
 export const selectTransactionPreferences = (state) => state.transactions.preferences;
+export const selectBudgetLimits = (state) => state.transactions.budgetLimits;
 
 export const selectTotals = createSelector(
   [selectTransactions],
@@ -78,6 +86,27 @@ export const selectTotals = createSelector(
 export const selectBalance = createSelector(
   [selectTotals],
   (totals) => totals.income - totals.expenses
+);
+
+export const selectMonthlyCategorySpending = createSelector(
+  [selectTransactions],
+  (items) => {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    return items
+      .filter(item => {
+        const itemDate = new Date(item.date);
+        return item.type === 'expense' && 
+               itemDate.getMonth() === currentMonth && 
+               itemDate.getFullYear() === currentYear;
+      })
+      .reduce((acc, item) => {
+        acc[item.category] = (acc[item.category] || 0) + item.amount;
+        return acc;
+      }, {});
+  }
 );
 
 export default transactionSlice.reducer;
