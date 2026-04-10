@@ -12,7 +12,7 @@ const Settings = () => {
   const { t } = useTranslation();
   
   return (
-    <div className="view-container">
+    <div className="settings-view">
       <h2>{t('settings.title')}</h2>
       <ProfileSettings />
       <ThemeSettings />
