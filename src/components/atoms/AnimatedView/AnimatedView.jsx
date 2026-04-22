@@ -7,11 +7,16 @@ const pageVariants = {
   },
   in: {
     opacity: 1,
-    x: 0
+    x: 0,
+    position: 'relative'
   },
   out: {
     opacity: 0,
-    x: -20
+    x: -20,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%'
   }
 };
 
