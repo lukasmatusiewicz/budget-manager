@@ -49,7 +49,9 @@ const resources = {
         "no_history": "Your transaction history will appear here.",
         "description_placeholder": "What was it for?",
         "add_button": "Add Transaction",
-        "budget_warning_form": "Warning: This transaction will exceed your budget for {{category}}"
+        "budget_warning_form": "Warning: This transaction will exceed your budget for {{category}}",
+        "export_csv": "Export CSV",
+        "export_json": "Export JSON"
       },
       "reports": {
         "title": "Financial Reports",
@@ -223,7 +225,9 @@ const resources = {
         "history": "Historia transakcji",
         "no_history": "Tutaj pojawi się Twoja historia transakcji.",
         "description_placeholder": "Za co to było?",
-        "add_button": "Dodaj transakcję"
+        "add_button": "Dodaj transakcję",
+        "export_csv": "Eksportuj CSV",
+        "export_json": "Eksportuj JSON"
       },
       "reports": {
         "title": "Raporty finansowe",
@@ -386,7 +390,9 @@ const resources = {
         "history": "Transaktionsverlauf",
         "no_history": "Ihr Transaktionsverlauf wird hier angezeigt.",
         "description_placeholder": "Wofür war es?",
-        "add_button": "Transaktion hinzufügen"
+        "add_button": "Transaktion hinzufügen",
+        "export_csv": "CSV exportieren",
+        "export_json": "JSON exportieren"
       },
       "reports": {
         "title": "Finanzberichte",
@@ -548,7 +554,9 @@ const resources = {
         "no_history": "Votre historique de transactions apparaîtra ici.",
         "description_placeholder": "C'était pour quoi ?",
         "add_button": "Ajouter une transaction",
-        "budget_warning_form": "Attention : cette transaction dépassera votre budget pour {{category}}"
+        "budget_warning_form": "Attention : cette transaction dépassera votre budget pour {{category}}",
+        "export_csv": "Exporter en CSV",
+        "export_json": "Exporter en JSON"
       },
       "reports": {
         "title": "Rapports financiers",

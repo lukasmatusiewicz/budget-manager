@@ -1,3 +1,26 @@
+.transactions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.transactions-header h3 {
+  margin: 0;
+}
+
+.export-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.export-btn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
 .transactions-list {
   list-style: none;
   padding: 0;
