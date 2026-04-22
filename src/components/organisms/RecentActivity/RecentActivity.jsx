@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import { selectTransactionPreferences } from '../../../store/slices/transactionSlice.js';
 import { formatCurrency } from '../../../utils/formatters.js';
 import './RecentActivity.css';

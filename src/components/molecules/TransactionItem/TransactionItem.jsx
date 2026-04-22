@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { updateTransactionCategory, updateTransactionDate, removeTransaction, selectTransactionPreferences } from '../../../store/slices/transactionSlice.js';
