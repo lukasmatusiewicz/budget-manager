@@ -11,6 +11,7 @@ import { fetchAllUserData } from '../store/firebaseSync.js';
 export const useAuth = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
+  const [isDataFetching, setIsDataFetching] = useState(false);
   const dataLoaded = useRef(false);
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const hasCompletedWelcome = useSelector(selectHasCompletedWelcome);
@@ -27,6 +28,7 @@ export const useAuth = () => {
         dispatch(login(userData));
         
         // Fetch and sync data
+        setIsDataFetching(true);
         const data = await fetchAllUserData();
         if (data) {
           if (data.theme) dispatch(setTheme(data.theme));
@@ -39,9 +41,11 @@ export const useAuth = () => {
           dispatch(setWelcomeStatus(false));
         }
         dataLoaded.current = true;
+        setIsDataFetching(false);
       } else {
         dispatch(logout());
         dataLoaded.current = false;
+        setIsDataFetching(false);
       }
       setIsLoading(false);
     });
@@ -58,5 +62,5 @@ export const useAuth = () => {
     }
   };
 
-  return { isLoading, isAuthenticated, hasCompletedWelcome, dataLoaded, handleLogout };
+  return { isLoading, isDataFetching, isAuthenticated, hasCompletedWelcome, dataLoaded, handleLogout };
 };
