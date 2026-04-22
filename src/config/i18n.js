@@ -51,7 +51,16 @@ const resources = {
         "add_button": "Add Transaction",
         "budget_warning_form": "Warning: This transaction will exceed your budget for {{category}}",
         "export_csv": "Export CSV",
-        "export_json": "Export JSON"
+        "export_json": "Export JSON",
+        "filters": {
+          "search": "Search description...",
+          "date_start": "Date From",
+          "date_end": "Date To",
+          "category": "All Categories",
+          "min_amount": "Min Amount",
+          "max_amount": "Max Amount",
+          "clear": "Clear Filters"
+        }
       },
       "reports": {
         "title": "Financial Reports",
@@ -227,7 +236,16 @@ const resources = {
         "description_placeholder": "Za co to było?",
         "add_button": "Dodaj transakcję",
         "export_csv": "Eksportuj CSV",
-        "export_json": "Eksportuj JSON"
+        "export_json": "Eksportuj JSON",
+        "filters": {
+          "search": "Szukaj opisu...",
+          "date_start": "Data od",
+          "date_end": "Data do",
+          "category": "Wszystkie kategorie",
+          "min_amount": "Min. kwota",
+          "max_amount": "Max. kwota",
+          "clear": "Wyczyść filtry"
+        }
       },
       "reports": {
         "title": "Raporty finansowe",
@@ -392,7 +410,16 @@ const resources = {
         "description_placeholder": "Wofür war es?",
         "add_button": "Transaktion hinzufügen",
         "export_csv": "CSV exportieren",
-        "export_json": "JSON exportieren"
+        "export_json": "JSON exportieren",
+        "filters": {
+          "search": "Beschreibung suchen...",
+          "date_start": "Datum von",
+          "date_end": "Datum bis",
+          "category": "Alle Kategorien",
+          "min_amount": "Min. Betrag",
+          "max_amount": "Max. Betrag",
+          "clear": "Filter löschen"
+        }
       },
       "reports": {
         "title": "Finanzberichte",
@@ -556,7 +583,16 @@ const resources = {
         "add_button": "Ajouter une transaction",
         "budget_warning_form": "Attention : cette transaction dépassera votre budget pour {{category}}",
         "export_csv": "Exporter en CSV",
-        "export_json": "Exporter en JSON"
+        "export_json": "Exporter en JSON",
+        "filters": {
+          "search": "Rechercher une description...",
+          "date_start": "Date du",
+          "date_end": "Date au",
+          "category": "Toutes les catégories",
+          "min_amount": "Montant min",
+          "max_amount": "Montant max",
+          "clear": "Effacer les filtres"
+        }
       },
       "reports": {
         "title": "Rapports financiers",
