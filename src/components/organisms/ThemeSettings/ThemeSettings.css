@@ -1,22 +1,14 @@
 .theme-settings {
-  background: var(--bg);
-  padding: 1.5rem;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   text-align: left;
 }
 
-.theme-settings h3 {
-  margin-bottom: 0.5rem;
-  color: var(--accent);
-}
-
-.settings-description {
-  color: var(--text);
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
+.setting-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .theme-options {
@@ -31,35 +23,88 @@
   align-items: center;
   gap: 0.8rem;
   padding: 1.5rem;
-  background-color: var(--social-bg);
-  border: 2px solid transparent;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border);
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: var(--text-h);
+  color: var(--text);
 }
 
 .theme-option:hover {
-  background-color: var(--border);
+  border-color: var(--accent);
 }
 
 .theme-option.active {
   border-color: var(--accent);
-  background-color: var(--bg);
-  box-shadow: var(--shadow);
+  background-color: var(--accent-bg);
+  color: var(--accent);
 }
 
 .theme-icon {
   width: 24px;
   height: 24px;
-  color: var(--text);
 }
 
-.theme-option.active .theme-icon {
-  color: var(--accent);
+.accent-options {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.theme-option span {
-  font-weight: 600;
-  font-size: 1.1rem;
+.accent-option {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: none;
+  padding: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.accent-option.active {
+  border-color: var(--accent);
+}
+
+.color-swatch {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--preset-color);
+}
+
+.custom-color-picker {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.custom-color-picker input[type="color"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.custom-color-picker::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+}
+
+@media (max-width: 600px) {
+  .theme-options {
+    flex-direction: column;
+  }
 }
