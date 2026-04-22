@@ -1,9 +1,9 @@
 # 💸 Budget Manager - Portfolio Project
 
 ![Tests and Linting](https://github.com/lukasmatusiewicz/budget-manager/actions/workflows/test.yml/badge.svg)
-![Coverage](https://img.shields.io/badge/coverage-93.8%25-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-96.1%25-brightgreen)
 
-A comprehensive personal finance tracking application built with **React 19** and **Vite**. This project demonstrates advanced front-end engineering practices, clean architecture using **Atomic Design**, and seamless integration with **Firebase** services.
+A comprehensive personal finance tracking application built with **React 19** and **Vite**. This project demonstrates advanced front-end engineering practices, clean architecture using **Atomic Design**, and a high-performance "premium" user experience.
 
 ---
 
@@ -16,13 +16,15 @@ You can experience the live application here:
 
 ## 🚀 Key Features
 
-- **📊 Dynamic Dashboard:** Real-time summary of balance, monthly income, and expenses with visual indicators.
-- **💸 Transaction Management:** Intuitive interface for recording, editing, and deleting financial transactions.
-- **📈 Advanced Analytics:** Data-driven insights powered by **Recharts**, including category breakdowns and daily spending trends.
-- **🌍 Internationalization (i18n):** Full support for multiple languages (English, Polish, Spanish, German) using **i18next**.
-- **🌓 Adaptive Theme Engine:** Dynamic switching between Light and Dark modes with persistent user preferences.
-- **🔒 Firebase Authentication:** Secure user authentication and real-time data synchronization with **Firebase Realtime Database**.
-- **♿ Accessibility Focus:** Customizable UI settings, including high contrast, increased font size, and reduced motion.
+- **📊 Dynamic Dashboard:** Real-time summary of balance, monthly income, and expenses with **Skeleton Screen** loaders for perceived performance.
+- **🔍 Advanced Filtering:** Powerful search bar and multi-select filters for date ranges, categories, and price brackets in the transaction history.
+- **📥 Data Portability:** Ability to export transaction history to **CSV** and **JSON** formats for external analysis.
+- **📈 Advanced Analytics:** Data-driven insights powered by **Recharts**, including category breakdowns, savings rates, and daily spending trends.
+- **🎨 Premium UI & Animations:** Fluid view transitions and modal appearances powered by **Framer Motion**, featuring mesh gradients and glassmorphism.
+- **🌍 Internationalization (i18n):** Full support for multiple languages (**English, Polish, German, French**) using **i18next**.
+- **🌓 Dynamic Theming Engine:** Beyond Light/Dark mode, users can customize the UI with a **Dynamic Accent Color** picker.
+- **🔒 Firebase Cloud Sync:** Secure user authentication and real-time data synchronization with **Firebase Realtime Database**.
+- **♿ Accessibility Focus:** Customizable UI settings, including high contrast, dynamic font size scaling, and reduced motion support.
 
 ---
 
@@ -32,21 +34,22 @@ You can experience the live application here:
 - **React 19:** Functional components, Hooks (`useMemo`, `useCallback`, `useEffect`), and modern React patterns.
 - **Vite:** Blazing fast build tool and HMR.
 - **Redux Toolkit:** Centralized state management with Slices and asynchronous thunks for Firebase sync.
-- **React Router v7:** Modern client-side routing and navigation.
+- **Framer Motion:** High-performance animations for a premium feel and accessible motion handling.
+- **React Router v7:** Modern client-side routing with animated transitions.
 
 ### **Testing & QA**
-- **Vitest:** Blazing fast unit testing framework powered by Vite.
+- **Vitest:** Modern testing framework with built-in coverage reporting.
 - **React Testing Library:** User-centric testing for UI components.
-- **JSDOM:** Browser environment simulation for reliable DOM testing.
+- **GitHub Actions:** Automated CI/CD using **Node.js 24** for linting, testing, and coverage analysis.
 
 ### **Backend & Infrastructure**
 - **Firebase Auth:** Secure login, registration, and session persistence.
 - **Firebase Realtime Database:** NoSQL cloud database for real-time data persistence.
 
 ### **UI & Visualization**
-- **Vanilla CSS:** Modular styling following **Atomic Design** principles, utilizing CSS Variables for theming.
-- **Recharts:** Interactive and responsive data visualization (Pie Charts, Area Charts).
-- **SVG Sprites:** Optimized icon delivery system for performance and scalability.
+- **Vanilla CSS:** Modular styling following **Atomic Design**, utilizing CSS Variables for dynamic accent colors and theme consistency.
+- **Recharts:** Interactive and responsive data visualization (Pie, Area, Line, and Bar Charts).
+- **Glassmorphism:** Modern UI design with blurred surfaces and layered mesh gradients.
 
 ---
 
@@ -55,7 +58,7 @@ You can experience the live application here:
 - **Atomic Design Methodology:** Components are organized into Atoms, Molecules, and Organisms to ensure maximum reusability and maintainability.
 - **Clean Code & Patterns:** Strict adherence to SOLID principles, custom hooks for logic abstraction, and modular state management.
 - **Responsive Architecture:** A mobile-first approach ensuring a seamless experience across all device sizes.
-- **Type Safety & Standards:** ESLint configuration for code quality and consistency.
+- **State-Driven Styling:** UI effects (font size, accessibility, accent colors) are managed via a unified Redux-to-CSS-Variable pipeline.
 
 ---
 
@@ -63,9 +66,9 @@ You can experience the live application here:
 
 The project maintains high reliability through a comprehensive suite of unit and integration tests. The testing strategy focuses on:
 
-- **Component Integrity:** Verifying that UI components (Atoms and Molecules) render correctly and handle user interactions (clicks, input changes) as expected.
+- **Component Integrity:** Verifying that UI components (Atoms and Molecules) render correctly and handle user interactions as expected.
 - **State Logic:** Ensuring that Redux actions and slices correctly manage transaction data and UI states.
-- **Mocking Strategy:** Robust use of Vitest mocks for external dependencies like `react-i18next`, `react-redux`, and Firebase to ensure isolated and deterministic test results.
+- **CI/CD Integration:** Automated reports on Pull Requests provide detailed coverage statistics and linting results, ensuring no regressions are introduced.
 
 ---
 
@@ -109,7 +112,6 @@ To run this project locally, clone the repository and follow these steps:
    # Run ESLint to verify code standards
    npm run lint
    ```
-   *Note: A GitHub Actions workflow automatically runs these checks on every pull request to ensure high code quality.*
 
 5. **Build for Production:**
    ```bash

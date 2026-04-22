@@ -2,15 +2,20 @@ import { useSelector } from 'react-redux';
 import SummaryGrid from '../../components/organisms/SummaryGrid/SummaryGrid.jsx';
 import RecentActivity from '../../components/organisms/RecentActivity/RecentActivity.jsx';
 import BudgetWarnings from '../../components/organisms/BudgetWarnings/BudgetWarnings.jsx';
+import DashboardSkeleton from '../../components/organisms/DashboardSkeleton/DashboardSkeleton.jsx';
 import { selectTransactions, selectTotals, selectBalance, selectTransactionPreferences } from '../../store/slices/transactionSlice.js';
 import { formatCurrency } from '../../utils/formatters.js';
 import './Dashboard.css';
 
-const Dashboard = () => {
+const Dashboard = ({ isFetching }) => {
   const transactions = useSelector(selectTransactions);
   const totals = useSelector(selectTotals);
   const balance = useSelector(selectBalance);
   const { currency } = useSelector(selectTransactionPreferences);
+
+  if (isFetching) {
+    return <DashboardSkeleton />;
+  }
 
   const data = {
     balance: formatCurrency(balance, currency),

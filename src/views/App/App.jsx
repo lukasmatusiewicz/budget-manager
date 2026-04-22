@@ -27,6 +27,7 @@ function App() {
   // Custom hooks for business logic
   const { 
     isLoading, 
+    isDataFetching,
     isAuthenticated, 
     hasCompletedWelcome, 
     dataLoaded, 
@@ -38,7 +39,7 @@ function App() {
 
   const showNav = isAuthenticated && hasCompletedWelcome;
 
-  if (isLoading) {
+  if (isLoading && !isAuthenticated) {
     return (
       <div className="app-loading">
         <div className="loader"></div>
@@ -65,7 +66,7 @@ function App() {
               />
               <Route 
                 path="/" 
-                element={isAuthenticated ? (hasCompletedWelcome ? <AnimatedView><Dashboard /></AnimatedView> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
+                element={isAuthenticated ? (hasCompletedWelcome ? <AnimatedView><Dashboard isFetching={isDataFetching} /></AnimatedView> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
               />
               <Route 
                 path="/transactions" 

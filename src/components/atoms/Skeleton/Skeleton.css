@@ -1,0 +1,30 @@
+.skeleton-loader {
+  background: linear-gradient(
+    90deg,
+    var(--bg-secondary) 25%,
+    var(--social-bg) 50%,
+    var(--bg-secondary) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite ease-in-out;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Dark mode adjustments */
+:root.dark-theme .skeleton-loader {
+  background: linear-gradient(
+    90deg,
+    #1f2028 25%,
+    #2e303a 50%,
+    #1f2028 75%
+  );
+  background-size: 200% 100%;
+}

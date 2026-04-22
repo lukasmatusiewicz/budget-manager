@@ -1,0 +1,72 @@
+.dashboard-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.summary-grid-skeleton {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.summary-grid-skeleton > div:first-child {
+  grid-column: span 2;
+}
+
+.card-skeleton {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.card-info-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recent-activity-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.title-skeleton {
+  margin-bottom: 1rem;
+}
+
+.list-item-skeleton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.list-item-skeleton:last-child {
+  border-bottom: none;
+}
+
+.item-info-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+@media (max-width: 600px) {
+  .summary-grid-skeleton {
+    grid-template-columns: 1fr;
+  }
+  .summary-grid-skeleton > div:first-child {
+    grid-column: span 1;
+  }
+}
