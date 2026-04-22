@@ -32,6 +32,9 @@ jobs:
         run: npm run lint
       - name: Run tests with coverage report
         run: npm run test:coverage
+      - name: Debug - List coverage directory
+        if: always()
+        run: ls -R coverage || echo "Coverage directory not found"
       - name: Vitest Coverage Report
         uses: davelosert/vitest-coverage-report-action@v2
         if: always()
