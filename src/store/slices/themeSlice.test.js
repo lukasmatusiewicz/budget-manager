@@ -1,9 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import reducer, { setTheme, toggleTheme } from './themeSlice.js';
+import reducer, { setTheme, toggleTheme, setAccentColor } from './themeSlice.js';
 
 describe('themeSlice', () => {
   const initialState = {
     mode: 'dark',
+    accentColor: '#aa3bff',
   };
 
   it('should return initial state', () => {
@@ -19,5 +20,10 @@ describe('themeSlice', () => {
     const actual = reducer(initialState, toggleTheme());
     expect(actual.mode).toBe('light');
     expect(reducer(actual, toggleTheme()).mode).toBe('dark');
+  });
+
+  it('should handle setAccentColor', () => {
+    const actual = reducer(initialState, setAccentColor('#3b82f6'));
+    expect(actual.accentColor).toBe('#3b82f6');
   });
 });

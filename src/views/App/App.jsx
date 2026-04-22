@@ -1,5 +1,7 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { AnimatePresence, MotionConfig } from 'framer-motion';
 import AppHeader from '../../components/organisms/AppHeader/AppHeader.jsx';
 import NavBar from '../../components/organisms/NavBar/NavBar.jsx';
 import AppFooter from '../../components/organisms/AppFooter/AppFooter.jsx';
@@ -10,13 +12,17 @@ import Settings from '../../views/Settings/Settings.jsx';
 import Login from '../../views/Login/Login.jsx';
 import Welcome from '../../views/Welcome/Welcome.jsx';
 import Legal from '../../views/Legal/Legal.jsx';
+import AnimatedView from '../../components/atoms/AnimatedView/AnimatedView.jsx';
 import { useAuth } from '../../hooks/useAuth.js';
 import { useFirebaseSync } from '../../hooks/useFirebaseSync.js';
 import { useUIAffects } from '../../hooks/useUIAffects.js';
+import { selectAccessibility } from '../../store/slices/accessibilitySlice.js';
 import './App.css';
 
 function App() {
   const { t } = useTranslation();
+  const location = useLocation();
+  const { reducedMotion } = useSelector(selectAccessibility);
   
   // Custom hooks for business logic
   const { 
@@ -42,40 +48,44 @@ function App() {
   }
 
   return (
-    <Router>
+    <MotionConfig reducedMotion={reducedMotion ? "always" : "never"}>
       <div className="app-container">
         <AppHeader title="Budget Manager" />
         {showNav && <NavBar onLogout={handleLogout} />}
-        <Routes>
-          <Route
-            path="/login" 
-            element={!isAuthenticated ? <Login /> : (hasCompletedWelcome ? <Navigate to="/" /> : <Navigate to="/welcome" />)} 
-          />
-          <Route 
-            path="/welcome" 
-            element={isAuthenticated ? (hasCompletedWelcome ? <Navigate to="/" /> : <Welcome />) : <Navigate to="/login" />} 
-          />
-          <Route 
-            path="/" 
-            element={isAuthenticated ? (hasCompletedWelcome ? <Dashboard /> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
-          />
-          <Route 
-            path="/transactions" 
-            element={isAuthenticated ? (hasCompletedWelcome ? <Transactions /> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
-          />
-          <Route 
-            path="/reports" 
-            element={isAuthenticated ? (hasCompletedWelcome ? <Reports /> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
-          />
-          <Route 
-            path="/settings" 
-            element={isAuthenticated ? (hasCompletedWelcome ? <Settings /> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
-          />
-          <Route path="/legal" element={<Legal />} />
-        </Routes>
+        <main className="main-content">
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route
+                path="/login" 
+                element={!isAuthenticated ? <AnimatedView><Login /></AnimatedView> : (hasCompletedWelcome ? <Navigate to="/" /> : <Navigate to="/welcome" />)} 
+              />
+              <Route 
+                path="/welcome" 
+                element={isAuthenticated ? (hasCompletedWelcome ? <Navigate to="/" /> : <AnimatedView><Welcome /></AnimatedView>) : <Navigate to="/login" />} 
+              />
+              <Route 
+                path="/" 
+                element={isAuthenticated ? (hasCompletedWelcome ? <AnimatedView><Dashboard /></AnimatedView> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
+              />
+              <Route 
+                path="/transactions" 
+                element={isAuthenticated ? (hasCompletedWelcome ? <AnimatedView><Transactions /></AnimatedView> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
+              />
+              <Route 
+                path="/reports" 
+                element={isAuthenticated ? (hasCompletedWelcome ? <AnimatedView><Reports /></AnimatedView> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
+              />
+              <Route 
+                path="/settings" 
+                element={isAuthenticated ? (hasCompletedWelcome ? <AnimatedView><Settings /></AnimatedView> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
+              />
+              <Route path="/legal" element={<AnimatedView><Legal /></AnimatedView>} />
+            </Routes>
+          </AnimatePresence>
+        </main>
         <AppFooter />
       </div>
-    </Router>
+    </MotionConfig>
   );
 }
 

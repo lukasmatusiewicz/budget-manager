@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useState, useMemo } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import TransactionForm from '../../components/organisms/TransactionForm/TransactionForm.jsx';
 import TransactionFilters from '../../components/organisms/TransactionFilters/TransactionFilters.jsx';
 import TransactionItem from '../../components/molecules/TransactionItem/TransactionItem.jsx';
@@ -110,9 +111,11 @@ const Transactions = () => {
           </div>
         ) : (
           <ul className="transactions-list">
-            {filteredTransactions.map((transaction) => (
-              <TransactionItem key={transaction.id} transaction={transaction} />
-            ))}
+            <AnimatePresence mode="popLayout">
+              {filteredTransactions.map((transaction) => (
+                <TransactionItem key={transaction.id} transaction={transaction} />
+              ))}
+            </AnimatePresence>
           </ul>
         )}
       </div>

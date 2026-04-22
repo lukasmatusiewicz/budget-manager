@@ -97,6 +97,7 @@ const resources = {
         "light": "Light",
         "appearance": "Appearance",
         "appearance_desc": "Customize how Budget Manager looks on your device.",
+        "accent_color": "Accent Color",
         "accessibility": "Accessibility",
         "accessibility_desc": "Adjust settings to make Budget Manager easier to use.",
         "high_contrast": "High Contrast",

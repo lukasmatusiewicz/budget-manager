@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { updateTransactionCategory, updateTransactionDate, removeTransaction, selectTransactionPreferences } from '../../../store/slices/transactionSlice.js';
@@ -32,7 +33,13 @@ const TransactionItem = ({ transaction }) => {
   };
 
   return (
-    <li className={`transaction-item ${transaction.type}`}>
+    <motion.li 
+      className={`transaction-item ${transaction.type}`}
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      layout
+    >
       <div className="transaction-main">
         <div className="transaction-info">
           <span className="transaction-description">{transaction.description}</span>
@@ -63,7 +70,7 @@ const TransactionItem = ({ transaction }) => {
           <Icon name="trash-icon" className="remove-icon" />
         </Button>
       </div>
-    </li>
+    </motion.li>
   );
 };
 

@@ -9,7 +9,10 @@ export default defineConfig({
     setupFiles: './vitest.setup.js',
     include: ['src/**/*.test.{js,jsx}'],
     coverage: {
-      reporter: ['text', 'json-summary', 'json'],
+      enabled: true,
+      provider: 'v8',
+      reporter: ['json-summary', 'json', 'text'],
+      reportsDirectory: './coverage',
       reportOnFailure: true,
     },
   },
