@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence } from 'framer-motion';
 import { selectTransactionPreferences } from '../../../store/slices/transactionSlice.js';
 import { formatCurrency } from '../../../utils/formatters.js';
 import './RecentActivity.css';
@@ -17,17 +18,26 @@ const RecentActivity = ({ transactions = [] }) => {
         </div>
       ) : (
         <ul className="transaction-list">
-          {transactions.map((transaction) => (
-            <li key={transaction.id} className={`transaction-item ${transaction.type}`}>
-              <div className="transaction-info">
-                <span className="transaction-description">{transaction.description}</span>
-                <span className="transaction-date">{transaction.date}</span>
-              </div>
-              <span className="transaction-amount">
-                {transaction.type === 'expense' ? '-' : '+'}{formatCurrency(transaction.amount, currency)}
-              </span>
-            </li>
-          ))}
+          <AnimatePresence mode="popLayout">
+            {transactions.map((transaction) => (
+              <motion.li 
+                key={transaction.id} 
+                className={`transaction-item ${transaction.type}`}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                layout
+              >
+                <div className="transaction-info">
+                  <span className="transaction-description">{transaction.description}</span>
+                  <span className="transaction-date">{transaction.date}</span>
+                </div>
+                <span className="transaction-amount">
+                  {transaction.type === 'expense' ? '-' : '+'}{formatCurrency(transaction.amount, currency)}
+                </span>
+              </motion.li>
+            ))}
+          </AnimatePresence>
         </ul>
       )}
     </section>
