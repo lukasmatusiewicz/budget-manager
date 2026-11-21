@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { selectUser, updateProfile, updatePassword } from '../../../store/slices/authSlice.js';
+import {
+  updateProfile as firebaseUpdateProfile,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  updatePassword as firebaseUpdatePassword
+} from 'firebase/auth';
+import { auth } from '../../../config/firebase.js';
+import { selectUser, updateProfile } from '../../../store/slices/authSlice.js';
 import FormField from '../../molecules/FormField/FormField.jsx';
 import Button from '../../atoms/Button/Button.jsx';
 import './ProfileSettings.css';
@@ -11,42 +18,80 @@ const ProfileSettings = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
-  const [profileData, setProfileData] = useState({
-    username: user?.displayName || '',
-    email: user?.email || ''
-  });
-
+  const [username, setUsername] = useState(user?.displayName || '');
   const [passwords, setPasswords] = useState({
     currentPassword: '',
     newPassword: '',
     confirmPassword: ''
   });
-
-  const handleProfileChange = (e) => {
-    const { name, value } = e.target;
-    setProfileData(prev => ({ ...prev, [name]: value }));
-  };
+  const [profileStatus, setProfileStatus] = useState(null);
+  const [passwordStatus, setPasswordStatus] = useState(null);
+  const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
+  const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
 
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
     setPasswords(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleUpdateProfile = (e) => {
+  const handleUpdateProfile = async (e) => {
     e.preventDefault();
-    dispatch(updateProfile(profileData));
-    alert(t('settings.update_profile_success') || 'Profile updated!');
-  };
+    setProfileStatus(null);
 
-  const handleUpdatePassword = (e) => {
-    e.preventDefault();
-    if (passwords.newPassword !== passwords.confirmPassword) {
-      alert('Passwords do not match!');
+    if (!auth.currentUser) {
+      setProfileStatus({ type: 'error', message: t('settings.update_profile_error') });
       return;
     }
-    dispatch(updatePassword(passwords.newPassword));
-    setPasswords({ currentPassword: '', newPassword: '', confirmPassword: '' });
-    alert(t('settings.update_password_success') || 'Password updated!');
+
+    const trimmedUsername = username.trim();
+    setIsUpdatingProfile(true);
+    try {
+      await firebaseUpdateProfile(auth.currentUser, { displayName: trimmedUsername });
+      dispatch(updateProfile({ displayName: trimmedUsername }));
+      setProfileStatus({ type: 'success', message: t('settings.update_profile_success') });
+    } catch {
+      setProfileStatus({ type: 'error', message: t('settings.update_profile_error') });
+    } finally {
+      setIsUpdatingProfile(false);
+    }
+  };
+
+  const handleUpdatePassword = async (e) => {
+    e.preventDefault();
+    setPasswordStatus(null);
+
+    if (passwords.newPassword !== passwords.confirmPassword) {
+      setPasswordStatus({ type: 'error', message: t('settings.passwords_mismatch') });
+      return;
+    }
+
+    if (!auth.currentUser || !auth.currentUser.email) {
+      setPasswordStatus({ type: 'error', message: t('settings.update_password_error') });
+      return;
+    }
+
+    setIsUpdatingPassword(true);
+    try {
+      const credential = EmailAuthProvider.credential(
+        auth.currentUser.email,
+        passwords.currentPassword
+      );
+      await reauthenticateWithCredential(auth.currentUser, credential);
+      await firebaseUpdatePassword(auth.currentUser, passwords.newPassword);
+      setPasswords({ currentPassword: '', newPassword: '', confirmPassword: '' });
+      setPasswordStatus({ type: 'success', message: t('settings.update_password_success') });
+    } catch (error) {
+      const code = error?.code;
+      let message = t('settings.update_password_error');
+      if (code === 'auth/wrong-password' || code === 'auth/invalid-credential') {
+        message = t('settings.invalid_current_password');
+      } else if (code === 'auth/weak-password') {
+        message = t('settings.weak_password');
+      }
+      setPasswordStatus({ type: 'error', message });
+    } finally {
+      setIsUpdatingPassword(false);
+    }
   };
 
   return (
@@ -58,21 +103,34 @@ const ProfileSettings = () => {
           <FormField
             label={t('auth.username')}
             name="username"
-            value={profileData.username}
-            onChange={handleProfileChange}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="Your username"
             required
           />
-          <FormField
-            label={t('auth.email')}
-            type="email"
-            name="email"
-            value={profileData.email}
-            onChange={handleProfileChange}
-            placeholder="your@email.com"
-            required
-          />
-          <Button type="submit" variant="primary">{t('settings.update_profile')}</Button>
+          <div>
+            <FormField
+              label={t('auth.email')}
+              type="email"
+              name="email"
+              value={user?.email || ''}
+              onChange={() => {}}
+              placeholder="your@email.com"
+              disabled
+            />
+            <p className="field-hint">{t('settings.email_readonly_hint')}</p>
+          </div>
+          {profileStatus && (
+            <p
+              className={`form-feedback ${profileStatus.type}`}
+              role={profileStatus.type === 'error' ? 'alert' : 'status'}
+            >
+              {profileStatus.message}
+            </p>
+          )}
+          <Button type="submit" variant="primary" disabled={isUpdatingProfile}>
+            {isUpdatingProfile ? t('settings.updating') : t('settings.update_profile')}
+          </Button>
         </form>
       </section>
 
@@ -109,7 +167,17 @@ const ProfileSettings = () => {
               required
             />
           </div>
-          <Button type="submit" variant="outline">{t('settings.update_password')}</Button>
+          {passwordStatus && (
+            <p
+              className={`form-feedback ${passwordStatus.type}`}
+              role={passwordStatus.type === 'error' ? 'alert' : 'status'}
+            >
+              {passwordStatus.message}
+            </p>
+          )}
+          <Button type="submit" variant="outline" disabled={isUpdatingPassword}>
+            {isUpdatingPassword ? t('settings.updating') : t('settings.update_password')}
+          </Button>
         </form>
       </section>
     </div>
