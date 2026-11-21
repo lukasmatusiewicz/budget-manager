@@ -1,7 +1,15 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.15rem;
+}
+
+.login-form .field-hint {
+  margin: 0.35rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text);
+  opacity: 0.8;
+  text-align: left;
 }
 
 .error-message {

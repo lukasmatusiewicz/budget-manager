@@ -13,6 +13,17 @@ import FormField from '../../molecules/FormField/FormField.jsx';
 import Button from '../../atoms/Button/Button.jsx';
 import './LoginForm.css';
 
+const AUTH_ERROR_MAP = {
+  'auth/invalid-credential': 'auth.error_invalid_credential',
+  'auth/wrong-password': 'auth.error_invalid_credential',
+  'auth/user-not-found': 'auth.error_user_not_found',
+  'auth/email-already-in-use': 'auth.error_email_in_use',
+  'auth/weak-password': 'auth.error_weak_password',
+  'auth/invalid-email': 'auth.error_invalid_email',
+  'auth/too-many-requests': 'auth.error_too_many_requests',
+  'auth/network-request-failed': 'auth.error_network',
+};
+
 const LoginForm = ({ onToggleMode }) => {
   const { t } = useTranslation();
   const [isRegistering, setIsRegistering] = useState(false);
@@ -28,6 +39,7 @@ const LoginForm = ({ onToggleMode }) => {
   const handleModeToggle = () => {
     const newMode = !isRegistering;
     setIsRegistering(newMode);
+    setError('');
     if (onToggleMode) onToggleMode(newMode);
   };
 
@@ -38,11 +50,11 @@ const LoginForm = ({ onToggleMode }) => {
 
     try {
       let userCredential;
+      const trimmedUsername = username.trim();
       if (isRegistering) {
         userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        // Update Firebase profile with username
-        if (username) {
-          await firebaseUpdateProfile(userCredential.user, { displayName: username });
+        if (trimmedUsername) {
+          await firebaseUpdateProfile(userCredential.user, { displayName: trimmedUsername });
         }
       } else {
         userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -52,13 +64,14 @@ const LoginForm = ({ onToggleMode }) => {
       const userData = {
         uid: user.uid,
         email: user.email,
-        displayName: user.displayName || username || 'User'
+        displayName: user.displayName || trimmedUsername || 'User'
       };
 
       dispatch(login(userData));
       navigate('/');
     } catch (err) {
-      setError(err.message);
+      const errorKey = AUTH_ERROR_MAP[err?.code] || 'auth.auth_error_generic';
+      setError(t(errorKey));
     } finally {
       setLoading(false);
     }
@@ -66,18 +79,20 @@ const LoginForm = ({ onToggleMode }) => {
 
   return (
     <form onSubmit={handleSubmit} className="login-form">
-      {error && <div className="error-message">{error}</div>}
+      {error && <div className="error-message" role="alert">{error}</div>}
       
       {isRegistering && (
-        <FormField
-          label={t('auth.username')}
-          type="text"
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Your name"
-          required
-        />
+        <div>
+          <FormField
+            label={t('auth.username')}
+            type="text"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Your name"
+          />
+          <p className="field-hint">{t('auth.display_name_hint')}</p>
+        </div>
       )}
 
       <FormField
