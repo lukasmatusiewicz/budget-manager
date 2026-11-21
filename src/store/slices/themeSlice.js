@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { logout } from './authSlice.js';
 
 const initialState = {
   mode: 'dark',
@@ -10,7 +11,16 @@ const themeSlice = createSlice({
   initialState,
   reducers: {
     setTheme: (state, action) => {
-      state.mode = action.payload;
+      if (typeof action.payload === 'string') {
+        state.mode = action.payload;
+      } else if (action.payload && typeof action.payload === 'object') {
+        if (action.payload.mode === 'light' || action.payload.mode === 'dark') {
+          state.mode = action.payload.mode;
+        }
+        if (typeof action.payload.accentColor === 'string' && action.payload.accentColor) {
+          state.accentColor = action.payload.accentColor;
+        }
+      }
     },
     toggleTheme: (state) => {
       state.mode = state.mode === 'light' ? 'dark' : 'light';
@@ -18,6 +28,9 @@ const themeSlice = createSlice({
     setAccentColor: (state, action) => {
       state.accentColor = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(logout, () => initialState);
   },
 });
 

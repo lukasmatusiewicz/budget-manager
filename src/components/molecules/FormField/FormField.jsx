@@ -1,6 +1,6 @@
 import './FormField.css';
 
-const FormField = ({ label, type = 'text', name, value, onChange, placeholder, required = false, step }) => {
+const FormField = ({ label, type = 'text', name, value, onChange, placeholder, required = false, step, disabled = false }) => {
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
@@ -13,6 +13,7 @@ const FormField = ({ label, type = 'text', name, value, onChange, placeholder, r
         placeholder={placeholder}
         required={required}
         step={step}
+        disabled={disabled}
       />
     </div>
   );

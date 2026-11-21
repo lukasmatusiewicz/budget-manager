@@ -1,4 +1,4 @@
-import { ref, onValue, set, get } from 'firebase/database';
+import { ref, onValue, set, get, update } from 'firebase/database';
 import { db, auth } from '../config/firebase.js';
 
 /**
@@ -33,6 +33,18 @@ export const saveToFirebase = async (path, data) => {
 
   const dbRef = ref(db, `users/${user.uid}/${path}`);
   await set(dbRef, data);
+};
+
+/**
+ * Atomically updates multiple paths under the authenticated user's node.
+ * @param {Object} payload - Key/value map of relative user paths to persist
+ */
+export const saveUserDataToFirebase = async (payload) => {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const dbRef = ref(db, `users/${user.uid}`);
+  await update(dbRef, payload);
 };
 
 /**

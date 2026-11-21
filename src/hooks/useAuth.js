@@ -29,19 +29,25 @@ export const useAuth = () => {
         
         // Fetch and sync data
         setIsDataFetching(true);
-        const data = await fetchAllUserData();
-        if (data) {
-          if (data.theme) dispatch(setTheme(data.theme));
-          if (data.accessibility) dispatch(setAllAccessibility(data.accessibility));
-          if (data.transactions) {
-            dispatch(setAllData(data.transactions));
+        try {
+          const data = await fetchAllUserData();
+          if (data) {
+            if (data.theme) dispatch(setTheme(data.theme));
+            if (data.accessibility) dispatch(setAllAccessibility(data.accessibility));
+            if (data.transactions) {
+              dispatch(setAllData(data.transactions));
+            }
+            dispatch(setWelcomeStatus(data.hasCompletedWelcome ?? false));
+          } else {
+            dispatch(setWelcomeStatus(false));
           }
-          dispatch(setWelcomeStatus(data.hasCompletedWelcome ?? false));
-        } else {
-          dispatch(setWelcomeStatus(false));
+          dataLoaded.current = true;
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+          dataLoaded.current = false;
+        } finally {
+          setIsDataFetching(false);
         }
-        dataLoaded.current = true;
-        setIsDataFetching(false);
       } else {
         dispatch(logout());
         dataLoaded.current = false;
