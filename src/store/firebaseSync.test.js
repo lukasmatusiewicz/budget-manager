@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { syncFromFirebase, saveToFirebase, fetchAllUserData } from './firebaseSync.js';
-import { ref, onValue, set, get } from 'firebase/database';
+import { syncFromFirebase, saveToFirebase, saveUserDataToFirebase, fetchAllUserData } from './firebaseSync.js';
+import { ref, onValue, set, get, update } from 'firebase/database';
 import { auth } from '../config/firebase.js';
 
 vi.mock('firebase/database', () => ({
@@ -8,6 +8,7 @@ vi.mock('firebase/database', () => ({
   onValue: vi.fn(),
   set: vi.fn(),
   get: vi.fn(),
+  update: vi.fn(),
 }));
 
 vi.mock('../config/firebase.js', () => ({
@@ -37,6 +38,13 @@ describe('firebaseSync', () => {
     expect(set).toHaveBeenCalled();
   });
 
+  it('saveUserDataToFirebase should call update atomically if user is logged in', async () => {
+    const payload = { theme: { mode: 'dark', accentColor: '#aa3bff' } };
+    await saveUserDataToFirebase(payload);
+    expect(ref).toHaveBeenCalledWith(expect.anything(), 'users/user123');
+    expect(update).toHaveBeenCalledWith(undefined, payload);
+  });
+
   it('fetchAllUserData should call get if user is logged in', async () => {
     const mockSnapshot = { val: () => ({ theme: 'dark' }) };
     get.mockResolvedValue(mockSnapshot);
@@ -53,6 +61,9 @@ describe('firebaseSync', () => {
     
     await saveToFirebase('test', {});
     expect(set).not.toHaveBeenCalled();
+
+    await saveUserDataToFirebase({ theme: 'dark' });
+    expect(update).not.toHaveBeenCalled();
     
     const result = await fetchAllUserData();
     expect(result).toBeNull();

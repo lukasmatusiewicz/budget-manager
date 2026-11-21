@@ -83,4 +83,25 @@ describe('useAuth', () => {
     expect(signOut).toHaveBeenCalled();
     expect(dispatchMock).toHaveBeenCalled();
   });
+
+  it('recovers cleanly when fetchAllUserData throws an error', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const mockUser = { uid: '123', email: 'test@test.com', displayName: 'Tester' };
+
+    onAuthStateChanged.mockImplementation((authArg, callback) => {
+      callback(mockUser);
+      return vi.fn();
+    });
+    fetchAllUserData.mockRejectedValue(new Error('Permission denied'));
+
+    const { result } = renderHook(() => useAuth());
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+      expect(result.current.isDataFetching).toBe(false);
+      expect(result.current.dataLoaded.current).toBe(false);
+    });
+
+    consoleErrorSpy.mockRestore();
+  });
 });
