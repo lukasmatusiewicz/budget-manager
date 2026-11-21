@@ -92,6 +92,18 @@ describe('ProfileSettings', () => {
     });
   });
 
+  it('rejects whitespace-only username without calling Firebase or dispatch', () => {
+    render(<ProfileSettings />);
+    fireEvent.change(screen.getByLabelText('auth.username'), {
+      target: { value: '   ' }
+    });
+    fireEvent.click(screen.getByText('settings.update_profile'));
+
+    expect(screen.getByRole('alert')).toHaveTextContent('settings.username_required');
+    expect(firebaseUpdateProfile).not.toHaveBeenCalled();
+    expect(dispatchMock).not.toHaveBeenCalled();
+  });
+
   it('reauthenticates and updates password via Firebase Auth', async () => {
     render(<ProfileSettings />);
 
