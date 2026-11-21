@@ -65,4 +65,33 @@ describe('LoginForm', () => {
       expect(navigateMock).toHaveBeenCalledWith('/');
     });
   });
+
+  it('maps Firebase error codes to localized messages and clears error on mode toggle', async () => {
+    signInWithEmailAndPassword.mockRejectedValueOnce({ code: 'auth/invalid-credential' });
+
+    render(<LoginForm />);
+    fireEvent.change(screen.getByLabelText('auth.email'), { target: { value: 'test@example.com' } });
+    fireEvent.change(screen.getByLabelText('auth.password'), { target: { value: 'wrong' } });
+    fireEvent.click(screen.getByRole('button', { name: 'auth.login' }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toHaveTextContent('auth.error_invalid_credential');
+    });
+
+    fireEvent.click(screen.getByText('auth.register_here'));
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  });
+
+  it('maps unknown Firebase error codes to generic auth error message', async () => {
+    signInWithEmailAndPassword.mockRejectedValueOnce({ code: 'auth/unknown-error' });
+
+    render(<LoginForm />);
+    fireEvent.change(screen.getByLabelText('auth.email'), { target: { value: 'test@example.com' } });
+    fireEvent.change(screen.getByLabelText('auth.password'), { target: { value: 'password' } });
+    fireEvent.click(screen.getByRole('button', { name: 'auth.login' }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toHaveTextContent('auth.auth_error_generic');
+    });
+  });
 });

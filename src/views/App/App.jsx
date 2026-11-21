@@ -81,6 +81,10 @@ function App() {
                 element={isAuthenticated ? (hasCompletedWelcome ? <AnimatedView><Settings /></AnimatedView> : <Navigate to="/welcome" />) : <Navigate to="/login" />} 
               />
               <Route path="/legal" element={<AnimatedView><Legal /></AnimatedView>} />
+              <Route
+                path="*"
+                element={<Navigate to={isAuthenticated ? (hasCompletedWelcome ? "/" : "/welcome") : "/login"} replace />}
+              />
             </Routes>
           </AnimatePresence>
         </main>
