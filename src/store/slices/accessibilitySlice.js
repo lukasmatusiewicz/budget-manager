@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { logout } from './authSlice.js';
 
 const initialState = {
   highContrast: false,
@@ -26,6 +27,9 @@ const accessibilitySlice = createSlice({
     setFontSize: (state, action) => {
       state.fontSize = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(logout, () => initialState);
   },
 });
 

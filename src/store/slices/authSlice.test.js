@@ -55,4 +55,26 @@ describe('authSlice', () => {
     expect(actual.user.displayName).toBe('New');
     expect(JSON.parse(localStorage.getItem('user')).displayName).toBe('New');
   });
+
+  it('should safely fall back to null when localStorage has malformed JSON', async () => {
+    localStorage.setItem('user', '{invalid-json');
+    vi.resetModules();
+    const { default: freshReducer } = await import('./authSlice.js');
+    expect(freshReducer(undefined, { type: 'unknown' })).toEqual(initialState);
+  });
+
+  it('should safely fall back to null when localStorage is unavailable', async () => {
+    const originalStorage = globalThis.localStorage;
+    Object.defineProperty(globalThis, 'localStorage', {
+      value: undefined,
+      configurable: true,
+    });
+    vi.resetModules();
+    const { default: freshReducer } = await import('./authSlice.js');
+    expect(freshReducer(undefined, { type: 'unknown' })).toEqual(initialState);
+    Object.defineProperty(globalThis, 'localStorage', {
+      value: originalStorage,
+      configurable: true,
+    });
+  });
 });

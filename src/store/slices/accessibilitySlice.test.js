@@ -5,6 +5,7 @@ import reducer, {
   setFontSize, 
   setAllAccessibility 
 } from './accessibilitySlice.js';
+import { logout } from './authSlice.js';
 
 describe('accessibilitySlice', () => {
   const initialState = {
@@ -42,5 +43,14 @@ describe('accessibilitySlice', () => {
     };
     const actual = reducer(initialState, setAllAccessibility(newData));
     expect(actual).toEqual(newData);
+  });
+
+  it('should reset to initialState on logout', () => {
+    const modified = {
+      highContrast: true,
+      reducedMotion: true,
+      fontSize: 'large'
+    };
+    expect(reducer(modified, logout())).toEqual(initialState);
   });
 });

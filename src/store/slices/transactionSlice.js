@@ -1,4 +1,5 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
+import { logout } from './authSlice.js';
 
 const initialState = {
   items: [],
@@ -20,12 +21,23 @@ const transactionSlice = createSlice({
   initialState,
   reducers: {
     setAllData: (state, action) => {
-      if (action.payload) {
-        if (action.payload.items) state.items = action.payload.items;
-        if (action.payload.preferences) state.preferences = action.payload.preferences;
-        if (action.payload.budgetLimits) state.budgetLimits = action.payload.budgetLimits;
-        if (action.payload.recurringItems) state.recurringItems = action.payload.recurringItems;
-      }
+      const payload = action.payload;
+      if (!payload) return;
+      state.items = Array.isArray(payload.items) ? payload.items : [];
+      state.preferences = {
+        ...initialState.preferences,
+        ...(payload.preferences || {}),
+      };
+      state.budgetLimits = payload.budgetLimits && typeof payload.budgetLimits === 'object'
+        ? payload.budgetLimits
+        : {};
+      state.recurringItems = {
+        ...initialState.recurringItems,
+        ...(payload.recurringItems || {}),
+        subscriptions: Array.isArray(payload.recurringItems?.subscriptions)
+          ? payload.recurringItems.subscriptions
+          : [],
+      };
     },
     setPreferences: (state, action) => {
       state.preferences = { ...state.preferences, ...action.payload };
@@ -67,6 +79,9 @@ const transactionSlice = createSlice({
       state.items = [];
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(logout, () => initialState);
+  },
 });
 
 export const { 
@@ -101,10 +116,11 @@ export const selectTotals = createSelector(
     }, { income: 0, expenses: 0 });
 
     // Add recurring items
-    totals.income += (recurring.salary || 0);
-    totals.expenses += (recurring.rent || 0);
+    const safeRecurring = recurring || {};
+    totals.income += (safeRecurring.salary || 0);
+    totals.expenses += (safeRecurring.rent || 0);
     
-    recurring.subscriptions.forEach(sub => {
+    (safeRecurring.subscriptions || []).forEach(sub => {
       if (sub.frequency === 'weekly') {
         totals.expenses += sub.amount * 4; // Approximate monthly cost
       } else {

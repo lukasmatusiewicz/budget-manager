@@ -10,6 +10,7 @@ import reducer, {
   selectTotals,
   selectBalance
 } from './transactionSlice.js';
+import { logout } from './authSlice.js';
 
 describe('transactionSlice', () => {
   const initialState = {
@@ -78,6 +79,36 @@ describe('transactionSlice', () => {
     expect(actual.preferences.currency).toBe('PLN');
   });
 
+  it('should safely hydrate partial RTDB payloads in setAllData', () => {
+    const partial = {
+      preferences: { currency: 'PLN' },
+      recurringItems: { salary: 5000 }
+    };
+    const actual = reducer(initialState, setAllData(partial));
+    expect(actual.items).toEqual([]);
+    expect(actual.budgetLimits).toEqual({});
+    expect(actual.preferences).toEqual({
+      defaultType: 'expense',
+      defaultCategory: 'Food',
+      currency: 'PLN'
+    });
+    expect(actual.recurringItems).toEqual({
+      salary: 5000,
+      rent: 0,
+      subscriptions: []
+    });
+  });
+
+  it('should reset to initialState on logout', () => {
+    const populatedState = {
+      items: [{ id: 1, amount: 50 }],
+      preferences: { defaultType: 'income', defaultCategory: 'Salary', currency: 'EUR' },
+      budgetLimits: { Food: 200 },
+      recurringItems: { salary: 3000, rent: 1000, subscriptions: [{ id: 1, amount: 10 }] }
+    };
+    expect(reducer(populatedState, logout())).toEqual(initialState);
+  });
+
   describe('selectors', () => {
     const state = {
       transactions: {
@@ -97,6 +128,16 @@ describe('transactionSlice', () => {
     it('selectTotals should calculate income and expenses', () => {
       const totals = selectTotals(state);
       expect(totals).toEqual({ income: 1000, expenses: 500 });
+    });
+
+    it('selectTotals should handle missing recurring.subscriptions', () => {
+      const partialState = {
+        transactions: {
+          items: [{ type: 'income', amount: 1000 }],
+          recurringItems: { salary: 500 }
+        }
+      };
+      expect(selectTotals(partialState)).toEqual({ income: 1500, expenses: 0 });
     });
 
     it('selectBalance should calculate balance', () => {

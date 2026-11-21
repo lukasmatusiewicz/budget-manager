@@ -1,6 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const savedUser = JSON.parse(localStorage.getItem('user'));
+const getSavedUser = () => {
+  try {
+    if (typeof localStorage === 'undefined' || typeof localStorage.getItem !== 'function') {
+      return null;
+    }
+    const raw = localStorage.getItem('user');
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+};
+
+const persistUser = (user) => {
+  try {
+    if (typeof localStorage !== 'undefined' && typeof localStorage.setItem === 'function') {
+      localStorage.setItem('user', JSON.stringify(user));
+    }
+  } catch {
+    // Ignore storage errors in restricted environments
+  }
+};
+
+const clearPersistedUser = () => {
+  try {
+    if (typeof localStorage !== 'undefined' && typeof localStorage.removeItem === 'function') {
+      localStorage.removeItem('user');
+    }
+  } catch {
+    // Ignore storage errors in restricted environments
+  }
+};
+
+const savedUser = getSavedUser();
 
 const initialState = {
   isAuthenticated: !!savedUser,
@@ -15,13 +47,13 @@ const authSlice = createSlice({
     login: (state, action) => {
       state.isAuthenticated = true;
       state.user = action.payload;
-      localStorage.setItem('user', JSON.stringify(action.payload));
+      persistUser(action.payload);
     },
     logout: (state) => {
       state.isAuthenticated = false;
       state.user = null;
       state.hasCompletedWelcome = true;
-      localStorage.removeItem('user');
+      clearPersistedUser();
     },
     setWelcomeStatus: (state, action) => {
       state.hasCompletedWelcome = action.payload;
@@ -31,16 +63,12 @@ const authSlice = createSlice({
     },
     updateProfile: (state, action) => {
       state.user = { ...state.user, ...action.payload };
-      localStorage.setItem('user', JSON.stringify(state.user));
-    },
-    updatePassword: () => {
-      // In a real app with Firebase, this would be handled via Firebase Auth directly
-      console.log('Password updated successfully');
+      persistUser(state.user);
     }
   },
 });
 
-export const { login, logout, setWelcomeStatus, completeWelcome, updateProfile, updatePassword } = authSlice.actions;
+export const { login, logout, setWelcomeStatus, completeWelcome, updateProfile } = authSlice.actions;
 
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
 export const selectUser = (state) => state.auth.user;
