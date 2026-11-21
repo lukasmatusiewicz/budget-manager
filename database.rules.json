@@ -1,0 +1,24 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid",
+        "theme": {
+          ".validate": "newData.isString() || (newData.hasChildren(['mode']) && (newData.child('mode').val() === 'light' || newData.child('mode').val() === 'dark'))"
+        },
+        "accessibility": {
+          ".validate": "newData.hasChildren()"
+        },
+        "hasCompletedWelcome": {
+          ".validate": "newData.isBoolean()"
+        },
+        "transactions": {
+          ".validate": "newData.hasChildren()"
+        }
+      }
+    }
+  }
+}

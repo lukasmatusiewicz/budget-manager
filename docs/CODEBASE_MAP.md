@@ -12,8 +12,9 @@
 budget-manager/
 ├── .firebaserc                              # Default Firebase project alias (budget-manager-e11d2)
 ├── .gitignore                               # Ignores node_modules/, dist/, coverage/, .env*, .firebase/, IDE/agent dirs
+├── database.rules.json                      # Firebase RTDB security & validation rules (per-user auth.uid isolation)
 ├── eslint.config.js                         # ESLint 9 flat config (JS/JSX, react-hooks, react-refresh, Vitest test globals)
-├── firebase.json                            # Firebase Hosting config (serves dist/, SPA rewrite to /index.html)
+├── firebase.json                            # Firebase Hosting & RTDB rules config (dist/, SPA rewrite, database.rules.json)
 ├── index.html                               # Vite HTML entry point (#root mount, loads /src/main.jsx)
 ├── package.json                             # NPM scripts (dev, build, lint, preview, test, test:coverage) & dependencies
 ├── package-lock.json                        # Locked dependency tree
@@ -96,13 +97,13 @@ budget-manager/
 
 | Engineering Task | Read These Files First |
 | :--- | :--- |
-| **Auth & Firebase RTDB Sync** | `src/config/firebase.js`, `src/hooks/useAuth.js`, `src/hooks/useFirebaseSync.js`, `src/store/firebaseSync.js`, `src/store/slices/authSlice.js` |
+| **Auth & Firebase RTDB Sync** | `src/config/firebase.js`, `src/hooks/useAuth.js`, `src/hooks/useFirebaseSync.js`, `src/store/firebaseSync.js`, `src/store/slices/authSlice.js`, `database.rules.json` |
 | **Transactions, Budgets & Recurring State** | `src/store/slices/transactionSlice.js`, `src/constants/categories.js`, `src/views/Transactions/Transactions.jsx`, `src/components/organisms/BudgetLimits/BudgetLimits.jsx`, `src/components/organisms/RecurringSettings/RecurringSettings.jsx` |
 | **UI Views & Atomic Design Components** | `src/views/App/App.jsx`, target view in `src/views/<View>/`, and composed components in `src/components/{atoms,molecules,organisms}/` |
 | **Export & Formatting Utilities** | `src/utils/exportUtils.js`, `src/utils/formatters.js`, `src/views/Transactions/Transactions.jsx` |
 | **Theming, Accessibility & i18n** | `src/hooks/useUIAffects.js`, `src/index.css`, `src/store/slices/themeSlice.js`, `src/store/slices/accessibilitySlice.js`, `src/config/i18n.js`, `src/constants/colors.js` |
 | **Tests & CI/CD** | `vitest.config.js`, `vitest.setup.js`, `eslint.config.js`, `.github/workflows/test.yml`, `.github/workflows/firebase-hosting-merge.yml` |
-| **Hosting & Legal** | `firebase.json`, `.firebaserc`, `src/views/Legal/Legal.jsx` |
+| **Hosting & Legal** | `firebase.json`, `database.rules.json`, `.firebaserc`, `src/views/Legal/Legal.jsx` |
 
 ---
 
@@ -127,5 +128,5 @@ budget-manager/
 - **`.env*` & Runtime Secrets:** Never read, commit, or log `.env` or `.env.*` files. Firebase credentials are injected via `VITE_FIREBASE_*` environment variables at build time (`src/config/firebase.js`).
 - **`.github/workflows/` Secrets:** `test.yml` and `firebase-hosting-merge.yml` reference `secrets.VITE_FIREBASE_*`, `secrets.GITHUB_TOKEN`, and `secrets.FIREBASE_SERVICE_ACCOUNT_BUDGET_MANAGER_E11D2`. Do not hardcode secrets or alter deployment targets without explicit approval.
 - **`package-lock.json`:** Lockfile managed by npm; do not hand-edit.
-- **`firebase.json` & `.firebaserc`:** Control live hosting target (`budget-manager-e11d2`) and SPA routing rewrites; treat changes as production-impacting.
+- **`firebase.json`, `database.rules.json` & `.firebaserc`:** Control live hosting target (`budget-manager-e11d2`), SPA routing rewrites, and RTDB per-user security rules; treat changes as production-impacting.
 - **`src/views/Legal/Legal.jsx`:** Contains legal Impressum/AGB contact details and disclaimers; do not alter legal copy or personal contact information unless explicitly requested.
