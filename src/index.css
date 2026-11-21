@@ -15,7 +15,7 @@
     --heading: 'Roboto', system-ui, 'Segoe UI', sans-serif;
     --mono: ui-monospace, Consolas, monospace;
 
-    --base-font-size: 18px;
+    --base-font-size: 15px;
     font: var(--base-font-size)/145% var(--sans);
     letter-spacing: 0.18px;
     color-scheme: light dark;
@@ -27,15 +27,15 @@ html {
 
 /* Font Size Options */
 html.font-small {
-    --base-font-size: 14px;
+    --base-font-size: 13px;
 }
 
 html.font-medium {
-    --base-font-size: 18px;
+    --base-font-size: 15px;
 }
 
 html.font-large {
-    --base-font-size: 22px;
+    --base-font-size: 17px;
 }
 
 :root.high-contrast {
@@ -115,23 +115,16 @@ h2 {
 }
 
 h1 {
-    font-size: 3.1rem; /* approx 56px at 18px base */
+    font-size: clamp(1.75rem, 3vw, 2.35rem);
     letter-spacing: -0.03em;
-    margin: 1.8rem 0;
-    @media (max-width: 1024px) {
-        font-size: 2rem;
-        margin: 1.1rem 0;
-    }
+    margin: 1rem 0;
 }
 
 h2 {
-    font-size: 1.33rem; /* approx 24px at 18px base */
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
     line-height: 118%;
     letter-spacing: -0.01em;
     margin: 0 0 0.4rem;
-    @media (max-width: 1024px) {
-        font-size: 1.1rem;
-    }
 }
 
 p {

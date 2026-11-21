@@ -1,19 +1,19 @@
 .app-header {
   position: relative;
-  margin-bottom: 2.5rem;
-  padding: 4.5rem 2rem;
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.75rem;
   background-color: var(--accent);
   background-image: 
     radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
     radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
     radial-gradient(at 100% 0%, var(--accent) 0, transparent 50%);
-  border-radius: 0 0 32px 32px;
+  border-radius: 0 0 20px 20px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 280px;
+  min-height: auto;
   box-sizing: border-box;
 }
 
@@ -35,28 +35,28 @@
 
 .header-content {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 1.5rem;
-  padding: 1rem 0;
+  gap: 1rem;
+  padding: 0;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 72px;
-  height: 72px;
+  width: 44px;
+  height: 44px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
-  border-radius: 20px;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .header-logo {
-  width: 36px;
-  height: 36px;
+  width: 24px;
+  height: 24px;
   color: white;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
@@ -65,13 +65,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.5rem 0;
+  padding: 0;
 }
 
 .app-header h1 {
   margin: 0;
   color: white;
-  font-size: 3.5rem;
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
   line-height: 1.2;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -126,17 +126,22 @@
 
 @media (max-width: 600px) {
   .app-header {
-    padding: 3rem 1rem;
-    min-height: 220px;
+    padding: 0.85rem 1rem;
+    min-height: auto;
   }
-  
-  .app-header h1 {
-    font-size: 2.5rem;
+
+  .header-content {
+    gap: 0.75rem;
   }
-  
+
   .logo-container {
-    width: 56px;
-    height: 56px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .header-logo {
+    width: 20px;
+    height: 20px;
   }
 }
 
