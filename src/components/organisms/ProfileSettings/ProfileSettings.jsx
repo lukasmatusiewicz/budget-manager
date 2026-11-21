@@ -38,12 +38,17 @@ const ProfileSettings = () => {
     e.preventDefault();
     setProfileStatus(null);
 
+    const trimmedUsername = username.trim();
+    if (!trimmedUsername) {
+      setProfileStatus({ type: 'error', message: t('settings.username_required') });
+      return;
+    }
+
     if (!auth.currentUser) {
       setProfileStatus({ type: 'error', message: t('settings.update_profile_error') });
       return;
     }
 
-    const trimmedUsername = username.trim();
     setIsUpdatingProfile(true);
     try {
       await firebaseUpdateProfile(auth.currentUser, { displayName: trimmedUsername });
