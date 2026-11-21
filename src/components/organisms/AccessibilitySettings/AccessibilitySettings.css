@@ -5,7 +5,7 @@
   border-radius: 12px;
   box-shadow: var(--shadow);
   margin-top: 2rem;
-  text-align: left;
+  text-align: center;
 }
 
 .accessibility-settings h3 {
@@ -28,17 +28,21 @@
 
 .settings-item {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: 0.75rem;
   padding: 1rem;
   background-color: var(--social-bg);
   border-radius: 12px;
   cursor: pointer;
+  text-align: center;
 }
 
 .settings-info {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.2rem;
 }
 
@@ -101,6 +105,7 @@ input:checked + .slider:before {
 /* Font size options */
 .font-options {
   display: flex;
+  justify-content: center;
   gap: 0.8rem;
   margin-top: 0.5rem;
 }

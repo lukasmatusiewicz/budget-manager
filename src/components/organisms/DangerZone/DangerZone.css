@@ -5,7 +5,7 @@
   border-radius: 12px;
   box-shadow: var(--shadow);
   margin-top: 2rem;
-  text-align: left;
+  text-align: center;
 }
 
 .danger-zone h3 {
@@ -15,12 +15,14 @@
 
 .danger-action {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 1.5rem;
   background-color: var(--social-bg);
   border-radius: 12px;
-  gap: 2rem;
+  gap: 1rem;
+  text-align: center;
 }
 
 .action-info h4 {
