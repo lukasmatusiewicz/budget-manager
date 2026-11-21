@@ -5,7 +5,7 @@
   border-radius: 12px;
   box-shadow: var(--shadow);
   margin-top: 2rem;
-  text-align: left;
+  text-align: center;
 }
 
 .language-settings h3 {
@@ -16,6 +16,7 @@
 .language-options {
   display: flex;
   gap: 1rem;
+  justify-content: center;
   flex-wrap: wrap;
   margin-top: 1rem;
 }
